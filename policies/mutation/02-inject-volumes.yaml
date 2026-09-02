@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: inject-volumes
+  annotations:
+    policies.kyverno.io/title: "Inject Required Volumes"
+    policies.kyverno.io/category: "Secrets Management"
+    policies.kyverno.io/subject: "Pod, Volume"
+spec:
+  background: false
+  rules:
+    - name: inject-volumes
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                smaitic.com/inject-secrets-poc: "?*"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            volumes:
+              - name: secrets-store-inline
+                emptyDir: {}
+              - name: shared-memory
+                emptyDir:
+                  medium: Memory
+                  sizeLimit: 10Mi
+              - name: init-scripts
+                emptyDir: {}

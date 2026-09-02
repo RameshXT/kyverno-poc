@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-02-existing-init-ordering
+  namespace: policy
+  annotations:
+    smaitic.com/inject-secrets-poc: "demo-02-existing-init-ordering"
+spec:
+  initContainers:
+    - name: custom-app-init
+      image: busybox:latest
+      command: ["/bin/sh", "-c", "echo 'custom app init running' && sleep 1"]
+  containers:
+    - name: vizkit-app
+      image: busybox:latest
+      command: ["java", "-jar", "app.jar"]

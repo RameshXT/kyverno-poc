@@ -3,9 +3,9 @@ kind: ClusterPolicy
 metadata:
   name: validate-command-defined
   annotations:
-    policies.kyverno.io/title: "Validate Command Defined"
+    policies.kyverno.io/title: "Validate Command Defined on Annotated Pods"
     policies.kyverno.io/category: "Secrets Management"
-    policies.kyverno.io/subject: "Pod"
+    policies.kyverno.io/subject: "Pod, Command Validation"
 spec:
   background: false
   validationFailureAction: Enforce

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-plain-no-annotation
+  name: demo-03-plain-unannotated
   namespace: policy
 spec:
   containers:
-    - name: app
+    - name: vizkit-app
       image: busybox:latest
       command: ["sleep", "3600"]
