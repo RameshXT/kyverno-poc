@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-app
+  namespace: policy
+  annotations:
+    smaitic.com/inject-secrets-poc: "poc-app"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poc-app
+  template:
+    metadata:
+      labels:
+        app: poc-app
+      annotations:
+        smaitic.com/inject-secrets-poc: "poc-app"
+    spec:
+      containers:
+        - name: poc-app
+          image: busybox:1.37
+          command: ["java", "-jar", "app.jar"]
