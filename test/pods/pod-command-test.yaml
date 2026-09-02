@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-command-test
+  namespace: policy
+  annotations:
+    smaitic.com/inject-secrets-poc: "pod-command-test"
+spec:
+  containers:
+    - name: java-app
+      image: busybox:latest
+      command: ["java", "-jar", "app.jar"]
