@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: demo-03-plain-unannotated
-  namespace: policy
+  namespace: {{ .Release.Namespace }}
 spec:
   containers:
-    - name: vizkit-app
-      image: busybox:latest
+    - name: app
+      image: {{ .Values.app.image }}
       command: ["sleep", "3600"]

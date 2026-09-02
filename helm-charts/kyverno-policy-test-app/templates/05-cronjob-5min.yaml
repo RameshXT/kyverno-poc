@@ -2,9 +2,9 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: poc-cronjob-5min
-  namespace: policy
+  namespace: {{ .Release.Namespace }}
   annotations:
-    smaitic.com/inject-secrets-poc: "poc-cronjob-5min"
+    {{ .Values.annotationKey }}: "poc-cronjob-5min"
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
@@ -12,10 +12,10 @@ spec:
       template:
         metadata:
           annotations:
-            smaitic.com/inject-secrets-poc: "poc-cronjob-5min"
+            {{ .Values.annotationKey }}: "poc-cronjob-5min"
         spec:
           restartPolicy: Never
           containers:
             - name: cron-worker
-              image: busybox:latest
-              command: ["java", "-jar", "app.jar"]
+              image: {{ .Values.app.image }}
+              command: ["sleep", "3600"]

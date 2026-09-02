@@ -1,0 +1,7 @@
+owner: "platform-security-team@smaitic.com"
+
+app:
+  image: "busybox:latest"
+  replicas: 1
+
+annotationKey: "smaitic.com/inject-secrets-poc"

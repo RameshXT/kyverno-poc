@@ -2,8 +2,8 @@ environments:
   minikube: {}
 ---
 releases:
-  - name: vizkit
-    namespace: poc
-    chart: ./helm-charts/vizkit
+  - name: kyverno-policy-test-app
+    namespace: policy
+    chart: ./helm-charts/kyverno-policy-test-app
     values:
       - ./override.yaml

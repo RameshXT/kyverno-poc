@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: poc-app
-  namespace: policy
+  namespace: {{ .Release.Namespace }}
   annotations:
-    smaitic.com/inject-secrets-poc: "poc-app"
+    {{ .Values.annotationKey }}: "poc-app"
 spec:
-  replicas: 1
+  replicas: {{ .Values.app.replicas }}
   selector:
     matchLabels:
       app: poc-app
@@ -15,9 +15,9 @@ spec:
       labels:
         app: poc-app
       annotations:
-        smaitic.com/inject-secrets-poc: "poc-app"
+        {{ .Values.annotationKey }}: "poc-app"
     spec:
       containers:
         - name: poc-app
-          image: busybox:1.37
-          command: ["java", "-jar", "app.jar"]
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]

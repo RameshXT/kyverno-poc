@@ -1,6 +1,0 @@
-apiVersion: v2
-name: vizkit
-description: Dummy Helm chart scaffold for local Kyverno POC testing on minikube
-type: application
-version: 0.1.0
-appVersion: "1.0.0-dummy"

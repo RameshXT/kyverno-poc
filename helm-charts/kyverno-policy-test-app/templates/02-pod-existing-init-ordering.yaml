@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: demo-02-existing-init-ordering
-  namespace: policy
+  namespace: {{ .Release.Namespace }}
   annotations:
-    smaitic.com/inject-secrets-poc: "demo-02-existing-init-ordering"
+    {{ .Values.annotationKey }}: "demo-02-existing-init-ordering"
 spec:
   initContainers:
     - name: custom-app-init
-      image: busybox:latest
+      image: {{ .Values.app.image }}
       command: ["/bin/sh", "-c", "echo 'custom app init running' && sleep 1"]
   containers:
-    - name: vizkit-app
-      image: busybox:latest
-      command: ["java", "-jar", "app.jar"]
+    - name: app
+      image: {{ .Values.app.image }}
+      command: ["sleep", "3600"]
