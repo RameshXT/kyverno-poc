@@ -1,0 +1,131 @@
+---
+# Source: vizkit/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vizkit-server
+  labels:
+    app: vizkit-server
+  annotations:
+    smaitic.com/component-owner-slack-handler: "vizkit-team@dummy.local"
+    # PLACEHOLDER annotation key for future Kyverno testing (real key undecided per open items)
+    smaitic.com/inject-secrets-poc: "vizkit-server"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vizkit-server
+  template:
+    metadata:
+      labels:
+        app: vizkit-server
+      annotations:
+        smaitic.com/component-owner-slack-handler: "vizkit-team@dummy.local"
+        # PLACEHOLDER annotation key for future Kyverno testing (real key undecided per open items)
+        smaitic.com/inject-secrets-poc: "vizkit-server"
+    spec:
+      nodeSelector:
+        dummy.smaitic.com/role: dummy-worker
+      tolerations:
+      - effect: NoSchedule
+        key: dummy.smaitic.com/reserved-for
+        value: dummy-worker
+        operator: Equal
+      securityContext:
+        fsGroup: 65534
+      serviceAccountName: standard-application
+      containers:
+        - name: vizkit-server
+          imagePullPolicy: Always
+          image: "dummy-registry.local/smaitic/vizkit:1.0.0-dummy"
+          command:
+            - "/scripts/app_launcher.sh"
+            - "java"
+          args:
+            - -Xms256m
+            - -Xmx1024m
+            - -jar
+            - /app/vizkit.jar
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: http
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+              readOnly: true
+            - name: init-scripts
+              mountPath: "/scripts"
+              readOnly: true
+            - name: tmp-volume
+              mountPath: "/tmp"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+      initContainers:
+        - name: secrets-parser
+          image: "dummy-registry.local/smaitic/secrets-parser:1.0.0-dummy"
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/raw-secrets"
+              readOnly: true
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+            - name: init-scripts
+              mountPath: "/scripts"
+          command:
+            - "/scripts/init_parser.sh"
+      imagePullSecrets:
+        - name: dummy-pull-secret-1
+        - name: dummy-pull-secret-2
+        - name: dummy-pull-secret-3
+      volumes:
+        - name: secrets-store-inline
+          secret:
+            secretName: vizkit-server
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Mi
+        - name: init-scripts
+          configMap:
+            name: init-scripts
+            defaultMode: 0755
+        - name: tmp-volume
+          emptyDir: {}
