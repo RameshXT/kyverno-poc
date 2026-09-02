@@ -1,0 +1,86 @@
+============================================================
+KYVERNO POC - DEMO EXECUTION FLOW & COMMANDS
+============================================================
+
+STEP 1: PREP MINIKUBE NODE (LABEL & TAINT)
+------------------------------------------------------------
+# Add label for nodeSelector matching
+kubectl label node minikube dummy.smaitic.com/role=poc-worker --overwrite
+
+# Add taint to test tolerations isolation
+kubectl taint node minikube dummy.smaitic.com/reserved-for=poc-worker:NoSchedule --overwrite
+
+
+STEP 2: CREATE TARGET NAMESPACE
+------------------------------------------------------------
+kubectl create namespace policy --dry-run=client -o yaml | kubectl apply -f -
+
+
+STEP 3: DEPLOY KYVERNO POLICIES VIA HELMFILE
+------------------------------------------------------------
+# Deploy all 7 Kyverno ClusterPolicies + RBAC
+helmfile -l name=kyverno-policies sync
+
+# Verify policies are ready
+kubectl get clusterpolicy
+
+
+STEP 4: DEPLOY APPLICATION WORKLOADS VIA HELMFILE
+------------------------------------------------------------
+# Deploy all workload manifests into namespace 'policy'
+helmfile -l name=workloads sync
+
+# Check deployed workloads
+kubectl get pods,deployments,cronjobs -n policy
+
+
+STEP 5: VERIFY MUTATION INJECTIONS & ORDERING
+------------------------------------------------------------
+# 1. Verify all injections on basic pod (secrets-parser, app_launcher.sh, nodeSelector, tolerations, resources, volumes)
+kubectl get pod demo-01-basic-injection -n policy -o yaml
+
+# 2. Verify init container ordering (secrets-parser MUST be index 0)
+kubectl get pod demo-02-existing-init-ordering -n policy -o jsonpath='{.spec.initContainers[*].name}'
+
+# 3. Verify node taint isolation (unannotated pod remains Pending)
+kubectl get pod demo-03-plain-unannotated -n policy
+
+
+STEP 6: VERIFY IMAGE-CHANGE MIGRATION JOB TRIGGER
+------------------------------------------------------------
+# 1. Update container image tag on deployment
+kubectl set image deployment/poc-app poc-app=busybox:1.37 -n policy
+
+# 2. Wait 3-5 seconds, then verify generated migration Job
+kubectl get jobs -n policy
+
+
+STEP 7: VERIFY VALIDATION POLICY ENFORCEMENT
+------------------------------------------------------------
+# Apply invalid pod missing command — expected to be DENIED by admission webhook
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-invalid-pod
+  namespace: policy
+  annotations:
+    smaitic.com/inject-secrets-poc: "demo-invalid-pod"
+spec:
+  containers:
+    - name: app
+      image: busybox:latest
+EOF
+
+
+STEP 8: COMPLETE CLEANUP COMMANDS
+------------------------------------------------------------
+# Destroy Helmfile releases
+helmfile destroy
+
+# Delete policy namespace
+kubectl delete namespace policy --ignore-not-found
+
+# Untaint and unlabel Minikube node
+kubectl taint node minikube dummy.smaitic.com/reserved-for=poc-worker:NoSchedule- || true
+kubectl label node minikube dummy.smaitic.com/role- || true
