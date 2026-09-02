@@ -1,0 +1,6 @@
+apiVersion: v2
+name: boilerplate-app
+description: Legacy Boilerplate Application Chart (Hardcoded initContainers, volumes, resources)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

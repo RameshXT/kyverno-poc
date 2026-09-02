@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boilerplate-app
+  labels:
+    app: boilerplate-app
+  annotations:
+    smaitic.com/component-owner-slack-handler: {{ .Values.boilerplateApp.owner | quote }}
+    smaitic.com/inject-secrets-poc: "boilerplate-app"
+spec:
+  replicas: {{ .Values.boilerplateApp.v1.replicas }}
+  selector:
+    matchLabels:
+      app: boilerplate-app
+  template:
+    metadata:
+      labels:
+        app: boilerplate-app
+      annotations:
+        smaitic.com/component-owner-slack-handler: {{ .Values.boilerplateApp.owner | quote }}
+        smaitic.com/inject-secrets-poc: "boilerplate-app"
+    spec:
+      nodeSelector:
+        {{ .Values.node.selector.domain }}/role: {{ .Values.node.selector.value }}
+      tolerations:
+        - effect: NoSchedule
+          key: {{ .Values.node.selector.domain }}/reserved-for
+          value: {{ .Values.node.selector.value }}
+          operator: Equal
+      securityContext:
+        fsGroup: 65534
+      serviceAccountName: standard-application
+      containers:
+        - name: app
+          imagePullPolicy: Always
+          image: "{{ .Values.imageRegistry }}/app:1.0.0"
+          command:
+            - "/scripts/app_launcher.sh"
+            - "java"
+          args:
+            - -Xms256m
+            - -Xmx1024m
+            - -jar
+            - /app/app.jar
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: http
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+              readOnly: true
+            - name: init-scripts
+              mountPath: "/scripts"
+              readOnly: true
+            - name: tmp-volume
+              mountPath: "/tmp"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+      initContainers:
+        - name: secrets-parser
+          image: "{{ .Values.imageRegistry }}/secrets-parser:{{ .Values.secrets.parser.version }}"
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/raw-secrets"
+              readOnly: true
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+            - name: init-scripts
+              mountPath: "/scripts"
+          command:
+            - "/scripts/init_parser.sh"
+      imagePullSecrets:
+        - name: dummy-pull-secret-1
+        - name: dummy-pull-secret-2
+        - name: dummy-pull-secret-3
+      volumes:
+        - name: secrets-store-inline
+          secret:
+            secretName: boilerplate-app
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Mi
+        - name: init-scripts
+          configMap:
+            name: init-scripts
+            defaultMode: 0755
+        - name: tmp-volume
+          emptyDir: {}

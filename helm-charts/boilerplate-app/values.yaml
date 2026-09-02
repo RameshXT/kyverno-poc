@@ -1,0 +1,22 @@
+# Values for Legacy Boilerplate Application Chart
+defaultOwner: "platform-team@dummy.local"
+
+imageRegistry: "dummy-registry.local/smaitic"
+
+boilerplateApp:
+  owner: "app-team@dummy.local"
+  v1:
+    replicas: 1
+    version: "1.0.0-dummy"
+
+node:
+  selector:
+    domain: "dummy.smaitic.com"
+    value: "dummy-worker"
+
+secrets:
+  stack: "stage"
+  parser:
+    version: "1.0.0-dummy"
+  provider:
+    enabled: false
