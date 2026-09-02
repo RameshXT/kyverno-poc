@@ -1,0 +1,126 @@
+TASK_BREAKDOWN.TXT
+Goal: Kyverno POC ready by Thursday
+Based on: requirement.txt (R1-R13)
+
+============================================================
+DAY 1 - SETUP + CORE INJECTION
+============================================================
+
+TASK 1: Install Kyverno on the cluster
+- Deploy Kyverno controller using official Helm chart
+- Set background: false (needed later for CronJob safety, set now)
+- Confirm Kyverno pods are running and healthy
+Covers: R1
+
+TASK 2: Write policy to inject secrets init container + volumes
+- Create ClusterPolicy that watches Pods with the injection annotation
+- Add secrets-parser init container
+- Add volumes: secrets-store-inline, shared-memory, init-scripts
+- Test on one dummy pod, check volumes/init container appear
+Covers: R3, R4 (partial - secrets injection)
+
+TASK 3: Fix init container order
+- Change policy to use JSON Patch (not strategic merge)
+- Make secrets-parser insert at position 0, not appended at end
+- Test: deploy a pod that already has another init container, confirm
+  secrets-parser lands first
+Covers: R5
+
+TASK 4: Fix command order
+- Add JSON Patch rule to insert "/scripts/app_launcher.sh" at position 0
+  of the container command array
+- Test: confirm final command is ["/scripts/app_launcher.sh", "java", ...]
+Covers: R6
+
+TASK 5: Add command validation rule
+- Add a policy rule that blocks/denies any annotated pod if it has no
+  command defined
+- Test: try deploying an annotated pod with no command, confirm it gets
+  rejected
+Covers: R7
+
+============================================================
+DAY 2 - REMAINING ANNOTATIONS + VERIFY OUTPUT
+============================================================
+
+TASK 6: Add node placement annotation
+- Create annotation that sets nodeSelector + toleration
+- Test on a pod, confirm it lands on the correct node
+Covers: R4 (node placement)
+
+TASK 7: Add resource limits annotation
+- Create annotation that sets CPU/memory requests and limits
+- Test on a pod, confirm resources match what was set in annotation
+Covers: R4 (resources)
+
+TASK 8: Compare Kyverno output vs current Helm output
+- Take one real component (Vizkit/Whiskit)
+- Deploy it once via current Helm boilerplate, save that YAML
+- Deploy it again via Kyverno annotations only, save that YAML
+- Compare both YAMLs side by side, confirm they match
+Covers: R8 (this is the main proof for the demo)
+
+============================================================
+DAY 2/3 - JOB TRIGGER + CRONJOB SAFETY
+============================================================
+
+TASK 9: Build image-change Job trigger policy
+- Create a generate rule that fires only when deployment image changes
+- Add unique naming per update (avoid Job name clash)
+- Set synchronize: false
+- Test: change image, confirm Job is created only then (not on
+  unrelated changes)
+Covers: R9
+
+TASK 10: Grant Kyverno RBAC for Job creation
+- Create ClusterRole/ClusterRoleBinding so Kyverno's controller can
+  create/update/delete Job resources
+- Test: confirm Task 9 actually works end-to-end (Job gets created)
+Covers: R9 (supporting task)
+
+TASK 11: Confirm CronJob mutation stays pod-level only
+- Confirm all mutation policies target Pod, not CronJob directly
+- Deploy a test CronJob with the injection annotation
+- Run helm diff / helmfile diff, confirm NO noise/changes shown
+Covers: R10
+
+TASK 12: Load-test CronJob frequency handling
+- Simulate a few CronJobs running every 3 and 15 minutes
+- Confirm Kyverno keeps up, no failed/pending pods
+- Make sure match block is scoped tightly (not wildcard) as tested
+Covers: R11
+
+============================================================
+DAY 3 - HARDENING + DEMO PREP (before Thursday)
+============================================================
+
+TASK 13: Decide and set failurePolicy
+- Discuss with Deepankar: Fail (safe, risk of blocking deploys) vs
+  Ignore (available, risk of skipping checks)
+- Set the chosen value in the policy
+Covers: R12 (open item - needs decision first)
+
+TASK 14: Security/compliance sanity check
+- Confirm Kyverno version deployed is CNCF Graduated / SLSA 3 build
+- Confirm Kyverno pods run as non-root, read-only filesystem
+  (already default from official chart - just verify, don't rebuild)
+Covers: R13 (verification only, already satisfied by tool choice)
+
+TASK 15: Final demo run-through
+- Pick the real component (Vizkit/Whiskit)
+- Show: annotation-only deployment produces identical YAML to Helm
+- Show: init container order correct
+- Show: command order correct
+- Show: Job triggers only on image change
+- Show: helm diff is clean with CronJob present
+- Prepare short notes on open items (annotation key names, resource
+  values, failurePolicy decision) to discuss with Deepankar
+
+============================================================
+OPEN ITEMS TO CONFIRM WITH DEEPANKAR BEFORE/DURING WORK
+============================================================
+
+- Final annotation key names (not decided yet)
+- Final CPU/memory values for Kyverno itself
+- Final failurePolicy choice (Fail vs Ignore)
+- Confirm correct component name: Whiskit or Vizkit

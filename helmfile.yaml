@@ -1,0 +1,9 @@
+environments:
+  minikube: {}
+---
+releases:
+  - name: vizkit
+    namespace: poc
+    chart: ./helm-charts/vizkit
+    values:
+      - ./override.yaml

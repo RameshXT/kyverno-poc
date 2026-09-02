@@ -1,0 +1,22 @@
+COMPLETION.TXT
+What we did so far — simple version
+=====================================
+
+TASK 1: Install Kyverno
+- Kyverno installed on minikube (v1.19.0)
+- background: false set (policy only fires on new pods, not existing ones)
+- Status: DONE
+
+TASK 2: Inject secrets-parser + volumes via annotation
+- Created ClusterPolicy (inject-secrets-policy.yaml)
+  → Watches for pods with annotation: smaitic.com/inject-secrets-poc
+  → Injects: secrets-parser initContainer + 3 volumes (secrets-store-inline, shared-memory, init-scripts)
+- Created test pod (dummy-annotated-pod.yaml) with just the annotation, no initContainers
+- Applied both to minikube namespace "policy"
+- Verified: Kyverno automatically added secrets-parser to the pod
+- Pod status: 1/1 Running
+- Status: DONE
+
+PENDING: Task 3 — Init container order fix
+- Problem: patchStrategicMerge appends secrets-parser at the END
+- Fix: Switch to JSON Patch to force secrets-parser at position 0 (always first)

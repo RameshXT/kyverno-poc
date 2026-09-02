@@ -1,0 +1,67 @@
+Triggering Jobs via Kyverno Policies
+https://gemini.google.com/app/67fac03e9ac59069
+
+User prompt: can kyverno run a kubernetes job when a deployment file changes?
+Response: Yes, Kyverno can automatically trigger a Kubernetes Job when a Deployment is modified by using a
+generate rule.
+Because Kyverno acts as an admission controller, it intercepts API requests in real-time. When it detects an
+UPDATE operation on a Deployment, it can dynamically generate a new Job resource in response.
+Here is an example of a ClusterPolicy that runs a Job whenever a Deployment's container image is updated:
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+name: trigger-job-on-deployment-update
+spec:
+rules:
+- name: generate-job-on-image-change
+match:
+any:
+- resources:
+kinds:
+- Deployment
+operations:
+- UPDATE
+# Only trigger if the image actually changed
+preconditions:
+any:
+- key: "{{ request.object.spec.template.spec.containers[0].image }}"
+operator: NotEquals
+value: "{{ request.oldObject.spec.template.spec.containers[0].image }}"
+generate:
+# Use the deployment name and generation number to ensure a unique Job name per update
+name: "hook-{{request.object.metadata.name}}-{{request.object.metadata.generation}}"
+namespace: "{{request.namespace}}"
+synchronize: false
+data:
+kind: Job
+apiVersion: batch/v1
+metadata:
+labels:
+triggered-by: "{{request.object.metadata.name}}"
+spec:
+template:
+spec:
+containers:
+- name: task
+image: curlimages/curl
+command: ["curl", "-X", "POST", "http://my-webhook.svc/sync"]
+restartPolicy: Never
+
+Key Considerations for this Setup
+Unique Naming: Kubernetes Jobs are largely immutable once created. If you use a static name for the
+generated Job, Kyverno will fail to create it on the second Deployment update. Use Kyverno variables like
+{{request.object.metadata.generation}} or {{ random('[a-z0-9]{5}') }} in the name field to
+ensure each Job is uniquely named.
+Preconditions: Without the preconditions block, Kyverno will trigger a Job for any metadata update on
+the Deployment (like a label change or a status update). Always scope the trigger to the exact fields you
+care about (e.g., comparing request.object to request.oldObject).
+
+Synchronize = False: By default, Kyverno keeps generated resources synchronized with the policy. Setting
+synchronize: false is crucial for Jobs. It tells Kyverno to "fire and forget," preventing Kyverno from
+accidentally deleting the Job if the policy changes or trying to revert the Job's status as it runs.
+RBAC Permissions: Kyverno runs with a specific ServiceAccount. By default, it may not have permission to
+create Job resources in your target namespaces. You must grant the Kyverno background controller the
+necessary RBAC permissions (via a ClusterRole/ClusterRoleBinding) to create, update, and delete
+batch/v1 Jobs.
+
+

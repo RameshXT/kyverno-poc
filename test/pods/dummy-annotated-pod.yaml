@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dummy-test-pod
+  namespace: policy
+  annotations:
+    smaitic.com/inject-secrets-poc: "dummy-test-pod"
+spec:
+  containers:
+    - name: dummy-app
+      image: busybox:latest
+      command: ["/bin/sh", "-c", "sleep 3600"]

@@ -1,0 +1,2044 @@
+Ramesh Kanna started transcription
+
+Deepankar Sharma
+8 minutes 47 seconds8:47
+Deepankar Sharma 8 minutes 47 seconds
+Hey, Ramesh, good evening.
+
+Ramesh Kanna
+8 minutes 51 seconds8:51
+Ramesh Kanna 8 minutes 51 seconds
+No, hi, Deepankar.
+
+Deepankar Sharma
+8 minutes 54 seconds8:54
+Deepankar Sharma 8 minutes 54 seconds
+So, waiting, uh, do you need to read a here?
+
+Ramesh Kanna
+8 minutes 58 seconds8:58
+Ramesh Kanna 8 minutes 58 seconds
+Just stutter like if you say something like I want to listen later.
+
+Deepankar Sharma
+9 minutes 3 seconds9:03
+Deepankar Sharma 9 minutes 3 seconds
+Okay, I love it.
+
+Ramesh Kanna
+9 minutes 5 seconds9:05
+Ramesh Kanna 9 minutes 5 seconds
+Yeah.
+
+Deepankar Sharma
+9 minutes 7 seconds9:07
+Deepankar Sharma 9 minutes 7 seconds
+Give me a moment.
+
+Ramesh Kanna
+9 minutes 12 seconds9:12
+Ramesh Kanna 9 minutes 12 seconds
+Are you able to see my screen?
+
+Deepankar Sharma
+9 minutes 14 seconds9:14
+Deepankar Sharma 9 minutes 14 seconds
+Yes.
+
+Ramesh Kanna
+9 minutes 16 seconds9:16
+Ramesh Kanna 9 minutes 16 seconds
+OK, so.
+
+Deepankar Sharma
+9 minutes 17 seconds9:17
+Deepankar Sharma 9 minutes 17 seconds
+Something, okay, I'm able to.
+
+Ramesh Kanna
+9 minutes 19 seconds9:19
+Ramesh Kanna 9 minutes 19 seconds
+What, what happened?
+
+Deepankar Sharma
+9 minutes 21 seconds9:21
+Deepankar Sharma 9 minutes 21 seconds
+No, no, it was blurry. It's your terminal, I just realized.
+
+Ramesh Kanna
+9 minutes 27 seconds9:27
+Ramesh Kanna 9 minutes 27 seconds
+Is it OK now?
+
+Deepankar Sharma
+9 minutes 28 seconds9:28
+Deepankar Sharma 9 minutes 28 seconds
+Yeah, yeah.
+
+Ramesh Kanna
+9 minutes 29 seconds9:29
+Ramesh Kanna 9 minutes 29 seconds
+OK, so right now we just created two different component. OK, so just I just copied the name like the rest of the things or demo like just demo things only. OK, so I using I'm using override values file.
+
+Deepankar Sharma
+9 minutes 35 seconds9:35
+Deepankar Sharma 9 minutes 35 seconds
+Mhm.
+Deepankar Sharma 9 minutes 38 seconds
+Yeah.
+Deepankar Sharma 9 minutes 43 seconds
+Yeah.
+
+Ramesh Kanna
+9 minutes 49 seconds9:49
+Ramesh Kanna 9 minutes 49 seconds
+and also helm values like helm file like how we using.
+
+Deepankar Sharma
+9 minutes 53 seconds9:53
+Deepankar Sharma 9 minutes 53 seconds
+Oh.
+Deepankar Sharma 9 minutes 54 seconds
+Yeah.
+
+Ramesh Kanna
+9 minutes 55 seconds9:55
+Ramesh Kanna 9 minutes 55 seconds
+So each component using the override values file. So whatever the values I'm giving, it will take. Let me show the jobs.
+
+Deepankar Sharma
+9 minutes 59 seconds9:59
+Deepankar Sharma 9 minutes 59 seconds
+Yeah.
+Deepankar Sharma 10 minutes 2 seconds
+Got it.
+
+Ramesh Kanna
+10 minutes 9 seconds10:09
+Ramesh Kanna 10 minutes 9 seconds
+Okay, so here, just like first of all, we need to use the hash code.
+Ramesh Kanna 10 minutes 18 seconds
+So like why we need this. So each time when we run job apply, it will instead of it will apply a new job, it's trying to patch it. So that's why we get the immutable error. I know that you know, so that's why like we are generating a hash code for this job.
+
+Deepankar Sharma
+10 minutes 18 seconds10:18
+Deepankar Sharma 10 minutes 18 seconds
+Okay.
+Deepankar Sharma 10 minutes 29 seconds
+Okay.
+Deepankar Sharma 10 minutes 31 seconds
+How's it?
+
+Ramesh Kanna
+10 minutes 37 seconds10:37
+Ramesh Kanna 10 minutes 37 seconds
+Okay, listening this.
+
+Deepankar Sharma
+10 minutes 38 seconds10:38
+Deepankar Sharma 10 minutes 38 seconds
+Yeah.
+
+Ramesh Kanna
+10 minutes 40 seconds10:40
+Ramesh Kanna 10 minutes 40 seconds
+So after that, like whenever we creating a new job, we will get a new hash. Okay.
+
+Deepankar Sharma
+10 minutes 45 seconds10:45
+Deepankar Sharma 10 minutes 45 seconds
+Okay.
+Deepankar Sharma 10 minutes 47 seconds
+No.
+
+Ramesh Kanna
+10 minutes 47 seconds10:47
+Ramesh Kanna 10 minutes 47 seconds
+So by doing this, we also storing the hash in version tracker CM. So in here, the hash will come and store automatically. We don't have to manually manage anything. So after that, if we change anything under the values.
+
+Deepankar Sharma
+10 minutes 55 seconds10:55
+Deepankar Sharma 10 minutes 55 seconds
+Yeah.
+Deepankar Sharma 10 minutes 59 seconds
+Perfect.
+
+Ramesh Kanna
+11 minutes 6 seconds11:06
+Ramesh Kanna 11 minutes 6 seconds
+like overhead values or in the hard-coded value, it will correctly fetch and it will correctly deploy. Only if job changes. Let me do it.
+
+Deepankar Sharma
+11 minutes 11 seconds11:11
+Deepankar Sharma 11 minutes 11 seconds
+Mhm.
+Deepankar Sharma 11 minutes 14 seconds
+Okay.
+Deepankar Sharma 11 minutes 16 seconds
+Got it.
+Deepankar Sharma 11 minutes 18 seconds
+What?
+
+Ramesh Kanna
+11 minutes 26 seconds11:26
+Ramesh Kanna 11 minutes 26 seconds
+So first we can see that all the jobs are listed. Let's go ahead.
+
+Deepankar Sharma
+11 minutes 30 seconds11:30
+Deepankar Sharma 11 minutes 30 seconds
+Mhm.
+
+Ramesh Kanna
+11 minutes 31 seconds11:31
+Ramesh Kanna 11 minutes 31 seconds
+Play, and also there is a two CM and here just one part here, one job and one config map.
+
+Deepankar Sharma
+11 minutes 40 seconds11:40
+Deepankar Sharma 11 minutes 40 seconds
+Mhm.
+
+Ramesh Kanna
+11 minutes 41 seconds11:41
+Ramesh Kanna 11 minutes 41 seconds
+Let me apply this.
+Ramesh Kanna 11 minutes 56 seconds
+Jobs will not create now because we used to post upgrade. So let me change something in the pod, like in the job. For example, if I change something in the comment.
+
+Deepankar Sharma
+11 minutes 59 seconds11:59
+Deepankar Sharma 11 minutes 59 seconds
+Mhm.
+Deepankar Sharma 12 minutes 1 second
+Mmh.
+Deepankar Sharma 12 minutes 11 seconds
+Mhm.
+
+Ramesh Kanna
+12 minutes 15 seconds12:15
+Ramesh Kanna 12 minutes 15 seconds
+And the value is over, right? And I try to...
+
+Deepankar Sharma
+12 minutes 16 seconds12:16
+Deepankar Sharma 12 minutes 16 seconds
+Mm-hmm.
+
+Ramesh Kanna
+12 minutes 21 seconds12:21
+Ramesh Kanna 12 minutes 21 seconds
+We also using the three-way diff, right? So it will correct, it will fetch the what changed actually. So right now we only change the job under the job chat. So this chat we have. So it's the hash created. And here the thing, like we cannot.
+
+Deepankar Sharma
+12 minutes 28 seconds12:28
+Deepankar Sharma 12 minutes 28 seconds
+Mhm.
+Deepankar Sharma 12 minutes 31 seconds
+Yeah.
+Deepankar Sharma 12 minutes 37 seconds
+Mhm.
+
+Ramesh Kanna
+12 minutes 40 seconds12:40
+Ramesh Kanna 12 minutes 40 seconds
+Show the what actually changed. We need to like this. This is the type we we can get it in the diff. So I have added some note, so we need to cheque it against the G before the real deployment. OK.
+
+Deepankar Sharma
+12 minutes 43 seconds12:43
+Deepankar Sharma 12 minutes 43 seconds
+Mhm.
+Deepankar Sharma 12 minutes 52 seconds
+Mhm.
+Deepankar Sharma 12 minutes 59 seconds
+No, why do we need the node?
+
+Ramesh Kanna
+12 minutes 59 seconds12:59
+Ramesh Kanna 12 minutes 59 seconds
+So...
+Ramesh Kanna 13 minutes 1 second
+What?
+
+Deepankar Sharma
+13 minutes 1 second13:01
+Deepankar Sharma 13 minutes 1 second
+Note is not a, why do we need a note?
+Ramesh Kanna
+13 minutes 4 seconds13:04
+Ramesh Kanna 13 minutes 4 seconds
+Just like, I know this job will be going to be deployed because it is actually changed content. OK, so but you, if you changing something and blindly if this page is coming, if this diff is coming.
+
+Deepankar Sharma
+13 minutes 6 seconds13:06
+Deepankar Sharma 13 minutes 6 seconds
+Yes.
+Deepankar Sharma 13 minutes 10 seconds
+Mhm.
+Deepankar Sharma 13 minutes 15 seconds
+Okay.
+
+Ramesh Kanna
+13 minutes 23 seconds13:23
+Ramesh Kanna 13 minutes 23 seconds
+You need to know, like, this job is changed. Please try to verify with the gate.
+
+Deepankar Sharma
+13 minutes 27 seconds13:27
+Deepankar Sharma 13 minutes 27 seconds
+Not that that, anyways, the approval would know right that whenever they are doing, let's say, cartwisp release, the, you know, app or the extension should OK, but anyways, yeah, it is just a note, right? Yeah, yeah, yeah, yeah.
+
+Ramesh Kanna
+13 minutes 34 seconds13:34
+Ramesh Kanna 13 minutes 34 seconds
+Mhm.
+Ramesh Kanna 13 minutes 36 seconds
+Okay.
+Ramesh Kanna 13 minutes 39 seconds
+Yeah, we can we can safely remove that, no problem, so I can also apply this.
+Ramesh Kanna 13 minutes 58 seconds
+So, job has been created.
+
+Deepankar Sharma
+14 minutes 1 second14:01
+Deepankar Sharma 14 minutes 1 second
+Got it.
+
+Ramesh Kanna
+14 minutes 1 second14:01
+Ramesh Kanna 14 minutes 1 second
+So right now that is on job. Like we need to flag, like I need to flag one thing. Actually, here you can see there is a...
+
+Deepankar Sharma
+14 minutes 4 seconds14:04
+Deepankar Sharma 14 minutes 4 seconds
+Mhm.
+
+Ramesh Kanna
+14 minutes 13 seconds14:13
+Ramesh Kanna 14 minutes 13 seconds
+hook like before hook creation. It will work only if this job is actually created the same name. Like, let's say I created the POC.
+
+Deepankar Sharma
+14 minutes 16 seconds14:16
+Deepankar Sharma 14 minutes 16 seconds
+Mhm.
+
+Ramesh Kanna
+14 minutes 25 seconds14:25
+Ramesh Kanna 14 minutes 25 seconds
+What is the name? So if the job is created again with the same hash, it will delete and it will recreate. Otherwise it will not do that. So for that we need to use something called time to live seconds after. Okay, so it basically after some time we need to delete.
+
+Deepankar Sharma
+14 minutes 32 seconds14:32
+Deepankar Sharma 14 minutes 32 seconds
+Mhm.
+Deepankar Sharma 14 minutes 41 seconds
+Mhm.
+
+Ramesh Kanna
+14 minutes 45 seconds14:45
+Ramesh Kanna 14 minutes 45 seconds
+Like, before, like, after.
+
+Deepankar Sharma
+14 minutes 46 seconds14:46
+Deepankar Sharma 14 minutes 46 seconds
+So 300, 300 basically means 5 minutes, right? So within 5 minutes it is not going to delete it. Can you run that again? Helm file apply.
+
+Ramesh Kanna
+14 minutes 49 seconds14:49
+Ramesh Kanna 14 minutes 49 seconds
+It's, yeah.
+Ramesh Kanna 14 minutes 58 seconds
+OK, apply.
+
+Deepankar Sharma
+15 minutes15:00
+Deepankar Sharma 15 minutes
+Yeah.
+
+Ramesh Kanna
+15 minutes 1 second15:01
+Ramesh Kanna 15 minutes 1 second
+Okay.
+Ramesh Kanna 15 minutes 3 seconds
+It's actually right now we did the changes like.
+Ramesh Kanna 15 minutes 7 seconds
+The job, as yeah, let me.
+
+Deepankar Sharma
+15 minutes 7 seconds15:07
+Deepankar Sharma 15 minutes 7 seconds
+Okay.
+Deepankar Sharma 15 minutes 9 seconds
+Now manually delete the job to mimic the situation where the job would already be deleted by TTL.
+
+Ramesh Kanna
+15 minutes 17 seconds15:17
+Ramesh Kanna 15 minutes 17 seconds
+Mmh.
+
+Deepankar Sharma
+15 minutes 31 seconds15:31
+Deepankar Sharma 15 minutes 31 seconds
+Yeah, fire the delete command, I mean, instead of using K9s.
+
+Ramesh Kanna
+15 minutes 36 seconds15:36
+Ramesh Kanna 15 minutes 36 seconds
+Okay.
+
+Deepankar Sharma
+15 minutes 38 seconds15:38
+Deepankar Sharma 15 minutes 38 seconds
+Delete job.
+Deepankar Sharma 15 minutes 48 seconds
+Yeah, now do help file apply again.
+Ramesh Kanna
+15 minutes 49 seconds15:49
+Ramesh Kanna 15 minutes 49 seconds
+Okay.
+Ramesh Kanna 15 minutes 55 seconds
+Just applying.
+
+Deepankar Sharma
+15 minutes 57 seconds15:57
+Deepankar Sharma 15 minutes 57 seconds
+Yep.
+
+Ramesh Kanna
+15 minutes 59 seconds15:59
+Ramesh Kanna 15 minutes 59 seconds
+So we did the manual delete and both version are same. So that's why no changes happen.
+
+Deepankar Sharma
+16 minutes 2 seconds16:02
+Deepankar Sharma 16 minutes 2 seconds
+OK.
+Deepankar Sharma 16 minutes 6 seconds
+Got it. So there is no port and there is no job as well, right?
+
+Ramesh Kanna
+16 minutes 9 seconds16:09
+Ramesh Kanna 16 minutes 9 seconds
+What is that? That is on port.
+
+Deepankar Sharma
+16 minutes 11 seconds16:11
+Deepankar Sharma 16 minutes 11 seconds
+Vik.
+Deepankar Sharma 16 minutes 13 seconds
+What should we on right? That release pod is gone. Release pod is gone. Yeah. OK, OK, go ahead.
+
+Ramesh Kanna
+16 minutes 14 seconds16:14
+Ramesh Kanna 16 minutes 14 seconds
+Like, we have to, so yeah, yeah, yeah, that is.
+Ramesh Kanna 16 minutes 20 seconds
+And also, like if we change something and it I created a dummy.
+Ramesh Kanna 16 minutes 27 seconds
+CM, like if I change something in version and I apply it.
+
+Deepankar Sharma
+16 minutes 31 seconds16:31
+Deepankar Sharma 16 minutes 31 seconds
+Mhm.
+
+Ramesh Kanna
+16 minutes 41 seconds16:41
+Ramesh Kanna 16 minutes 41 seconds
+So, it's an override value, but I think.
+
+Deepankar Sharma
+16 minutes 46 seconds16:46
+Deepankar Sharma 16 minutes 46 seconds
+No, but anyways, it will take the value from there as well, right? Shouldn't it merge it?
+
+Ramesh Kanna
+16 minutes 51 seconds16:51
+Ramesh Kanna 16 minutes 51 seconds
+Actually, we have the values file, right? Yeah, that's why.
+
+Deepankar Sharma
+16 minutes 54 seconds16:54
+Deepankar Sharma 16 minutes 54 seconds
+OK, default, yeah, yeah, got it, got it.
+
+Ramesh Kanna
+16 minutes 58 seconds16:58
+Ramesh Kanna 16 minutes 58 seconds
+But we changed version we changed. Yeah, let me change it to V1. Sorry, V2.
+
+Deepankar Sharma
+17 minutes 3 seconds17:03
+Deepankar Sharma 17 minutes 3 seconds
+Mmh.
+
+Ramesh Kanna
+17 minutes 10 seconds17:10
+Ramesh Kanna 17 minutes 10 seconds
+Like we have changed it, like actually we have did the deletion. So that's why it's coming, I think.
+
+Deepankar Sharma
+17 minutes 14 seconds17:14
+Deepankar Sharma 17 minutes 14 seconds
+Mhm.
+
+Ramesh Kanna
+17 minutes 16 seconds17:16
+Ramesh Kanna 17 minutes 16 seconds
+And.
+
+Deepankar Sharma
+17 minutes 16 seconds17:16
+Deepankar Sharma 17 minutes 16 seconds
+Okay.
+Deepankar Sharma 17 minutes 18 seconds
+But here the diff of that particular, sorry, show me where exactly this change should get applied, V1 versus V2.
+Deepankar Sharma 17 minutes 26 seconds
+Yes.
+
+Ramesh Kanna
+17 minutes 27 seconds17:27
+Ramesh Kanna 17 minutes 27 seconds
+Yeah, that's why that's what I'm searching. Actually, it's not there.
+
+Deepankar Sharma
+17 minutes 33 seconds17:33
+Deepankar Sharma 17 minutes 33 seconds
+Because here it should not have applied, right? This is unrelated thing.
+
+Ramesh Kanna
+17 minutes 35 seconds17:35
+Ramesh Kanna 17 minutes 35 seconds
+Correct, correct, correct.
+Ramesh Kanna 17 minutes 39 seconds
+This is the file I have updated.
+
+Deepankar Sharma
+17 minutes 41 seconds17:41
+Deepankar Sharma 17 minutes 41 seconds
+Uh-huh.
+
+Ramesh Kanna
+17 minutes 43 seconds17:43
+Ramesh Kanna 17 minutes 43 seconds
+Yeah.
+Ramesh Kanna 18 minutes 29 seconds
+Let me apply it once. Wait a minute.
+
+Deepankar Sharma
+18 minutes 30 seconds18:30
+Deepankar Sharma 18 minutes 30 seconds
+Okay.
+
+
+Ramesh Kanna
+20 minutes 49 seconds20:49
+Ramesh Kanna 20 minutes 49 seconds
+Um, actually...
+
+Deepankar Sharma
+20 minutes 50 seconds20:50
+Deepankar Sharma 20 minutes 50 seconds
+If there, there is sorry.
+
+Ramesh Kanna
+20 minutes 53 seconds20:53
+Ramesh Kanna 20 minutes 53 seconds
+Yeah, yeah, tell me, tell me.
+
+Deepankar Sharma
+20 minutes 55 seconds20:55
+Deepankar Sharma 20 minutes 55 seconds
+Yeah, if there is no release to be done of that particular component, then the job should not trigger. That was the rule we agreed upon, right? So it looks like irrespective of whether that particular image or whatever will change or not, the post upgrade hook will always run and it will always apply and do what it does.
+
+Ramesh Kanna
+20 minutes 55 seconds20:55
+Ramesh Kanna 20 minutes 55 seconds
+Yes.
+Ramesh Kanna 21 minutes 1 second
+Correct, correct, yeah.
+Ramesh Kanna 21 minutes 5 seconds
+Yeah.
+Ramesh Kanna 21 minutes 11 seconds
+Mhm.
+
+Deepankar Sharma
+21 minutes 16 seconds21:16
+Deepankar Sharma 21 minutes 16 seconds
+Does, right?
+
+Ramesh Kanna
+21 minutes 18 seconds21:18
+Ramesh Kanna 21 minutes 18 seconds
+Okay.
+
+Deepankar Sharma
+21 minutes 20 seconds21:20
+Deepankar Sharma 21 minutes 20 seconds
+Is that the conclusion we are drawing over here?
+
+Ramesh Kanna
+21 minutes 23 seconds21:23
+Ramesh Kanna 21 minutes 23 seconds
+Correct, correct, correct, correct, correct.
+
+Deepankar Sharma
+21 minutes 25 seconds21:25
+Deepankar Sharma 21 minutes 25 seconds
+Okay. Yeah, so it looks like we have reached the dead end over here, right?
+
+Ramesh Kanna
+21 minutes 32 seconds21:32
+Ramesh Kanna 21 minutes 32 seconds
+Mm-hmm.
+
+Deepankar Sharma
+21 minutes 33 seconds21:33
+Deepankar Sharma 21 minutes 33 seconds
+Won't you agree?
+
+Ramesh Kanna
+21 minutes 34 seconds21:34
+Ramesh Kanna 21 minutes 34 seconds
+Correct, correct, correct. Yeah, it's almost four days.
+
+Deepankar Sharma
+21 minutes 38 seconds21:38
+Deepankar Sharma 21 minutes 38 seconds
+Okay, okay. There is no time, you know, I mean, no point wasting our time on this Helm hooks anymore. So let's move on. Okay, so did you get a chance to go over the latest ticket I shared with you, the one related to Kyberno?
+
+Ramesh Kanna
+21 minutes 44 seconds21:44
+Ramesh Kanna 21 minutes 44 seconds
+And.
+Ramesh Kanna 21 minutes 47 seconds
+Mhm.
+Ramesh Kanna 21 minutes 49 seconds
+Okay.
+Ramesh Kanna 21 minutes 53 seconds
+Yeah, like I'm doing the research on it, like, OK, on a policy, right? Let's say policies.
+
+Deepankar Sharma
+21 minutes 57 seconds21:57
+Deepankar Sharma 21 minutes 57 seconds
+Mhm.
+Deepankar Sharma 21 minutes 59 seconds
+Yeah, yeah. So if you go through the PDF that is attached in that ticket, right, did you go over there? Okay, so there I was basically doing the brainstorming. This is all just the title, the one in bold. If you come down.
+
+Ramesh Kanna
+22 minutes 5 seconds22:05
+Ramesh Kanna 22 minutes 5 seconds
+Yeah, I saw that. Yeah, I have download assessment.
+Ramesh Kanna 22 minutes 13 seconds
+Okay, you did the chat with the Jiminy? Something else? No.
+
+Deepankar Sharma
+22 minutes 16 seconds22:16
+Deepankar Sharma 22 minutes 16 seconds
+Yeah, Germany.
+Deepankar Sharma 22 minutes 18 seconds
+Okay, so here you will see that it started with the user prompt and blah, blah, blah. Basically the idea is I told it that I have deployment files, right? And if you open the ticket, can you open the ticket?
+
+Ramesh Kanna
+22 minutes 24 seconds22:24
+Ramesh Kanna 22 minutes 24 seconds
+Okay.
+Ramesh Kanna 22 minutes 29 seconds
+Mhm.
+
+Deepankar Sharma
+22 minutes 35 seconds22:35
+Deepankar Sharma 22 minutes 35 seconds
+16 or whatever.
+
+Ramesh Kanna
+22 minutes 40 seconds22:40
+Ramesh Kanna 22 minutes 40 seconds
+No, not this one.
+
+Deepankar Sharma
+22 minutes 42 seconds22:42
+Deepankar Sharma 22 minutes 42 seconds
+Sixty.
+
+Ramesh Kanna
+22 minutes 44 seconds22:44
+Ramesh Kanna 22 minutes 44 seconds
+This one.
+Deepankar Sharma
+22 minutes 45 seconds22:45
+Deepankar Sharma 22 minutes 45 seconds
+Yeah, so here you will see this is how a deployment file in our infrastructure looks like what is there in Helm.
+
+Ramesh Kanna
+22 minutes 46 seconds22:46
+Ramesh Kanna 22 minutes 46 seconds
+Yeah.
+Ramesh Kanna 22 minutes 53 seconds
+Mhm.
+
+Deepankar Sharma
+22 minutes 54 seconds22:54
+Deepankar Sharma 22 minutes 54 seconds
+And across all deployment files, you will see some common things appearing again and again.
+
+Ramesh Kanna
+23 minutes23:00
+Ramesh Kanna 23 minutes
+Okay.
+
+Deepankar Sharma
+23 minutes 1 second23:01
+Deepankar Sharma 23 minutes 1 second
+Right, starting from the node selector.
+
+Ramesh Kanna
+23 minutes 2 seconds23:02
+Ramesh Kanna 23 minutes 2 seconds
+So, like...
+Ramesh Kanna 23 minutes 5 seconds
+Mhm.
+
+Deepankar Sharma
+23 minutes 6 seconds23:06
+Deepankar Sharma 23 minutes 6 seconds
+Then comes the toleration. Now, if you go down in the same ticket, right?
+Deepankar Sharma 23 minutes 11 seconds
+So here you will see there is a comment on top. Majority of this deployment file is bloated with boilerplate code like the following, right? So if you scroll up to the top, right from the beginning, you will see that there is node selector. With node selected, there are tolerations. Then there is command. Everywhere we are using Secrets Manager, we have
+
+Ramesh Kanna
+23 minutes 13 seconds23:13
+Ramesh Kanna 23 minutes 13 seconds
+These are the repeating of.
+Ramesh Kanna 23 minutes 19 seconds
+Mhm.
+
+Deepankar Sharma
+23 minutes 33 seconds23:33
+Deepankar Sharma 23 minutes 33 seconds
+to inject this app launcher.sh.
+
+Ramesh Kanna
+23 minutes 37 seconds23:37
+Ramesh Kanna 23 minutes 37 seconds
+Okay.
+
+Deepankar Sharma
+23 minutes 37 seconds23:37
+Deepankar Sharma 23 minutes 37 seconds
+Right, then we have volume mounts, shared memory in its script that is getting injected everywhere, right? Then we have resources.
+
+Ramesh Kanna
+23 minutes 39 seconds23:39
+Ramesh Kanna 23 minutes 39 seconds
+Yeah, yeah.
+Ramesh Kanna 23 minutes 41 seconds
+Sure.
+Ramesh Kanna 23 minutes 43 seconds
+Mane.
+Ramesh Kanna 23 minutes 48 seconds
+Same resources.
+
+Deepankar Sharma
+23 minutes 49 seconds23:49
+Deepankar Sharma 23 minutes 49 seconds
+Yeah, not same resources. Every specification will have different set of resources. But anyways, you have to define these again and again, right? Which makes your deployment slightly larger. And a developer sometimes misses it as well, right? Then there are liveliness probe and readiness probe. Okay, so I have basically developed a framework.
+
+Ramesh Kanna
+23 minutes 50 seconds23:50
+Ramesh Kanna 23 minutes 50 seconds
+Mhm.
+Ramesh Kanna 23 minutes 55 seconds
+Mhm.
+Ramesh Kanna 24 minutes 2 seconds
+Okay.
+Ramesh Kanna 24 minutes 5 seconds
+Correct, correct.
+Ramesh Kanna 24 minutes 8 seconds
+readiness.
+
+Deepankar Sharma
+24 minutes 13 seconds24:13
+Deepankar Sharma 24 minutes 13 seconds
+under which all the liveliness readiness probes will be.
+
+Ramesh Kanna
+24 minutes 14 seconds24:14
+Ramesh Kanna 24 minutes 14 seconds
+Okay.
+
+Deepankar Sharma
+24 minutes 20 seconds24:20
+Deepankar Sharma 24 minutes 20 seconds
+you know, exposed under this 9988 port and it will use the same path, actuator, health, liveliness and readiness. Okay.
+
+Ramesh Kanna
+24 minutes 24 seconds24:24
+Ramesh Kanna 24 minutes 24 seconds
+Mhm.
+Ramesh Kanna 24 minutes 30 seconds
+Okay.
+
+Deepankar Sharma
+24 minutes 31 seconds24:31
+Deepankar Sharma 24 minutes 31 seconds
+So this again becomes redundant. Then the next redundant piece is the init container, where we are doing the secret parser, the next redundant piece becomes the image pool secret, and the next becomes the volumes and so on, right? So if you...
+Ramesh Kanna
+24 minutes 36 seconds24:36
+Ramesh Kanna 24 minutes 36 seconds
+And it container, okay.
+Ramesh Kanna 24 minutes 44 seconds
+No.
+Ramesh Kanna 24 minutes 49 seconds
+Deep.
+
+Deepankar Sharma
+24 minutes 50 seconds24:50
+Deepankar Sharma 24 minutes 50 seconds
+Compare this versus the actual deployment file. This itself is taking more than 60% of the...
+
+Ramesh Kanna
+25 minutes25:00
+Ramesh Kanna 25 minutes
+Code we are repeating.
+
+Deepankar Sharma
+25 minutes 1 second25:01
+Deepankar Sharma 25 minutes 1 second
+Size code code exactly right, which means 60% of my Helm deployment files are bloat.
+
+Ramesh Kanna
+25 minutes 4 seconds25:04
+Ramesh Kanna 25 minutes 4 seconds
+Yeah.
+Ramesh Kanna 25 minutes 9 seconds
+Mhm.
+
+Deepankar Sharma
+25 minutes 10 seconds25:10
+Deepankar Sharma 25 minutes 10 seconds
+OK, so.
+Deepankar Sharma 25 minutes 13 seconds
+The conversation with Gemini started with on this note. I am ****** *** with Helm. I do not want to use Helm and all that, right? So it proposed this thing that instead of using, you know, Helm templating like this, yeah, you can go through this.
+
+Ramesh Kanna
+25 minutes 20 seconds25:20
+Ramesh Kanna 25 minutes 20 seconds
+Mhm.
+Ramesh Kanna 25 minutes 30 seconds
+Mhm.
+
+Deepankar Sharma
+25 minutes 32 seconds25:32
+Deepankar Sharma 25 minutes 32 seconds
+you will find the same question and so on. So alternative #2, first let's talk about that.
+
+Ramesh Kanna
+25 minutes 32 seconds25:32
+Ramesh Kanna 25 minutes 32 seconds
+Okay.
+Ramesh Kanna 25 minutes 39 seconds
+Film library.
+
+Deepankar Sharma
+25 minutes 39 seconds25:39
+Deepankar Sharma 25 minutes 39 seconds
+Alternative tool is Helm library chart wherein you standardise these things and then you will have to say include smatic based or deployment list, whiskit server and all that. This again is not very readable, right? I want my manifest to be clean and readable and comprehendable.
+
+Ramesh Kanna
+25 minutes 52 seconds25:52
+Ramesh Kanna 25 minutes 52 seconds
+Yeah.
+Ramesh Kanna 25 minutes 57 seconds
+Mhm.
+
+Deepankar Sharma
+26 minutes26:00
+Deepankar Sharma 26 minutes
+so that when I start using AI for my development, the AI gets the full context right from the scratch, right? It does not have to go from one file to another file to a library chart to somewhere else in order to determine what it needs to do.
+
+Ramesh Kanna
+26 minutes 4 seconds26:04
+Ramesh Kanna 26 minutes 4 seconds
+Mhm.
+Ramesh Kanna 26 minutes 9 seconds
+Okay.
+
+Deepankar Sharma
+26 minutes 18 seconds26:18
+Deepankar Sharma 26 minutes 18 seconds
+Okay.
+
+Ramesh Kanna
+26 minutes 18 seconds26:18
+Ramesh Kanna 26 minutes 18 seconds
+Okay.
+
+Deepankar Sharma
+26 minutes 20 seconds26:20
+Deepankar Sharma 26 minutes 20 seconds
+The second question that I asked Gemini in the main prompt itself, right? That because I'm so ****** with help, can I create my own custom controller or custom operator?
+
+Ramesh Kanna
+26 minutes 26 seconds26:26
+Ramesh Kanna 26 minutes 26 seconds
+Mhm.
+
+Deepankar Sharma
+26 minutes 34 seconds26:34
+Deepankar Sharma 26 minutes 34 seconds
+Okay, so if you come down here, it is just the example of that YAML, right? Slowly. Yeah, yeah, yeah, yeah. Not the code, it's manifest with some templates, right? I'm not exposing any secrets or whatever. Yeah, entire industry is basically using the same deployment, right?
+
+Ramesh Kanna
+26 minutes 35 seconds26:35
+Ramesh Kanna 26 minutes 35 seconds
+No, OK.
+Ramesh Kanna 26 minutes 39 seconds
+These are the code you have pasted all the code.
+Ramesh Kanna 26 minutes 43 seconds
+Okay.
+Ramesh Kanna 26 minutes 48 seconds
+Got it, got it, yeah.
+
+Deepankar Sharma
+26 minutes 53 seconds26:53
+Deepankar Sharma 26 minutes 53 seconds
+It's not my proprietary deployment which I have pasted. Okay, so here I'm asking it instead of writing film templates with surgically placing these component templates, I'm more inclined towards writing Kubernetes controller or operator with validation mutation and admission controller webhook.
+
+Ramesh Kanna
+26 minutes 54 seconds26:54
+Ramesh Kanna 26 minutes 54 seconds
+Mm.
+Ramesh Kanna 26 minutes 58 seconds
+Okay.
+Ramesh Kanna 27 minutes 7 seconds
+Mm.
+Deepankar Sharma
+27 minutes 14 seconds27:14
+Deepankar Sharma 27 minutes 14 seconds
+Whenever a deployment or stateful set or cron job gets added, it will look for certain annotations, and according to those annotations, it will add the proper component just before creating the pod. Is that the right approach, or is there anything better that can be done right now? The answer to this, and you can ignore this, this is...
+
+Ramesh Kanna
+27 minutes 30 seconds27:30
+Ramesh Kanna 27 minutes 30 seconds
+Okay.
+
+Deepankar Sharma
+27 minutes 34 seconds27:34
+Deepankar Sharma 27 minutes 34 seconds
+thinking or whatever, right? So it will say that, you know, if you go with operator approach, you will be responsible for taking the overhead of keeping that operator alive, which is too expensive, right? So the better alternative it proposed is basically Kyverno.
+
+Ramesh Kanna
+27 minutes 36 seconds27:36
+Ramesh Kanna 27 minutes 36 seconds
+Mhm.
+Ramesh Kanna 27 minutes 47 seconds
+Yeah.
+Ramesh Kanna 27 minutes 49 seconds
+Okay.
+Ramesh Kanna 27 minutes 55 seconds
+Okay.
+
+Deepankar Sharma
+27 minutes 56 seconds27:56
+Deepankar Sharma 27 minutes 56 seconds
+Right now, from this point onward, all my user prompts are basically interrogating Gemini.
+
+Ramesh Kanna
+27 minutes 57 seconds27:57
+Ramesh Kanna 27 minutes 57 seconds
+Mmh.
+Ramesh Kanna 28 minutes 3 seconds
+Mhm.
+
+Deepankar Sharma
+28 minutes 4 seconds28:04
+Deepankar Sharma 28 minutes 4 seconds
+Vik I wanna know.
+Deepankar Sharma 28 minutes 6 seconds
+right, how it works. I have N number of scenarios for me. Will it basically pass all those situations, right? So in all the user prompts, you will basically see the requirement that I have is that the init container must not be appended at the end.
+
+Ramesh Kanna
+28 minutes 6 seconds28:06
+Ramesh Kanna 28 minutes 6 seconds
+Mhm.
+Ramesh Kanna 28 minutes 12 seconds
+Okay.
+
+Deepankar Sharma
+28 minutes 25 seconds28:25
+Deepankar Sharma 28 minutes 25 seconds
+because the original recommendation was that it will always append the init container, right? I don't want that. I want it to be surgically placed at zero.
+
+Ramesh Kanna
+28 minutes 31 seconds28:31
+Ramesh Kanna 28 minutes 31 seconds
+Okay.
+
+Deepankar Sharma
+28 minutes 35 seconds28:35
+Deepankar Sharma 28 minutes 35 seconds
+Position, right, and so on.
+
+Ramesh Kanna
+28 minutes 36 seconds28:36
+Ramesh Kanna 28 minutes 36 seconds
+Zero in the sense.
+
+Deepankar Sharma
+28 minutes 38 seconds28:38
+Deepankar Sharma 28 minutes 38 seconds
+So array starts with index 0, right? Zero, one, two, and all. So I don't want it to be appended at the end.
+
+Ramesh Kanna
+28 minutes 42 seconds28:42
+Ramesh Kanna 28 minutes 42 seconds
+Uh-huh, okay, okay.
+Ramesh Kanna 28 minutes 47 seconds
+Got it, got it.
+
+Deepankar Sharma
+28 minutes 48 seconds28:48
+Deepankar Sharma 28 minutes 48 seconds
+Because I want my init container to execute first so that it will, you know, convert all the secrets into environment variables and those environment variables can be made available to the next init container.
+
+Ramesh Kanna
+28 minutes 52 seconds28:52
+Ramesh Kanna 28 minutes 52 seconds
+Mhm.
+Ramesh Kanna 28 minutes 58 seconds
+Okay.
+
+Deepankar Sharma
+29 minutes 4 seconds29:04
+Deepankar Sharma 29 minutes 4 seconds
+Okay, init containers execute sequentially one after the other. Pods run in parallel. The main containers run in parallel, right? So.
+
+Ramesh Kanna
+29 minutes 4 seconds29:04
+Ramesh Kanna 29 minutes 4 seconds
+Got it.
+Ramesh Kanna 29 minutes 9 seconds
+Mmh.
+Ramesh Kanna 29 minutes 10 seconds
+Nope.
+Ramesh Kanna 29 minutes 15 seconds
+Okay, so after getting the secrets.
+Deepankar Sharma
+29 minutes 17 seconds29:17
+Deepankar Sharma 29 minutes 17 seconds
+Yeah, so that is why it is extremely crucial that it should be applied over there and so on, right? So it basically said, yeah, all that is very much possible. You can use this particular patch strategy and it will work.
+
+Ramesh Kanna
+29 minutes 18 seconds29:18
+Ramesh Kanna 29 minutes 18 seconds
+Yeah.
+Ramesh Kanna 29 minutes 24 seconds
+Okay.
+Ramesh Kanna 29 minutes 28 seconds
+Mhm.
+
+Deepankar Sharma
+29 minutes 34 seconds29:34
+Deepankar Sharma 29 minutes 34 seconds
+Right? And I was satisfied. I was like, okay, is Skyver an open source? Because I don't want to pay a tonne of money to run a project, right? And what is the security posture of this particular project? So it is 100% open source.
+
+Ramesh Kanna
+29 minutes 34 seconds29:34
+Ramesh Kanna 29 minutes 34 seconds
+Okay.
+Ramesh Kanna 29 minutes 42 seconds
+Mhm.
+Ramesh Kanna 29 minutes 44 seconds
+Correct.
+Ramesh Kanna 29 minutes 49 seconds
+Mhm.
+
+Deepankar Sharma
+29 minutes 53 seconds29:53
+Deepankar Sharma 29 minutes 53 seconds
+Right, and it is already audited by CNCF as well as SLSA 3, right? That is another thing we have to look for when we are choosing a software to use, right? So it basically goes through periodic audits, this and that and all that. Finally, it gave this operational security consideration point #4.
+
+Ramesh Kanna
+29 minutes 59 seconds29:59
+Ramesh Kanna 29 minutes 59 seconds
+Yes.
+Ramesh Kanna 30 minutes 2 seconds
+Mhm.
+Ramesh Kanna 30 minutes 17 seconds
+OK, here it is.
+
+Deepankar Sharma
+30 minutes 18 seconds30:18
+Deepankar Sharma 30 minutes 18 seconds
+right, that if Kyverno fails, there is a possibility that your entire deployment start to fail. If you are using failover policy as fail, right? Or you can basically go with fail open, where failover policy will be ignored. So this will be the only thing which we will have to do.
+
+Ramesh Kanna
+30 minutes 27 seconds30:27
+Ramesh Kanna 30 minutes 27 seconds
+Deep.
+
+Deepankar Sharma
+30 minutes 39 seconds30:39
+Deepankar Sharma 30 minutes 39 seconds
+take into consideration, right? What if Kyverno fails? What if the pods are coming up, but they are not properly?
+
+Ramesh Kanna
+30 minutes 45 seconds30:45
+Ramesh Kanna 30 minutes 45 seconds
+Mhm.
+
+Deepankar Sharma
+30 minutes 51 seconds30:51
+Deepankar Sharma 30 minutes 51 seconds
+you know, annotated or properly added for a specific node. They may go into pending state, right, which we can control using Grafana monitoring and all those things.
+
+Ramesh Kanna
+30 minutes 52 seconds30:52
+Ramesh Kanna 30 minutes 52 seconds
+Up.
+Ramesh Kanna 30 minutes 56 seconds
+Okay.
+Ramesh Kanna 31 minutes 2 seconds
+Mhm.
+
+Deepankar Sharma
+31 minutes 3 seconds31:03
+Deepankar Sharma 31 minutes 3 seconds
+OK, finally, the last consideration is how much Kubernetes resources does it need?
+Deepankar Sharma 31 minutes 10 seconds
+If it says that I need two BC nodes, right, which will have 8 CPU, 32 GB RAM and all those things, then also it was a no-go for me. Right? Now you will see that it requires very less amount of memory.
+
+Ramesh Kanna
+31 minutes 22 seconds31:22
+Ramesh Kanna 31 minutes 22 seconds
+You do.
+Ramesh Kanna 31 minutes 28 seconds
+Okay, yeah.
+
+Deepankar Sharma
+31 minutes 28 seconds31:28
+Deepankar Sharma 31 minutes 28 seconds
+and very less amount of CPU.
+
+Ramesh Kanna
+31 minutes 31 seconds31:31
+Ramesh Kanna 31 minutes 31 seconds
+Have you used to like before, like K or no?
+
+Deepankar Sharma
+31 minutes 34 seconds31:34
+Deepankar Sharma 31 minutes 34 seconds
+Sorry, no, I haven't used Kyver not at all. Okay, so with all these things, it is basically giving me green flags.
+
+Ramesh Kanna
+31 minutes 36 seconds31:36
+Ramesh Kanna 31 minutes 36 seconds
+Okay.
+Ramesh Kanna 31 minutes 39 seconds
+Mhm.
+Ramesh Kanna 31 minutes 43 seconds
+Yeah, seems like good. Okay.
+
+Deepankar Sharma
+31 minutes 44 seconds31:44
+Deepankar Sharma 31 minutes 44 seconds
+Okay.
+Deepankar Sharma 31 minutes 46 seconds
+Yeah, now if you come down, my final consideration was cron jobs. Use a prompt. The cluster will run a lot of cron jobs as well. Some with 15 minute intervals, some and a few with three minute interval frequency. Will Kaiver not be able to patch all such resources?
+
+Ramesh Kanna
+31 minutes 51 seconds31:51
+Ramesh Kanna 31 minutes 51 seconds
+Mhm.
+Ramesh Kanna 31 minutes 56 seconds
+Yeah.
+Ramesh Kanna 32 minutes 1 second
+Mhm.
+Deepankar Sharma
+32 minutes 5 seconds32:05
+Deepankar Sharma 32 minutes 5 seconds
+So then finally it is basically saying, yeah, Kaivarno will be able to do all those sort of things.
+
+Ramesh Kanna
+32 minutes 12 seconds32:12
+Ramesh Kanna 32 minutes 12 seconds
+So, yeah.
+
+Deepankar Sharma
+32 minutes 12 seconds32:12
+Deepankar Sharma 32 minutes 12 seconds
+Right, I am.
+Deepankar Sharma 32 minutes 14 seconds
+Yeah, so basically it is talking about auto gen feature as well, right? Where instead of patching the pod, it can patch the cron job, right? And then you will see another counter argument from me down below that I don't want any noise. My final user prompt is basically that.
+
+Ramesh Kanna
+32 minutes 17 seconds32:17
+Ramesh Kanna 32 minutes 17 seconds
+Mm.
+Ramesh Kanna 32 minutes 23 seconds
+Mhm.
+
+Deepankar Sharma
+32 minutes 35 seconds32:35
+Deepankar Sharma 32 minutes 35 seconds
+when I'm running helm file deploy or helm upgrade or whatever.
+Deepankar Sharma 32 minutes 40 seconds
+Right, if I target cron job directly, how will helm def react to it? Does helm file release during helm file release? I don't want these changes to flag because they will cause unnecessary noise during regular releases, right? So it basically says that if you...
+
+Ramesh Kanna
+32 minutes 41 seconds32:41
+Ramesh Kanna 32 minutes 41 seconds
+Okay.
+
+Deepankar Sharma
+33 minutes33:00
+Deepankar Sharma 33 minutes
+directly mutate cron job, it will definitely be incredibly noisy. So.
+Deepankar Sharma 33 minutes 7 seconds
+You still there?
+
+Ramesh Kanna
+35 minutes 16 seconds35:16
+Ramesh Kanna 35 minutes 16 seconds
+Hi, Deepankar.
+
+Deepankar Sharma
+35 minutes 18 seconds35:18
+Deepankar Sharma 35 minutes 18 seconds
+Hey, Ramesh.
+
+Ramesh Kanna
+35 minutes 19 seconds35:19
+Ramesh Kanna 35 minutes 19 seconds
+Yeah, I don't know what happened. Suddenly it got restarted.
+
+Deepankar Sharma
+35 minutes 24 seconds35:24
+Deepankar Sharma 35 minutes 24 seconds
+Okay, no worries.
+Deepankar Sharma 35 minutes 26 seconds
+Blue Screen of Death.
+
+Ramesh Kanna
+35 minutes 28 seconds35:28
+Ramesh Kanna 35 minutes 28 seconds
+Yeah, that's happening like very afternoon right now.
+
+Deepankar Sharma
+35 minutes 32 seconds35:32
+Deepankar Sharma 35 minutes 32 seconds
+Mhm.
+
+Ramesh Kanna
+35 minutes 33 seconds35:33
+Ramesh Kanna 35 minutes 33 seconds
+So nowadays, I also changed my SSD, but even though I changed, it is coming again. Are you faced any issue related to that?
+
+Deepankar Sharma
+35 minutes 35 seconds35:35
+Deepankar Sharma 35 minutes 35 seconds
+Yes.
+Deepankar Sharma 35 minutes 37 seconds
+Mhm.
+Deepankar Sharma 35 minutes 41 seconds
+Okay.
+Deepankar Sharma 35 minutes 44 seconds
+So my system has 128 gigs of memory. So because of that, I sometimes run into that blue screen of death because of this memory segmentation error. But that is common with, you know, this much amount of memory.
+Ramesh Kanna
+35 minutes 48 seconds35:48
+Ramesh Kanna 35 minutes 48 seconds
+Mm.
+Ramesh Kanna 36 minutes
+Yeah, yeah, yeah.
+Ramesh Kanna 36 minutes 3 seconds
+So I was trying to figure it, figure it out, like which was the issue, but I couldn't do it. I also tried with the dump debugging things and all, but couldn't do it.
+
+Deepankar Sharma
+36 minutes 8 seconds36:08
+Deepankar Sharma 36 minutes 8 seconds
+Okay.
+Deepankar Sharma 36 minutes 14 seconds
+Okay, nowadays, he'll get to it eventually.
+
+Ramesh Kanna
+36 minutes 14 seconds36:14
+Ramesh Kanna 36 minutes 14 seconds
+Exactly.
+Ramesh Kanna 36 minutes 18 seconds
+Yeah, so because of that only I purchased new SSD now.
+
+Deepankar Sharma
+36 minutes 20 seconds36:20
+Deepankar Sharma 36 minutes 20 seconds
+Vik.
+Deepankar Sharma 36 minutes 23 seconds
+Mhm.
+
+Ramesh Kanna
+36 minutes 24 seconds36:24
+Ramesh Kanna 36 minutes 24 seconds
+Yeah.
+
+Deepankar Sharma
+36 minutes 25 seconds36:25
+Deepankar Sharma 36 minutes 25 seconds
+Okay.
+
+Ramesh Kanna
+36 minutes 26 seconds36:26
+Ramesh Kanna 36 minutes 26 seconds
+Okay, let's go.
+
+Deepankar Sharma
+36 minutes 28 seconds36:28
+Deepankar Sharma 36 minutes 28 seconds
+Okay, yeah, so that was the final consideration, right? It should not be noisy during the Helm file upgrade and all. And then it said that, yeah, let's go with the pod level mutation directly. And you know, it can basically take that many requests. So one cron job every 3 minute is 20 pods per hour and so on, right? So it basically says it can take several 100.
+
+Ramesh Kanna
+36 minutes 29 seconds36:29
+Ramesh Kanna 36 minutes 29 seconds
+So.
+Ramesh Kanna 36 minutes 32 seconds
+Mhm.
+Ramesh Kanna 36 minutes 34 seconds
+Correct.
+Ramesh Kanna 36 minutes 35 seconds
+Mhm.
+Ramesh Kanna 36 minutes 46 seconds
+Okay.
+
+Deepankar Sharma
+36 minutes 53 seconds36:53
+Deepankar Sharma 36 minutes 53 seconds
+hundreds of these things.
+
+Ramesh Kanna
+36 minutes 56 seconds36:56
+Ramesh Kanna 36 minutes 56 seconds
+Mhm.
+
+Deepankar Sharma
+36 minutes 56 seconds36:56
+Deepankar Sharma 36 minutes 56 seconds
+So you can see a properly resourced Kyvernode deployment to replica 1 GB burst table CPU handles thousands of node down below. Yeah, handling the workload or bullet point.
+
+Ramesh Kanna
+37 minutes 6 seconds37:06
+Ramesh Kanna 37 minutes 6 seconds
+Where?
+Ramesh Kanna 37 minutes 9 seconds
+There it is, actually. I couldn't find it in the last link.
+
+Deepankar Sharma
+37 minutes 11 seconds37:11
+Deepankar Sharma 37 minutes 11 seconds
+or third bullet point. No, no, handling the workload, you can see the title, right?
+
+Ramesh Kanna
+37 minutes 14 seconds37:14
+Ramesh Kanna 37 minutes 14 seconds
+Ohh.
+Ramesh Kanna 37 minutes 17 seconds
+Yeah.
+
+Deepankar Sharma
+37 minutes 17 seconds37:17
+Deepankar Sharma 37 minutes 17 seconds
+Handling the web workload, third bullet point.
+
+Ramesh Kanna
+37 minutes 19 seconds37:19
+Ramesh Kanna 37 minutes 19 seconds
+Me like.
+Ramesh Kanna 37 minutes 22 seconds
+Got it, got it here.
+
+Deepankar Sharma
+37 minutes 23 seconds37:23
+Deepankar Sharma 37 minutes 23 seconds
+A properly resourced Kyverno handles thousands of webhook requests per minute easily, right? So, with this, Kyverno is a go.
+
+Ramesh Kanna
+37 minutes 29 seconds37:29
+Ramesh Kanna 37 minutes 29 seconds
+Okay.
+Ramesh Kanna 37 minutes 34 seconds
+Mm-hmm.
+
+Deepankar Sharma
+37 minutes 35 seconds37:35
+Deepankar Sharma 37 minutes 35 seconds
+And it will reduce all that boilerplate, right? Along with that, I asked it the same question. This is in a different one. I'll send it over to you.
+
+Ramesh Kanna
+37 minutes 39 seconds37:39
+Ramesh Kanna 37 minutes 39 seconds
+Okay.
+Ramesh Kanna 37 minutes 46 seconds
+Okay.
+Deepankar Sharma
+37 minutes 48 seconds37:48
+Deepankar Sharma 37 minutes 48 seconds
+S.
+Deepankar Sharma 37 minutes 49 seconds
+Xbox.
+Deepankar Sharma 38 minutes 7 seconds
+Yeah, I shared it with you. So if you open this PDF here, I'm asking, can Kaverno run a Kubernetes job when a deployment file changes, right? So it basically says you can pinpoint to exactly what you're looking for a change, and that is image.
+
+Ramesh Kanna
+38 minutes 10 seconds38:10
+Ramesh Kanna 38 minutes 10 seconds
+Mhm.
+Ramesh Kanna 38 minutes 17 seconds
+Okay.
+Ramesh Kanna 38 minutes 26 seconds
+Mhm.
+
+Deepankar Sharma
+38 minutes 27 seconds38:27
+Deepankar Sharma 38 minutes 27 seconds
+Whenever the image is changing for a particular deployment, I want the job to be created and so on, right? So now.
+
+Ramesh Kanna
+38 minutes 36 seconds38:36
+Ramesh Kanna 38 minutes 36 seconds
+Okay, so not for the any changes under the job, only for like we can set it, correct? Okay.
+
+Deepankar Sharma
+38 minutes 42 seconds38:42
+Deepankar Sharma 38 minutes 42 seconds
+Yes, yes.
+Deepankar Sharma 38 minutes 45 seconds
+Okay, so basically we have to do some trade-off, right? If we want to see the diff, that diff will come through Helm file or Helm diff and it will always come irrespective of whether your deployment is going for a change or not.
+
+Ramesh Kanna
+38 minutes 46 seconds38:46
+Ramesh Kanna 38 minutes 46 seconds
+Mhm.
+Ramesh Kanna 38 minutes 56 seconds
+Mhm.
+Ramesh Kanna 39 minutes 3 seconds
+Okay.
+
+Deepankar Sharma
+39 minutes 4 seconds39:04
+Deepankar Sharma 39 minutes 4 seconds
+Right.
+Deepankar Sharma 39 minutes 5 seconds
+The other thing is if you want your releases to be done only when the image is changing, then you will have to go with this, right? And this is a better thing than, you know, showing up the diff whenever a release is happening. A patch may be happening on UI. That does not mean I release the extension.
+
+Ramesh Kanna
+39 minutes 6 seconds39:06
+Ramesh Kanna 39 minutes 6 seconds
+Yeah.
+Ramesh Kanna 39 minutes 11 seconds
+Mhm.
+Ramesh Kanna 39 minutes 14 seconds
+Yes.
+Ramesh Kanna 39 minutes 24 seconds
+No.
+
+Deepankar Sharma
+39 minutes 26 seconds39:26
+Deepankar Sharma 39 minutes 26 seconds
+Right.
+
+Ramesh Kanna
+39 minutes 27 seconds39:27
+Ramesh Kanna 39 minutes 27 seconds
+Okay, correct, correct.
+
+Deepankar Sharma
+39 minutes 27 seconds39:27
+Deepankar Sharma 39 minutes 27 seconds
+So, that is, that is basically it. Tiberno seems to fit all our needs.
+
+Ramesh Kanna
+39 minutes 36 seconds39:36
+Ramesh Kanna 39 minutes 36 seconds
+Requirements.
+
+Deepankar Sharma
+39 minutes 37 seconds39:37
+Deepankar Sharma 39 minutes 37 seconds
+It, yeah, its security posture is excellent.
+
+Ramesh Kanna
+39 minutes 38 seconds39:38
+Ramesh Kanna 39 minutes 38 seconds
+Mmh.
+Ramesh Kanna 39 minutes 41 seconds
+We can go with it.
+
+Deepankar Sharma
+39 minutes 41 seconds39:41
+Deepankar Sharma 39 minutes 41 seconds
+Right, yeah, it's memory consumption and all those things are also excellent. So let's dive into it.
+
+Ramesh Kanna
+39 minutes 43 seconds39:43
+Ramesh Kanna 39 minutes 43 seconds
+Yeah.
+Ramesh Kanna 39 minutes 49 seconds
+Okay, like, what's the deadline for this? Like, how we're going to split the task I'm doing?
+
+Deepankar Sharma
+39 minutes 50 seconds39:50
+Deepankar Sharma 39 minutes 50 seconds
+And.
+Deepankar Sharma 39 minutes 58 seconds
+So I wanted to the POC to be ready by, let's say, Thursday.
+
+Ramesh Kanna
+40 minutes 4 seconds40:04
+Ramesh Kanna 40 minutes 4 seconds
+Mhm.
+Deepankar Sharma
+40 minutes 5 seconds40:05
+Deepankar Sharma 40 minutes 5 seconds
+Wherein you will deploy the controller, the Kaverno.
+
+Ramesh Kanna
+40 minutes 10 seconds40:10
+Ramesh Kanna 40 minutes 10 seconds
+Coming Thursday.
+
+Deepankar Sharma
+40 minutes 12 seconds40:12
+Deepankar Sharma 40 minutes 12 seconds
+Yeah.
+
+Ramesh Kanna
+40 minutes 12 seconds40:12
+Ramesh Kanna 40 minutes 12 seconds
+Okay.
+Ramesh Kanna 40 minutes 15 seconds
+Deep.
+Ramesh Kanna 40 minutes 19 seconds
+Yeah.
+Ramesh Kanna 40 minutes 23 seconds
+Yeah.
+
+Deepankar Sharma
+40 minutes 24 seconds40:24
+Deepankar Sharma 40 minutes 24 seconds
+So you will get 3 full days in that you will have to deploy the Kiberno controller.
+
+Ramesh Kanna
+40 minutes 25 seconds40:25
+Ramesh Kanna 40 minutes 25 seconds
+Mm.
+Ramesh Kanna 40 minutes 30 seconds
+Mhm.
+
+Deepankar Sharma
+40 minutes 31 seconds40:31
+Deepankar Sharma 40 minutes 31 seconds
+And you have to prove.
+Deepankar Sharma 40 minutes 34 seconds
+that with annotations, let's say for secrets manager.
+
+Ramesh Kanna
+40 minutes 39 seconds40:39
+Ramesh Kanna 40 minutes 39 seconds
+Okay.
+
+Deepankar Sharma
+40 minutes 39 seconds40:39
+Deepankar Sharma 40 minutes 39 seconds
+Right, you will be able to, I mean, secret provider classes will be created through Helm only. Just the injection of that init container, app launcher, volume mounts, all those things you will have to prove, right? Another annotation will tell you which node you wanted to.
+
+Ramesh Kanna
+40 minutes 45 seconds40:45
+Ramesh Kanna 40 minutes 45 seconds
+Mhm.
+Ramesh Kanna 40 minutes 54 seconds
+Okay.
+
+Deepankar Sharma
+40 minutes 58 seconds40:58
+Deepankar Sharma 40 minutes 58 seconds
+Deploy.
+
+Ramesh Kanna
+41 minutes41:00
+Ramesh Kanna 41 minutes
+Okay.
+
+Deepankar Sharma
+41 minutes 1 second41:01
+Deepankar Sharma 41 minutes 1 second
+Right, that will again go in there in the policy, Kyverna policy, right? Then you will say what resource management do you want to use, right? CPU memory limits and requests. Those things will also go into annotation directly.
+
+Ramesh Kanna
+41 minutes 2 seconds41:02
+Ramesh Kanna 41 minutes 2 seconds
+Mm.
+Ramesh Kanna 41 minutes 8 seconds
+Okay.
+Ramesh Kanna 41 minutes 20 seconds
+Okay.
+
+Deepankar Sharma
+41 minutes 21 seconds41:21
+Deepankar Sharma 41 minutes 21 seconds
+whatever boilerplate pieces, right? So you basically have to prove that just by annotating your deployment or your pod spec.
+
+Ramesh Kanna
+41 minutes 24 seconds41:24
+Ramesh Kanna 41 minutes 24 seconds
+Deep.
+Ramesh Kanna 41 minutes 32 seconds
+Mhm.
+
+Deepankar Sharma
+41 minutes 32 seconds41:32
+Deepankar Sharma 41 minutes 32 seconds
+mainly pod. Right inside pod you will have metadata inside that you will have annotations and all right. So Kaya will look for those specific annotations and it will surgically place those components inside of that pod spec.
+
+Ramesh Kanna
+41 minutes 38 seconds41:38
+Ramesh Kanna 41 minutes 38 seconds
+Yeah, yeah.
+Ramesh Kanna 41 minutes 42 seconds
+And it will.
+Ramesh Kanna 41 minutes 46 seconds
+Carren.
+Ramesh Kanna 41 minutes 49 seconds
+Yeah.
+
+Deepankar Sharma
+41 minutes 50 seconds41:50
+Deepankar Sharma 41 minutes 50 seconds
+OK, and I want to see the exact same YAML which I see on Kubernetes cluster.
+
+Ramesh Kanna
+41 minutes 51 seconds41:51
+Ramesh Kanna 41 minutes 51 seconds
+Mhm.
+Ramesh Kanna 41 minutes 57 seconds
+Mhm.
+
+Deepankar Sharma
+41 minutes 58 seconds41:58
+Deepankar Sharma 41 minutes 58 seconds
+Through Helm, through our boilerplate today.
+Ramesh Kanna
+42 minutes 2 seconds42:02
+Ramesh Kanna 42 minutes 2 seconds
+Okay.
+
+Deepankar Sharma
+42 minutes 2 seconds42:02
+Deepankar Sharma 42 minutes 2 seconds
+Accounts.
+Deepankar Sharma 42 minutes 9 seconds
+Yeah, are we good with that? No, no, nothing. It was my 30 minute reminders kind of.
+
+Ramesh Kanna
+42 minutes 10 seconds42:10
+Ramesh Kanna 42 minutes 10 seconds
+What happened?
+Ramesh Kanna 42 minutes 11 seconds
+Mhm.
+Ramesh Kanna 42 minutes 13 seconds
+Okay.
+
+Deepankar Sharma
+42 minutes 19 seconds42:19
+Deepankar Sharma 42 minutes 19 seconds
+Yeah.
+
+Ramesh Kanna
+42 minutes 21 seconds42:21
+Ramesh Kanna 42 minutes 21 seconds
+Oh, got it, good.
+
+Deepankar Sharma
+42 minutes 24 seconds42:24
+Deepankar Sharma 42 minutes 24 seconds
+Yeah, any questions that you may have?
+
+Ramesh Kanna
+42 minutes 24 seconds42:24
+Ramesh Kanna 42 minutes 24 seconds
+Okay, then I will start from.
+Ramesh Kanna 42 minutes 28 seconds
+Like, I will, like, first I will start working on understanding the curve or no, and and slowly I will ask if I get anything.
+
+Deepankar Sharma
+42 minutes 36 seconds42:36
+Deepankar Sharma 42 minutes 36 seconds
+Mhm.
+Deepankar Sharma 42 minutes 42 seconds
+Okay, so see if you start from the documentation rate, it is going to be a 400 page long documentation. I don't know if that's yeah.
+
+Ramesh Kanna
+42 minutes 48 seconds42:48
+Ramesh Kanna 42 minutes 48 seconds
+Yeah, I'm not gonna do that, so I'm gonna do like basic understanding of why we're using Kaivano, and like, and after that I will go full deep in our requirement, not all of that.
+
+Deepankar Sharma
+42 minutes 55 seconds42:55
+Deepankar Sharma 42 minutes 55 seconds
+Yeah.
+Deepankar Sharma 43 minutes
+Yep, yep.
+Deepankar Sharma 43 minutes 5 seconds
+Alright.
+
+Ramesh Kanna
+43 minutes 6 seconds43:06
+Ramesh Kanna 43 minutes 6 seconds
+Yeah.
+
+Deepankar Sharma
+43 minutes 10 seconds43:10
+Deepankar Sharma 43 minutes 10 seconds
+Okay, so we will plan for the POC completion by Thursday.
+
+Ramesh Kanna
+43 minutes 15 seconds43:15
+Ramesh Kanna 43 minutes 15 seconds
+Okay.
+
+Deepankar Sharma
+43 minutes 16 seconds43:16
+Deepankar Sharma 43 minutes 16 seconds
+Right, if you want, we can prepone the call.
+
+Ramesh Kanna
+43 minutes 20 seconds43:20
+Ramesh Kanna 43 minutes 20 seconds
+Mhm.
+
+Deepankar Sharma
+43 minutes 20 seconds43:20
+Deepankar Sharma 43 minutes 20 seconds
+Because it may take up to 45 minutes, right, to go over all the questions and everything.
+
+Ramesh Kanna
+43 minutes 25 seconds43:25
+Ramesh Kanna 43 minutes 25 seconds
+Okay.
+
+Deepankar Sharma
+43 minutes 26 seconds43:26
+Deepankar Sharma 43 minutes 26 seconds
+So we can probably connect at 5:15 so that the call will end by 6:00, right? And starting from there, we will have smaller deliverables, like you will migrate, let's say, Viskit as the starting point, then something else, then something else, and so on.
+Ramesh Kanna
+43 minutes 30 seconds43:30
+Ramesh Kanna 43 minutes 30 seconds
+Mm.
+Ramesh Kanna 43 minutes 32 seconds
+Okay.
+Ramesh Kanna 43 minutes 34 seconds
+Yeah.
+Ramesh Kanna 43 minutes 37 seconds
+Mhm.
+Ramesh Kanna 43 minutes 42 seconds
+Mhm.
+Ramesh Kanna 43 minutes 45 seconds
+Okay.
+
+Deepankar Sharma
+43 minutes 47 seconds43:47
+Deepankar Sharma 43 minutes 47 seconds
+Okay.
+
+Ramesh Kanna
+43 minutes 49 seconds43:49
+Ramesh Kanna 43 minutes 49 seconds
+The first will be whiskit.
+
+Deepankar Sharma
+43 minutes 51 seconds43:51
+Deepankar Sharma 43 minutes 51 seconds
+It was good, yeah.
+
+Ramesh Kanna
+43 minutes 51 seconds43:51
+Ramesh Kanna 43 minutes 51 seconds
+Mm.
+Ramesh Kanna 43 minutes 54 seconds
+Okay, Deepankar, yeah, I will start working on it.
+
+Deepankar Sharma
+43 minutes 58 seconds43:58
+Deepankar Sharma 43 minutes 58 seconds
+Okay, yeah, I mean from here you will get more and more challenging things.
+
+Ramesh Kanna
+44 minutes 3 seconds44:03
+Ramesh Kanna 44 minutes 3 seconds
+Correct.
+
+Deepankar Sharma
+44 minutes 4 seconds44:04
+Deepankar Sharma 44 minutes 4 seconds
+To work into look into right, and this is where you will go into production deployments as well. Yeah, go ahead.
+
+Ramesh Kanna
+44 minutes 6 seconds44:06
+Ramesh Kanna 44 minutes 6 seconds
+So...
+Ramesh Kanna 44 minutes 12 seconds
+What about the uh Elm book things like we will drop it or like we will?
+
+Deepankar Sharma
+44 minutes 17 seconds44:17
+Deepankar Sharma 44 minutes 17 seconds
+Yeah, we have already proven right that it is not suiting our use case.
+
+Ramesh Kanna
+44 minutes 22 seconds44:22
+Ramesh Kanna 44 minutes 22 seconds
+Mm-hmm.
+
+Deepankar Sharma
+44 minutes 23 seconds44:23
+Deepankar Sharma 44 minutes 23 seconds
+Our use cases that it should not deploy the extent because see the extension we are talking about it gets deployed to Shopify App Store.
+
+Ramesh Kanna
+44 minutes 33 seconds44:33
+Ramesh Kanna 44 minutes 33 seconds
+Correct.
+
+Deepankar Sharma
+44 minutes 35 seconds44:35
+Deepankar Sharma 44 minutes 35 seconds
+Right, so every time I'm doing a patch of UI or documentation website or whatever.
+
+Ramesh Kanna
+44 minutes 36 seconds44:36
+Ramesh Kanna 44 minutes 36 seconds
+And.
+Ramesh Kanna 44 minutes 41 seconds
+Mhm.
+
+Deepankar Sharma
+44 minutes 41 seconds44:41
+Deepankar Sharma 44 minutes 41 seconds
+It is going to create a new release on Shopify.
+
+Ramesh Kanna
+44 minutes 45 seconds44:45
+Ramesh Kanna 44 minutes 45 seconds
+Okay.
+
+Deepankar Sharma
+44 minutes 45 seconds44:45
+Deepankar Sharma 44 minutes 45 seconds
+and Shopify audits every single release that we are doing. Right. So it will start flagging that you are claiming to do a release.
+
+Ramesh Kanna
+44 minutes 50 seconds44:50
+Ramesh Kanna 44 minutes 50 seconds
+Mm-hmm.
+
+Deepankar Sharma
+44 minutes 56 seconds44:56
+Deepankar Sharma 44 minutes 56 seconds
+But there is no diff from your previous release and this release.
+
+Ramesh Kanna
+45 minutes 2 seconds45:02
+Ramesh Kanna 45 minutes 2 seconds
+Okay.
+
+Deepankar Sharma
+45 minutes 3 seconds45:03
+Deepankar Sharma 45 minutes 3 seconds
+Okay, so we basically don't want to get flagged by Shopify itself for doing bogus releases.
+
+Ramesh Kanna
+45 minutes 4 seconds45:04
+Ramesh Kanna 45 minutes 4 seconds
+Mhm.
+Ramesh Kanna 45 minutes 9 seconds
+Because, yeah, because I've come like again and again, the uploading right, we're releasing.
+Deepankar Sharma
+45 minutes 15 seconds45:15
+Deepankar Sharma 45 minutes 15 seconds
+Yeah.
+Deepankar Sharma 45 minutes 17 seconds
+The artefacts are getting uploaded to Shopify, right? And it has to manage every single version. Some shops may be using an older version, some may be using a newer version. Even to the shops, it may show that a new version is available. Please refresh, reload, or whatever, right?
+
+Ramesh Kanna
+45 minutes 20 seconds45:20
+Ramesh Kanna 45 minutes 20 seconds
+Mmh.
+Ramesh Kanna 45 minutes 36 seconds
+Mhm.
+
+Deepankar Sharma
+45 minutes 36 seconds45:36
+Deepankar Sharma 45 minutes 36 seconds
+which again creates a bad user experience.
+
+Ramesh Kanna
+45 minutes 41 seconds45:41
+Ramesh Kanna 45 minutes 41 seconds
+Correct, correct.
+
+Deepankar Sharma
+45 minutes 42 seconds45:42
+Deepankar Sharma 45 minutes 42 seconds
+Okay, so these are basically few reasons why we do not want unnecessary things.
+Deepankar Sharma 45 minutes 48 seconds
+Through hooks, you have already proven when you are making an unrelated change.
+
+Ramesh Kanna
+45 minutes 48 seconds45:48
+Ramesh Kanna 45 minutes 48 seconds
+Mhm.
+Ramesh Kanna 45 minutes 53 seconds
+Yeah.
+
+Deepankar Sharma
+45 minutes 54 seconds45:54
+Deepankar Sharma 45 minutes 54 seconds
+The job is anyways executing, right? The workaround would be that you will have to create your custom scripts, which will say that, yeah, the job is getting executed, but then I'm not going to do the release or whatever, right? Which makes it an extra step.
+
+Ramesh Kanna
+45 minutes 55 seconds45:55
+Ramesh Kanna 45 minutes 55 seconds
+The.
+Ramesh Kanna 45 minutes 57 seconds
+Mane.
+Ramesh Kanna 46 minutes 11 seconds
+Okay.
+
+Deepankar Sharma
+46 minutes 14 seconds46:14
+Deepankar Sharma 46 minutes 14 seconds
+for us to monitor.
+
+Ramesh Kanna
+46 minutes 18 seconds46:18
+Ramesh Kanna 46 minutes 18 seconds
+Kartik.
+
+Deepankar Sharma
+46 minutes 20 seconds46:20
+Deepankar Sharma 46 minutes 20 seconds
+Okay, so let's conclude in the ticket that you open right regarding the same. You add the conclusion that for this, this, this reason.
+
+Ramesh Kanna
+46 minutes 26 seconds46:26
+Ramesh Kanna 46 minutes 26 seconds
+Yeah.
+Ramesh Kanna 46 minutes 31 seconds
+Mhm.
+
+Deepankar Sharma
+46 minutes 31 seconds46:31
+Deepankar Sharma 46 minutes 31 seconds
+We are not pursuing the helm.
+Deepankar Sharma 46 minutes 36 seconds
+Hooks route, rather we are going with Kyverno.
+
+Ramesh Kanna
+46 minutes 36 seconds46:36
+Ramesh Kanna 46 minutes 36 seconds
+Okay.
+Ramesh Kanna 46 minutes 42 seconds
+Okay.
+
+Deepankar Sharma
+46 minutes 43 seconds46:43
+Deepankar Sharma 46 minutes 43 seconds
+Okay, so let's tie a strict deadline around this Kiberno thing, right? Thursday would mean Thursday if you need ad hoc connects with me.
+
+Ramesh Kanna
+46 minutes 44 seconds46:44
+Ramesh Kanna 46 minutes 44 seconds
+Mm.
+Ramesh Kanna 46 minutes 48 seconds
+Okay.
+Deepankar Sharma
+46 minutes 53 seconds46:53
+Deepankar Sharma 46 minutes 53 seconds
+Feel free to reach out. We can connect. I can guide you whenever you have open questions, right? But let's try to wrap it, wrap the POC up by Thursday, and then we will start with the individual deployments.
+
+Ramesh Kanna
+46 minutes 58 seconds46:58
+Ramesh Kanna 46 minutes 58 seconds
+Okay.
+Ramesh Kanna 47 minutes 4 seconds
+Mhm.
+Ramesh Kanna 47 minutes 7 seconds
+Okay.
+
+Deepankar Sharma
+47 minutes 8 seconds47:08
+Deepankar Sharma 47 minutes 8 seconds
+OK.
+
+Ramesh Kanna
+47 minutes 9 seconds47:09
+Ramesh Kanna 47 minutes 9 seconds
+Got it.
+
+Deepankar Sharma
+47 minutes 10 seconds47:10
+Deepankar Sharma 47 minutes 10 seconds
+Yeah, all set.
+
+Ramesh Kanna
+47 minutes 12 seconds47:12
+Ramesh Kanna 47 minutes 12 seconds
+Yeah.
+
+Deepankar Sharma
+47 minutes 14 seconds47:14
+Deepankar Sharma 47 minutes 14 seconds
+Thanks, Ramesh. Thank you for connecting so late. Let's not make it a habit.
+
+Ramesh Kanna
+47 minutes 15 seconds47:15
+Ramesh Kanna 47 minutes 15 seconds
+Okay.
+Ramesh Kanna 47 minutes 17 seconds
+Okay.
+
+Deepankar Sharma
+47 minutes 19 seconds47:19
+Deepankar Sharma 47 minutes 19 seconds
+Late, yeah.
+
+Ramesh Kanna
+47 minutes 19 seconds47:19
+Ramesh Kanna 47 minutes 19 seconds
+No problem.
+Ramesh Kanna 47 minutes 21 seconds
+Yeah.
+Ramesh Kanna 47 minutes 23 seconds
+I need to go through all the things, yeah.
+
+Deepankar Sharma
+47 minutes 24 seconds47:24
+Deepankar Sharma 47 minutes 24 seconds
+All good.
+Deepankar Sharma 47 minutes 26 seconds
+So, sure.
+
+Ramesh Kanna
+47 minutes 27 seconds47:27
+Ramesh Kanna 47 minutes 27 seconds
+Yeah.
+
+Deepankar Sharma
+47 minutes 28 seconds47:28
+Deepankar Sharma 47 minutes 28 seconds
+Thank you so much. Goodnight. Bye.
+
+Ramesh Kanna
+47 minutes 30 seconds47:30
+Ramesh Kanna 47 minutes 30 seconds
+Okay, bye bye.

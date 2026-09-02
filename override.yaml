@@ -1,0 +1,17 @@
+vizkit:
+  owner: "vizkit-team@dummy.local"
+  v1:
+    replicas: 1
+    version: "1.0.0-dummy"
+
+node:
+  selector:
+    domain: "dummy.smaitic.com"
+    value: "dummy-worker"
+
+secrets:
+  stack: "poc"
+  parser:
+    version: "1.0.0-dummy"
+  provider:
+    enabled: false

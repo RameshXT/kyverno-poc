@@ -1,0 +1,742 @@
+REQUIREMENT.TXT
+Sources used:
+1. Call transcript - Deepankar Sharma & Ramesh Kanna
+2. YouTrack ticket "Use Kyverno as the cluster policy engine" (created by Deepankar Sharma)
+3. Gemini chat PDF #1 - "Triggering Jobs via Kyverno Policies"
+4. Gemini chat PDF #2 - Kyverno research (boilerplate reduction, injection ordering,
+   security posture, resource sizing, CronJob handling, Helm diff noise)
+
+Extraction rule: exact statements / exact YAML from sources only. Nothing invented.
+Where a source gives an EXAMPLE (not a final mandated implementation), it is marked
+as "REFERENCE / EXAMPLE FROM RESEARCH", not as a hard requirement.
+
+============================================================
+1. TICKET STATEMENT (source: YouTrack ticket, verbatim intent)
+============================================================
+
+Ticket title: "Use Kyverno as the cluster policy engine"
+
+Ticket's stated ask (exact):
+"Using Kyverno, apply the cluster policies so that each component listed
+here can be reducted to 1 annotation for each component."
+
+Ticket states the current deployment file is bloated with boilerplate,
+and lists the CURRENT deployment manifest (Vizkit) as the base case to
+reduce. This manifest is reproduced below exactly as given in the ticket.
+
+------------------------------------------------------------
+1.1 CURRENT DEPLOYMENT MANIFEST (as given in ticket, Vizkit example)
+------------------------------------------------------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-server
+  labels:
+    app: {{ $.Release.Name }}-server
+  annotations:
+    smaitic.com/component-owner-slack-handler: "{{ .Values.vizkit.owner | default .Values.defaultOwner }}"
+spec:
+  replicas: {{ .Values.vizkit.v1.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-server
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-server
+      annotations:
+        smaitic.com/component-owner-slack-handler: "{{ .Values.vizkit.owner | default .Values.defaultOwner }}"
+    spec:
+      nodeSelector:
+        {{ $.Values.node.selector.domain }}/role: {{ $.Values.node.selector.value }}
+      tolerations:
+      - effect: NoSchedule
+        key: {{ $.Values.node.selector.domain }}/reserved-for
+        value: {{ $.Values.node.selector.value }}
+        operator: Equal
+      securityContext:
+        fsGroup: 65534
+      serviceAccountName: standard-application
+      containers:
+        - name: vizkit-server
+          imagePullPolicy: Always
+          image: "{{ $.Values.imageRegistry }}/vizkit:{{ $.Values.vizkit.v1.version }}"
+          command:
+            - "/scripts/app_launcher.sh"
+            - "java"
+          args:
+            - -Xms256m
+            - -Xmx1024m
+            - -jar
+            - /app/vizkit.jar
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: http
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+              readOnly: true
+            - name: init-scripts
+              mountPath: "/scripts"
+              readOnly: true
+            - name: tmp-volume
+              mountPath: "/tmp"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+      initContainers:
+        - name: secrets-parser
+          image: "{{ $.Values.imageRegistry }}/secrets-parser:{{ $.Values.secrets.parser.version }}"
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/raw-secrets"
+              readOnly: true
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+            - name: init-scripts
+              mountPath: "/scripts"
+          command:
+            - "/scripts/init_parser.sh"
+      imagePullSecrets:
+        - name: nexus-image-pull
+        - name: nexus-snap-image-pull
+        - name: nexus-prod-image-pull
+      volumes:
+        {{- if $.Values.secrets.provider.enabled }}
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ $.Release.Name }}-server
+        {{- else }}
+        - name: secrets-store-inline
+          secret:
+            secretName: {{ $.Release.Name }}-server
+        {{- end }}
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Mi
+        - name: init-scripts
+          configMap:
+            name: init-scripts
+            defaultMode: 0755
+        - name: tmp-volume
+          emptyDir: {}
+
+------------------------------------------------------------
+1.2 BOILERPLATE BLOCKS EXPLICITLY IDENTIFIED IN TICKET AS REPEATED
+    ACROSS DEPLOYMENTS (target pieces to eliminate via annotation-
+    driven Kyverno policies)
+------------------------------------------------------------
+
+a) nodeSelector + tolerations block:
+      nodeSelector:
+        {{ $.Values.node.selector.domain }}/role: {{ $.Values.node.selector.value }}
+      tolerations:
+      - effect: NoSchedule
+        key: {{ $.Values.node.selector.domain }}/reserved-for
+        value: {{ $.Values.node.selector.value }}
+        operator: Equal
+
+b) command prefix:
+          command:
+            - "/scripts/app_launcher.sh"
+
+c) volumeMounts (shared-memory, init-scripts):
+          volumeMounts:
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+              readOnly: true
+            - name: init-scripts
+              mountPath: "/scripts"
+              readOnly: true
+
+d) resources block:
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+
+e) livenessProbe + readinessProbe block:
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 9988
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 10
+
+f) initContainers (secrets-parser):
+      initContainers:
+        - name: secrets-parser
+          image: "{{ $.Values.imageRegistry }}/secrets-parser:{{ $.Values.secrets.parser.version }}"
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/raw-secrets"
+              readOnly: true
+            - name: shared-memory
+              mountPath: "/mnt/shared"
+            - name: init-scripts
+              mountPath: "/scripts"
+          command:
+            - "/scripts/init_parser.sh"
+
+g) imagePullSecrets:
+      imagePullSecrets:
+        - name: nexus-image-pull
+        - name: nexus-snap-image-pull
+        - name: nexus-prod-image-pull
+
+h) volumes (secrets-store-inline via CSI or plain secret, shared-memory,
+   init-scripts):
+      volumes:
+        {{- if $.Values.secrets.provider.enabled }}
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ $.Release.Name }}-server
+        {{- else }}
+        - name: secrets-store-inline
+          secret:
+            secretName: {{ $.Release.Name }}-server
+        {{- end }}
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Mi
+        - name: init-scripts
+          configMap:
+            name: init-scripts
+            defaultMode: 0755
+
+============================================================
+2. REQUIREMENTS STATED IN GEMINI RESEARCH CHATS (attached to ticket)
+   These represent Deepankar's own stated requirements, phrased as
+   prompts to Gemini, plus the technical approach he reviewed and
+   accepted as correct. Included because they define exact behavior
+   expected of the Kyverno implementation.
+============================================================
+
+2.1 Requirement: reduce boilerplate via annotation-driven injection
+--------------------------------------------------------------
+Stated goal (exact, from Gemini chat #2, first prompt): manifest has
+"a lot of boiler-plate configuration which is common for almost all
+deployments running my clusters" and the ask was to evaluate moving
+this to annotation-driven injection instead of Helm templating.
+
+Originally considered: custom Kubernetes controller/operator with
+validation, mutation, and admission controller webhooks that "looks
+for certain annotations" and "adds the proper components just before
+creating the pod."
+
+Decision after research: rejected custom operator (too much
+maintenance overhead / cluster stability risk) in favor of Kyverno,
+which performs the same annotation-driven mutation without requiring
+a custom-built controller.
+
+2.2 Requirement: annotation must drive secrets injection
+--------------------------------------------------------------
+Stated requirement (Gemini chat #2, second prompt): "Can you show me
+an example of a Kyverno ClusterPolicy that injects the secrets
+initContainer and volume based on an annotation?"
+
+REFERENCE / EXAMPLE FROM RESEARCH - annotation key used in the
+reviewed example: smaitic.com/inject-secrets
+Example value pattern shown: smaitic.com/inject-secrets: "{{ $.Release.Name }}-server"
+
+Stated design point accepted: target Pod creation directly (not
+Deployment/StatefulSet/CronJob) so injection applies "regardless of
+whether the parent workload is a Deployment, StatefulSet, or CronJob."
+
+REFERENCE / EXAMPLE FROM RESEARCH - ClusterPolicy example reviewed
+and discussed (patchStrategicMerge form):
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: inject-secrets-parser
+  annotations:
+    policies.kyverno.io/title: Inject Secrets Parser and Volumes
+spec:
+  background: false
+  rules:
+    - name: inject-init-and-volumes
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                smaitic.com/inject-secrets: "?*"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            initContainers:
+              - name: secrets-parser
+                image: "nexus.domain.com/secrets-parser:latest"
+                command:
+                  - "/scripts/init_parser.sh"
+                volumeMounts:
+                  - name: secrets-store-inline
+                    mountPath: "/mnt/raw-secrets"
+                    readOnly: true
+                  - name: shared-memory
+                    mountPath: "/mnt/shared"
+                  - name: init-scripts
+                    mountPath: "/scripts"
+            volumes:
+              - name: secrets-store-inline
+                csi:
+                  driver: secrets-store.csi.k8s.io
+                  readOnly: true
+                  volumeAttributes:
+                    secretProviderClass: "{{ request.object.metadata.annotations.'smaitic.com/inject-secrets' }}"
+              - name: shared-memory
+                emptyDir:
+                  medium: Memory
+                  sizeLimit: 10Mi
+              - name: init-scripts
+                configMap:
+                  name: init-scripts
+                  defaultMode: 0755
+
+2.3 Requirement: init container ordering (explicit, non-negotiable per Deepankar)
+--------------------------------------------------------------
+Stated requirement (exact, Gemini chat #2, third prompt): "The
+requirement that i have is that the init container must not be
+appended at the end, rather it should be the first one."
+
+Also stated in same prompt: "by default, the pod specs' command will
+start directly with [\"java\"...]. I want to add
+\"/scripts/app_launcher.sh\" at the beginning of the command making
+it [\"/scripts/app_launcher.sh\", \"java\",...]"
+
+Also stated in same prompt: "I also need a validation that each pod
+spec which is annotated for such injections must have explicit
+command defined."
+
+This gives THREE explicit sub-requirements:
+  i.   secrets-parser init container must be inserted at position 0
+       (first), not appended to the end of the initContainers array.
+  ii.  "/scripts/app_launcher.sh" must be prepended to the container's
+       command array (position 0), preserving the rest of the command
+       (e.g. "java" stays after it).
+  iii. A validation rule must exist: any Pod carrying the injection
+       annotation MUST have an explicit, non-empty command defined on
+       its first container. If not, the Pod must be denied.
+
+Stated technical reasoning accepted from research: Kubernetes
+Strategic Merge Patch cannot prepend to an array (it either replaces
+primitive lists entirely or appends to object lists) - therefore JSON
+Patch (RFC 6902) with path ending in "/0" must be used to force
+insertion at index 0.
+
+REFERENCE / EXAMPLE FROM RESEARCH - the reviewed 5-rule ClusterPolicy
+structure covering all three sub-requirements together:
+  Rule 1 "require-explicit-command": deny rule using JMESPath length
+    check on request.object.spec.containers[0].command to enforce
+    sub-requirement (iii).
+  Rule 2 "prepend-command": patchesJson6902 with
+    path "/spec/containers/0/command/0" to insert
+    "/scripts/app_launcher.sh" at index 0, for sub-requirement (ii).
+  Rule 3 "inject-volumes": patchStrategicMerge injecting the
+    volumeMounts/volumes (same as 2.2), applied to all containers via
+    "- (name): \"?*\"".
+  Rule 4 "create-init-containers-array": patchStrategicMerge that
+    creates the initContainers array with secrets-parser as sole
+    entry, ONLY when no initContainers array exists yet (precondition:
+    length(initContainers) == 0).
+  Rule 5 "prepend-init-container": patchesJson6902 with
+    path "/spec/initContainers/0" to insert secrets-parser at index 0,
+    ONLY when initContainers already has entries (precondition:
+    length(initContainers) > 0) - this is for sub-requirement (i).
+
+Stated reasoning for split (Rule 4 vs Rule 5): JSON Patch hard-fails
+if you try to index into an array that does not exist yet, so the
+"does an initContainers array already exist" case must be handled
+separately from the "array already has items" case.
+
+2.4 Requirement: security posture verification (stated as a decision gate)
+--------------------------------------------------------------
+Stated question (exact): "is kyverno open-source? and how does the
+security posture looks like?"
+
+Findings accepted as satisfying this gate:
+  - Kyverno is 100% open-source, Apache 2.0 license, written in Go.
+  - CNCF Graduated status (stated as reached March 2026).
+  - SLSA Level 3 build compliance.
+  - Images/Helm charts/manifests are signed keylessly via Cosign
+    (Sigstore).
+  - Subject to independent third-party CNCF-sponsored security audits
+    (most notably a 2023 audit).
+  - Integrated into OSS-Fuzz; continuous fuzz testing.
+  - Completed joint threat modeling with CNCF TAG Security.
+  - Kyverno's own pods run under Kubernetes Pod Security Standards
+    "Restricted" profile: non-root, all capabilities dropped,
+    read-only root filesystem, privilege escalation denied.
+  - Failure mode must be explicitly configured via failurePolicy:
+      * Fail (Fail Closed): blocks new pod creation if Kyverno is down
+        - more secure, risks cluster-wide deployment outage.
+      * Ignore (Fail Open): allows pods through unchecked if Kyverno
+        is down - keeps availability, risks bypass of policies.
+    NOTE: which failurePolicy value to actually use was NOT decided in
+    this research chat or the transcript - identified as a trade-off
+    to be chosen, not finalized.
+
+2.5 Requirement: resource sizing verification (stated as a decision gate)
+--------------------------------------------------------------
+Stated question (exact): "What are the total resource requirements
+for Kyverno? How much CPU and memory is required?"
+
+Findings noted:
+  - Default Helm chart allocation: Main controller 100m CPU request /
+    no CPU limit / 128Mi memory request / 384Mi memory limit. Init
+    container: 10m CPU request / 100m CPU limit / 64Mi memory request
+    / 256Mi memory limit.
+  - Stated as generally insufficient for production; production
+    sizing guideline given: CPU request 500m-1000m with no CPU limit
+    (to avoid throttling during API spikes); memory request 512Mi,
+    limit 1Gi-2Gi.
+  - Resource consumption drivers flagged: wildcard resource matching
+    (matching "*"), generate rules with synchronization enabled,
+    background scanning at scale, and rules that make external REST/K8s
+    API calls during evaluation.
+  - NOTE: no specific final CPU/memory values were confirmed/committed
+    to for this deployment in the transcript or chats - only the
+    production sizing guideline above was surfaced as reference.
+
+2.6 Requirement: CronJob compatibility (explicit operational need)
+--------------------------------------------------------------
+Stated question (exact): "The cluster will run a lot of cronjobs as
+well, some with */15 and a few with */3 minutes frequency. Will
+Kyverno be able to patch all such resources?"
+
+Key finding accepted: Kyverno's auto-gen feature (which normally lets
+a Pod-level rule automatically apply to parent Deployment/StatefulSet/
+CronJob controllers) does NOT support patchesJson6902 - JSON Patch
+paths are too rigid to auto-translate to a CronJob's nested schema.
+Therefore, for policies using patchesJson6902 (i.e. the init-container-
+prepend and command-prepend rules), Kyverno will mutate every
+individual Pod spawned by the CronJob, at the moment each Pod is
+created - not the CronJob template itself, once.
+
+Stated implication accepted: with 100 CronJobs running every 3
+minutes, this is ~33 admission webhook requests per minute - stated
+as "negligible" load; a properly resourced Kyverno deployment (cited
+example: 2 replicas, 1Gi memory, burstable CPU) is stated to handle
+"thousands of webhook requests per minute easily."
+
+Three safeguards stated as required for this scenario:
+  i.   Keep background: false at the policy level (to avoid Kyverno
+       generating compliance-scan reports for short-lived CronJob
+       pods, which causes DB churn).
+  ii.  Scope the match block tightly to the specific annotation
+       (smaitic.com/inject-secrets: "?*") and Pod kind - never use
+       unscoped wildcard matching in a high-churn environment.
+  iii. Over-provision Kyverno CPU (500m-1000m requested, no CPU
+       limit set) so it can absorb "thundering herd" bursts when many
+       CronJobs fire on the same schedule tick.
+
+2.7 Requirement: no noise in helmfile/helm diff during regular releases
+--------------------------------------------------------------
+Stated question (exact): "If I target cronjob directly, how will helm
+diff react to it? During helmfile release, I don't want these changes
+to flag, because they will cause unnecessary noise during regular
+release."
+
+Finding accepted: if Kyverno mutates the CronJob resource directly,
+helm diff WILL flag it on every release (Helm compares local chart
+state vs live cluster state, sees Kyverno's injected fields as drift,
+and will attempt to revert them - creating a "perpetual tug-of-war"
+between Helm and Kyverno).
+
+Decision accepted: mutate at the POD level only, never the parent
+CronJob/Deployment resource directly. This keeps the CronJob/
+Deployment resource in the cluster identical to the local Helm chart
+at all times, so helm diff / helmfile diff shows no changes for
+Kyverno-injected fields. The mutation happens only at the moment the
+CronJob/Deployment's controller creates a new Pod - invisible to Helm.
+
+Explicitly noted limitation (not a requirement, a caveat surfaced by
+research): if Pod-level webhook interception is ever found
+unacceptable in the future, Kyverno is stated to be "the wrong tool
+for this specific job" for that scenario, since Helmfile itself has no
+mechanism (unlike ArgoCD's ignoreDifferences) to ignore specific
+nested fields in a diff. This was NOT chosen as the path - pod-level
+mutation was the accepted decision.
+
+============================================================
+3. REQUIREMENT STATED IN GEMINI CHAT #1 - JOB TRIGGERING ON DEPLOYMENT CHANGE
+============================================================
+
+Stated question (exact): "can kyverno run a kubernetes job when a
+deployment file changes?"
+
+Finding accepted: Yes, via a Kyverno generate rule, triggered on
+UPDATE operations against a Deployment, using preconditions to scope
+the trigger to only fire when the container image actually changes
+(comparing request.object vs request.oldObject).
+
+REFERENCE / EXAMPLE FROM RESEARCH - ClusterPolicy example reviewed:
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: trigger-job-on-deployment-update
+spec:
+  rules:
+    - name: generate-job-on-image-change
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+              operations:
+                - UPDATE
+      preconditions:
+        any:
+          - key: "{{ request.object.spec.template.spec.containers[0].image }}"
+            operator: NotEquals
+            value: "{{ request.oldObject.spec.template.spec.containers[0].image }}"
+      generate:
+        name: "hook-{{request.object.metadata.name}}-{{request.object.metadata.generation}}"
+        namespace: "{{request.namespace}}"
+        synchronize: false
+        data:
+          kind: Job
+          apiVersion: batch/v1
+          metadata:
+            labels:
+              triggered-by: "{{request.object.metadata.name}}"
+          spec:
+            template:
+              spec:
+                containers:
+                  - name: task
+                    image: curlimages/curl
+                    command: ["curl", "-X", "POST", "http://my-webhook.svc/sync"]
+                restartPolicy: Never
+
+Key considerations noted from this research (stated as must-follow
+constraints if this generate-rule pattern is used):
+  - Job names must be unique per update (e.g. using
+    {{request.object.metadata.generation}} or a random suffix), since
+    Kubernetes Jobs are largely immutable and a static name will fail
+    on the second update.
+  - preconditions must scope the trigger to only the exact field(s)
+    that matter (e.g. image), otherwise ANY metadata/status change on
+    the Deployment will fire the Job.
+  - synchronize: false must be set so Kyverno does not try to keep the
+    generated Job in sync with the policy (fire-and-forget only) -
+    this prevents Kyverno from deleting the Job mid-run or reverting
+    its status.
+  - Kyverno's background controller ServiceAccount needs explicit RBAC
+    (ClusterRole/ClusterRoleBinding) to create/update/delete batch/v1
+    Job resources, since it does not have this by default.
+
+This Job-triggering requirement corresponds directly to the original
+Helm-hooks problem discussed on the call (Section 4 below) - i.e. this
+is the Kyverno-based mechanism intended to replace the Helm post-
+upgrade hook + Job + hash-code approach that was dropped.
+
+============================================================
+4. REQUIREMENT / CONTEXT STATED ON CALL (transcript, cross-referenced)
+============================================================
+
+4.1 Why Helm hooks were dropped (stated reasoning, included here for
+    full context):
+  - The Helm post-upgrade hook + Job always ran on every release,
+    regardless of whether that specific component actually changed -
+    violating the agreed rule: "if there is no release to be done for
+    that particular component, the job should not trigger."
+  - This caused unwanted Shopify extension releases on every Helm
+    release, even for unrelated changes (e.g. UI/docs). Shopify audits
+    every release; a release with no real diff risks being flagged,
+    and creates version fragmentation / inconsistent UX across shops.
+  - Considered workaround (custom scripts to detect "job executed" vs
+    "should actually release") was rejected as unnecessary overhead.
+  - Decision: drop Helm hooks route, document the reasoning in the
+    ticket, move to Kyverno instead.
+
+4.2 Task assignment (stated on call):
+  - Ramesh to deploy the Kyverno controller.
+  - Prove, using ONLY annotations on the deployment/pod spec, that
+    Kyverno reproduces current Helm-driven behavior:
+      a. Secret Provider Classes continue to be created via Helm (not
+         Kyverno).
+      b. Kyverno injects the init container (secrets-parser / app
+         launcher) and required volume mounts.
+      c. Init container must be placed at index 0, not appended -
+         confirmed identical to Section 2.3(i) above.
+      d. A separate annotation must control node placement/selection.
+      e. Resource management (CPU/memory limits & requests) must be
+         settable via annotation.
+  - End goal (stated exactly): the resulting pod spec/YAML on the
+    cluster, produced via Kyverno + annotations, must be the EXACT
+    SAME YAML currently produced via Helm boilerplate.
+  - Kyverno must target changes precisely (e.g. trigger only on image
+    change for a deployment, not on any/every change).
+  - Mutation must happen at POD level, not by directly mutating the
+    CronJob - confirmed identical to Section 2.7 above.
+  - Must support existing CronJob load: some run every 15 minutes,
+    some every 3 minutes - confirmed identical to Section 2.6 above.
+
+4.3 Timeline (stated on call):
+  - POC deadline: Thursday.
+  - Scope for Thursday: POC only - deploy Kyverno controller, prove
+    annotation-based behavior above.
+  - After POC: individual component migrations begin, starting with
+    "Whiskit" (also referred to as Vizkit in the ticket/PDF manifest -
+    NOTE: transcript audio rendered this name inconsistently as
+    "Whiskit"/"Viskit"; ticket and PDFs consistently spell it
+    "vizkit" in code. Not resolved which spelling is canonical -
+    flagged, not assumed).
+  - Ad hoc support available from Deepankar before the deadline.
+
+============================================================
+5. CONSOLIDATED REQUIREMENT LIST (deduplicated, all sources combined)
+============================================================
+
+R1. Deploy the Kyverno controller (ClusterPolicy engine) into the
+    cluster.
+
+R2. Each component's deployment manifest must be reducible to using
+    annotations only, replacing today's repeated boilerplate blocks
+    listed in Section 1.2 (nodeSelector/tolerations, command prefix,
+    volumeMounts, resources, liveness/readiness probes, initContainers,
+    imagePullSecrets, volumes).
+
+R3. Secret Provider Class resources continue to be created via Helm
+    (not by Kyverno).
+
+R4. Kyverno must inject, via annotation:
+      - the secrets-parser init container
+      - required volume mounts (shared-memory, init-scripts,
+        secrets-store-inline)
+      - the app-launcher command prefix
+      - node selector / placement
+      - CPU/memory resource requests and limits
+
+R5. The secrets-parser init container MUST be inserted at index 0 of
+    the initContainers array - never appended at the end. (Reason: it
+    must run first so its output - secrets converted to environment
+    variables - is available to any subsequent init container.)
+
+R6. "/scripts/app_launcher.sh" MUST be prepended (index 0) to the main
+    container's command array, preserving the remainder of the command
+    (e.g. "java" follows it).
+
+R7. A validation rule MUST deny any Pod that carries the injection
+    annotation but does not have an explicit, non-empty command
+    defined on its first container.
+
+R8. The final rendered Pod spec/YAML produced via Kyverno + annotations
+    must be identical to what Helm currently produces via full
+    boilerplate templating (structure and values equivalent).
+
+R9. Kyverno must be able to trigger a Job when a Deployment's image
+    changes specifically (not on any/every change) - this is the
+    Kyverno-based replacement for the dropped Helm post-upgrade hook
+    mechanism.
+
+R10. All Kyverno mutation of CronJob-driven workloads must happen at
+     the POD level, never by mutating the CronJob resource directly -
+     required so helm diff/helmfile diff stays clean and shows no
+     noise on regular releases.
+
+R11. Kyverno must correctly and reliably handle the existing CronJob
+     schedule load (some every 15 minutes, some every 3 minutes)
+     without degrading cluster stability, using the three safeguards
+     from Section 2.6 (background: false, tightly scoped match block,
+     over-provisioned CPU with no CPU limit).
+
+R12. Kyverno's failurePolicy (Fail vs Ignore) must be explicitly
+     configured - decision on which value NOT yet finalized (open
+     item, see Section 6).
+
+R13. Kyverno must be open-source and meet the security bar already
+     verified in research (CNCF Graduated, SLSA 3, Cosign-signed
+     artifacts, independent audits, OSS-Fuzz integration, Restricted
+     Pod Security Standard compliance) - this is a satisfied
+     precondition, not a pending task.
+
+============================================================
+6. OPEN ITEMS - NOT DECIDED / NOT STATED (explicitly excluded from
+   requirements, flagged instead of assumed)
+============================================================
+
+- Final failurePolicy value (Fail vs Ignore) - not chosen yet.
+- Final CPU/memory request/limit values for the Kyverno deployment in
+  this cluster - only general production guidance was reviewed
+  (500m-1000m CPU request, no CPU limit; 512Mi request / 1Gi-2Gi
+  limit memory), nothing confirmed as final.
+- Exact final annotation key names to be used in this implementation -
+  "smaitic.com/inject-secrets" appears only in the Gemini EXAMPLE
+  policy, not confirmed on the call as the final key name to use.
+  Separate annotations for node placement and resource sizing are
+  required (R4) but their exact key names were not stated anywhere.
+  (smaitic.com/component-owner-slack-handler already exists in the
+  current manifest per the ticket - not a new requirement, listed
+  for context only.)
+- Whether the Job-triggering generate rule (Section 3) is scoped
+  per-component or cluster-wide was not stated.
+- RBAC grant specifics (exact ClusterRole/ClusterRoleBinding content)
+  for Kyverno's background controller to manage Job resources - noted
+  as required, but no concrete manifest was reviewed or approved.
+- Canonical spelling/identity of the first migration component
+  ("Whiskit" spoken on call vs "vizkit" in ticket/PDF code) - not
+  resolved.
