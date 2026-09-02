@@ -1,5 +1,5 @@
 apiVersion: v2
-name: kyverno-policy-test-app
+name: workloads
 description: Helm Chart for Kyverno Governance Policy Test Workloads
 type: application
 version: 1.0.0

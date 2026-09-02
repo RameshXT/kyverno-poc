@@ -2,8 +2,13 @@ environments:
   minikube: {}
 ---
 releases:
-  - name: kyverno-policy-test-app
+  # Release 1: Kyverno ClusterPolicies
+  - name: kyverno-policies
+    chart: ./helm-charts/kyverno-policies
+
+  # Release 2: Application Workloads
+  - name: workloads
     namespace: policy
-    chart: ./helm-charts/kyverno-policy-test-app
+    chart: ./helm-charts/workloads
     values:
       - ./override.yaml

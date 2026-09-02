@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: inject-node-placement
+  annotations:
+    policies.kyverno.io/title: "Inject Node Placement (nodeSelector and Toleration)"
+    policies.kyverno.io/category: "Pod Placement"
+    policies.kyverno.io/subject: "Pod, nodeSelector, Toleration"
+spec:
+  background: false
+  rules:
+    - name: inject-node-placement
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                {{ .Values.annotationKey }}: "?*"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            nodeSelector:
+              dummy.smaitic.com/role: poc-worker
+            tolerations:
+              - key: dummy.smaitic.com/reserved-for
+                value: poc-worker
+                effect: NoSchedule
+                operator: Equal

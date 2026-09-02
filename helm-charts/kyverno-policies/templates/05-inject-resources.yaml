@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: inject-resources
+  annotations:
+    policies.kyverno.io/title: "Inject Default CPU and Memory Resources"
+    policies.kyverno.io/category: "Resource Management"
+    policies.kyverno.io/subject: "Pod, Container, Resources"
+spec:
+  background: false
+  rules:
+    - name: inject-resources
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                {{ .Values.annotationKey }}: "?*"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            containers:
+              - (name): "*"
+                resources:
+                  requests:
+                    cpu: "100m"
+                    memory: "256Mi"
+                  limits:
+                    cpu: "500m"
+                    memory: "512Mi"

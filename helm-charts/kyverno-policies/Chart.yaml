@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kyverno-policies
+description: Helm Chart packaging all Kyverno ClusterPolicies for Governance & Security
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
