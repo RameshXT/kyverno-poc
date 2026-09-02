@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-command-defined
+  annotations:
+    policies.kyverno.io/title: "Validate Command Defined"
+    policies.kyverno.io/category: "Secrets Management"
+    policies.kyverno.io/subject: "Pod"
+spec:
+  background: false
+  validationFailureAction: Enforce
+  rules:
+    - name: require-command-on-annotated-pods
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                smaitic.com/inject-secrets-poc: "?*"
+      validate:
+        message: "Pods annotated with smaitic.com/inject-secrets-poc must define a command on the first container."
+        deny:
+          conditions:
+            any:
+              - key: "command"
+                operator: AnyNotIn
+                value: "{{ request.object.spec.containers[0] | keys(@) }}"
