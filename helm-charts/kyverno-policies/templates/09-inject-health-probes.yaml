@@ -1,0 +1,74 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: inject-health-probes
+  annotations:
+    policies.kyverno.io/title: "Inject Liveness and Readiness Probes"
+    policies.kyverno.io/category: "Workload Management"
+    policies.kyverno.io/subject: "Pod, Container"
+spec:
+  background: false
+  rules:
+    # Rule 1: Backend apps (Java/JS) — port 9988, actuator endpoints
+    - name: inject-probes-backend
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                {{ .Values.annotationKey }}: "?*"
+                smaitic.com/health-config: "backend"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            containers:
+              - (name): "*"
+                livenessProbe:
+                  httpGet:
+                    path: "/actuator/health/liveness"
+                    port: 9988
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  failureThreshold: 3
+                  timeoutSeconds: 10
+                readinessProbe:
+                  httpGet:
+                    path: "/actuator/health/readiness"
+                    port: 9988
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  failureThreshold: 3
+                  timeoutSeconds: 10
+
+    # Rule 2: Frontend apps (Nginx) — port 8080, root endpoint
+    - name: inject-probes-frontend
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                {{ .Values.annotationKey }}: "?*"
+                smaitic.com/health-config: "frontend"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            containers:
+              - (name): "*"
+                livenessProbe:
+                  httpGet:
+                    path: "/"
+                    port: 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  failureThreshold: 3
+                  timeoutSeconds: 10
+                readinessProbe:
+                  httpGet:
+                    path: "/"
+                    port: 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  failureThreshold: 3
+                  timeoutSeconds: 10

@@ -1,0 +1,359 @@
+Deepankar Sharma
+1 291:29
+Deepankar Sharma 1 minute 29 seconds
+Hey, Ramesh, good evening.
+
+Ramesh Kanna
+1 321:32
+Ramesh Kanna 1 minute 32 seconds
+Hi, Deepankar.
+Ramesh Kanna 1 minute 35 seconds
+So...
+Ramesh Kanna 1 minute 37 seconds
+Can you hear me?
+
+Deepankar Sharma
+1 381:38
+Deepankar Sharma 1 minute 38 seconds
+Yeah, yeah, good.
+
+Ramesh Kanna
+1 391:39
+Ramesh Kanna 1 minute 39 seconds
+Okay, so just from the morning I was exploring the Kyverno and also I did the small thing like when we're creating the pod, is it like using the annotation? Is it injecting from the boilerplate from the cluster policy and all?
+Ramesh Kanna 1 minute 58 seconds
+I did that task for like using the rummy pod. I did that and.
+Ramesh Kanna 2 minutes 5 seconds
+So I also started with the...
+Ramesh Kanna 2 minutes 10 seconds
+Things like compared to the like our organisation chat, I'm just replicating to local and I'm doing and started doing like how init script we using same like.
+
+Deepankar Sharma
+2 minutes 26 seconds2:26
+Deepankar Sharma 2 minutes 26 seconds
+Got it. Can you also prepare? Yes, sorry, go ahead.
+
+Ramesh Kanna
+2 minutes 27 seconds2:27
+Ramesh Kanna 2 minutes 27 seconds
+Yeah, so.
+Ramesh Kanna 2 minutes 30 seconds
+Yeah, tell me, tell me. I will note it down.
+
+Deepankar Sharma
+2 minutes 32 seconds2:32
+Deepankar Sharma 2 minutes 32 seconds
+Can you also prepare a document, right, which we can use for our internal references, which will tell us what are the annotations we are supporting, what will be the structure and all that.
+
+Ramesh Kanna
+2 minutes 35 seconds2:35
+Ramesh Kanna 2 minutes 35 seconds
+Mhm.
+Ramesh Kanna 2 minutes 39 seconds
+Okay.
+Ramesh Kanna 2 minutes 45 seconds
+Okay, yeah, I will be creating.
+
+Deepankar Sharma
+2 minutes 47 seconds2:47
+Deepankar Sharma 2 minutes 47 seconds
+Okay, because you will see some of these boilerplate components.
+
+Ramesh Kanna
+2 minutes 53 seconds2:53
+Ramesh Kanna 2 minutes 53 seconds
+Mm.
+
+Deepankar Sharma
+2 minutes 54 seconds2:54
+Deepankar Sharma 2 minutes 54 seconds
+will go under one annotation only, right, like the secret provider class.
+
+Ramesh Kanna
+2 minutes 58 seconds2:58
+Ramesh Kanna 2 minutes 58 seconds
+Okay.
+
+Deepankar Sharma
+2 minutes 59 seconds2:59
+Deepankar Sharma 2 minutes 59 seconds
+Okay, and then there will be different cases wherein the node selector will also go under one annotation only. Node selector and the toleration, right? Then there will be resources. How do you want to?
+
+Ramesh Kanna
+3 minutes 7 seconds3:07
+Ramesh Kanna 3 minutes 7 seconds
+Mhm.
+Ramesh Kanna 3 minutes 10 seconds
+Okay, okay.
+
+Deepankar Sharma
+3 minutes 15 seconds3:15
+Deepankar Sharma 3 minutes 15 seconds
+apply the resources, the limit, the request and all that through annotation only we want to control.
+
+Ramesh Kanna
+3 minutes 21 seconds3:21
+Ramesh Kanna 3 minutes 21 seconds
+Yeah.
+
+Deepankar Sharma
+3 minutes 22 seconds3:22
+Deepankar Sharma 3 minutes 22 seconds
+Finally, we will have, you know, the readiness liveliness, right? So one will be the, yeah, default default way, wherein it will always be 9988. The port will be, sorry, port will be 9988, the path will be actuator slash.
+
+Ramesh Kanna
+3 minutes 28 seconds3:28
+Ramesh Kanna 3 minutes 28 seconds
+Props.
+Ramesh Kanna 3 minutes 30 seconds
+Mm.
+Ramesh Kanna 3 minutes 33 seconds
+Yeah.
+Ramesh Kanna 3 minutes 36 seconds
+Oh.
+
+Deepankar Sharma
+3 minutes 41 seconds3:41
+Deepankar Sharma 3 minutes 41 seconds
+health slash liveliness, readiness and all that, right? But on the contrary, we would also want to set a different this thing.
+
+Ramesh Kanna
+3 minutes 44 seconds3:44
+Ramesh Kanna 3 minutes 44 seconds
+Okay.
+Ramesh Kanna 3 minutes 54 seconds
+Different.
+
+Deepankar Sharma
+3 minutes 55 seconds3:55
+Deepankar Sharma 3 minutes 55 seconds
+different port, different health endpoint, because I have created a shared library which will be imported into JavaScript and Java projects, server only, right? But then there are front end projects like Nginx.
+
+Ramesh Kanna
+3 minutes 58 seconds3:58
+Ramesh Kanna 3 minutes 58 seconds
+Okay.
+Ramesh Kanna 4 minutes 2 seconds
+Mhm.
+Ramesh Kanna 4 minutes 8 seconds
+Yeah.
+Ramesh Kanna 4 minutes 12 seconds
+Mhm.
+
+Deepankar Sharma
+4 minutes 12 seconds4:12
+Deepankar Sharma 4 minutes 12 seconds
+we can't do anything over there, right? It does not have a back end server which we can apply an actuator endpoint to, right? So in that particular case, the port is going to be 8080, the health endpoint is going to be slash health or it will be the root itself slash and all, right?
+
+Ramesh Kanna
+4 minutes 17 seconds4:17
+Ramesh Kanna 4 minutes 17 seconds
+Okay.
+Ramesh Kanna 4 minutes 28 seconds
+Okay.
+Ramesh Kanna 4 minutes 30 seconds
+Understood.
+
+Deepankar Sharma
+4 minutes 32 seconds4:32
+Deepankar Sharma 4 minutes 32 seconds
+So all those things, if they can be just annotated, because annotation is very easy to read.
+
+Ramesh Kanna
+4 minutes 32 seconds4:32
+Ramesh Kanna 4 minutes 32 seconds
+Yeah.
+Ramesh Kanna 4 minutes 38 seconds
+Correct, correct.
+
+Deepankar Sharma
+4 minutes 39 seconds4:39
+Deepankar Sharma 4 minutes 39 seconds
+Right, it will say smatic.com health configuration is equal to this and I know that you know if it is this, it will be applying this, this, this, this, this configuration, right? On the contrary, I will have to go and open the pod spec or something else. So that is basically the intention.
+
+Ramesh Kanna
+4 minutes 43 seconds4:43
+Ramesh Kanna 4 minutes 43 seconds
+Mm.
+Ramesh Kanna 4 minutes 49 seconds
+Got it, understood.
+Ramesh Kanna 4 minutes 57 seconds
+Okay.
+Ramesh Kanna 4 minutes 59 seconds
+Okay, got it. And also like we need to do the like.
+Ramesh Kanna 5 minutes 9 seconds
+So do I need to do the real deployment with the Viskit on the cluster?
+
+Deepankar Sharma
+5 minutes 15 seconds5:15
+Deepankar Sharma 5 minutes 15 seconds
+No, it was just an example. You don't really need to.
+
+Ramesh Kanna
+5 minutes 19 seconds5:19
+Ramesh Kanna 5 minutes 19 seconds
+Okay, so actually you have mentioned like we need to do, yeah, starting point. So that's why I'm asking, like can I create a separate namespace in the cluster and doing the POC on there? Not now. Once I did the POC in local.
+
+Deepankar Sharma
+5 minutes 23 seconds5:23
+Deepankar Sharma 5 minutes 23 seconds
+Viskit is the starting point, right? Yeah.
+Deepankar Sharma 5 minutes 35 seconds
+Yeah, first thing would be for us to see the POC on your local, right? Then for deploying it even on the staging, we need the Helm chart of Kyverno.
+
+Ramesh Kanna
+5 minutes 41 seconds5:41
+Ramesh Kanna 5 minutes 41 seconds
+Mhm.
+Ramesh Kanna 5 minutes 42 seconds
+Okay.
+Ramesh Kanna 5 minutes 48 seconds
+Correct.
+
+Deepankar Sharma
+5 minutes 48 seconds5:48
+Deepankar Sharma 5 minutes 48 seconds
+that how are we going to install Kyberno on staging environment, right? Stage is no different than production. Just because we call it stage does not mean it is our playground with where we can do anything we want, right? So your local will be that playground. You try those things out locally.
+
+Ramesh Kanna
+5 minutes 53 seconds5:53
+Ramesh Kanna 5 minutes 53 seconds
+Mhm.
+Ramesh Kanna 6 minutes
+Okay, yeah, I understood. Yeah.
+Ramesh Kanna 6 minutes 7 seconds
+Whatever, yeah.
+
+Deepankar Sharma
+6 minutes 8 seconds6:08
+Deepankar Sharma 6 minutes 8 seconds
+Yeah.
+Deepankar Sharma 6 minutes 9 seconds
+And then we finally, you know, come to this.
+
+Ramesh Kanna
+6 minutes 13 seconds6:13
+Ramesh Kanna 6 minutes 13 seconds
+Stage.
+
+Deepankar Sharma
+6 minutes 14 seconds6:14
+Deepankar Sharma 6 minutes 14 seconds
+Yeah.
+
+Ramesh Kanna
+6 minutes 15 seconds6:15
+Ramesh Kanna 6 minutes 15 seconds
+Yeah, got it.
+Ramesh Kanna 6 minutes 17 seconds
+OK, yeah, that's it.
+
+Deepankar Sharma
+6 minutes 19 seconds6:19
+Deepankar Sharma 6 minutes 19 seconds
+Okay, sounds good.
+
+Ramesh Kanna
+6 minutes 21 seconds6:21
+Ramesh Kanna 6 minutes 21 seconds
+Yeah.
+Ramesh Kanna 6 minutes 26 seconds
+Then I will be, then I will start creating documents for each.
+
+Deepankar Sharma
+6 minutes 32 seconds6:32
+Deepankar Sharma 6 minutes 32 seconds
+Yeah.
+
+Ramesh Kanna
+6 minutes 33 seconds6:33
+Ramesh Kanna 6 minutes 33 seconds
+Yeah.
+Deepankar Sharma
+6 minutes 34 seconds6:34
+Deepankar Sharma 6 minutes 34 seconds
+I mean, it's just a reference document, right? You don't have to create a document for each one of those per se.
+
+Ramesh Kanna
+6 minutes 37 seconds6:37
+Ramesh Kanna 6 minutes 37 seconds
+Yeah.
+Ramesh Kanna 6 minutes 42 seconds
+Mhm.
+
+Deepankar Sharma
+6 minutes 42 seconds6:42
+Deepankar Sharma 6 minutes 42 seconds
+just create a reference that these are the annotations which I'm going to create and this annotation will do. Yeah, exactly.
+
+Ramesh Kanna
+6 minutes 48 seconds6:48
+Ramesh Kanna 6 minutes 48 seconds
+For this use case, yeah, yeah, yeah, I got it.
+Ramesh Kanna 6 minutes 54 seconds
+And also I need to cheque each and everything like the you mentioned like we need to place the script like init script should be run in the first like that those big.
+
+Deepankar Sharma
+6 minutes 55 seconds6:55
+Deepankar Sharma 6 minutes 55 seconds
+All right.
+Deepankar Sharma 7 minutes 6 seconds
+All those were provided as an example in the PDF that I attached, right?
+
+Ramesh Kanna
+7 minutes 10 seconds7:10
+Ramesh Kanna 7 minutes 10 seconds
+Yeah, yeah, that I need to test it.
+
+Deepankar Sharma
+7 minutes 13 seconds7:13
+Deepankar Sharma 7 minutes 13 seconds
+Yeah.
+
+Ramesh Kanna
+7 minutes 14 seconds7:14
+Ramesh Kanna 7 minutes 14 seconds
+Yeah, that's it for now.
+
+Deepankar Sharma
+7 minutes 17 seconds7:17
+Deepankar Sharma 7 minutes 17 seconds
+Okay.
+
+Ramesh Kanna
+7 minutes 18 seconds7:18
+Ramesh Kanna 7 minutes 18 seconds
+Yeah.
+
+Deepankar Sharma
+7 minutes 22 seconds7:22
+Deepankar Sharma 7 minutes 22 seconds
+All right, sounds good then. Let me know if you need anything. We can connect on ad hoc basis and resolve it at the earliest. I have set up the meeting for Thursday, so be.
+
+Ramesh Kanna
+7 minutes 24 seconds7:24
+Ramesh Kanna 7 minutes 24 seconds
+Okay.
+Ramesh Kanna 7 minutes 26 seconds
+Okay, okay, Deepankar.
+Ramesh Kanna 7 minutes 30 seconds
+Mhm.
+Ramesh Kanna 7 minutes 34 seconds
+Yeah, I have seen that.
+
+Deepankar Sharma
+7 minutes 37 seconds7:37
+Deepankar Sharma 7 minutes 37 seconds
+All right.
+Deepankar Sharma 7 minutes 39 seconds
+Thanks, Ramesh.
+
+Ramesh Kanna
+7 minutes 39 seconds7:39
+Ramesh Kanna 7 minutes 39 seconds
+Okay, okay. Thank you, Deepankar. Yeah.
+
+Deepankar Sharma
+7 minutes 41 seconds7:41
+Deepankar Sharma 7 minutes 41 seconds
+Have a good day, bye.

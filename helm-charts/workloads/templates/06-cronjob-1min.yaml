@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: poc-cronjob-1min
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{ .Values.annotationKey }}: "poc-cronjob-1min"
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            {{ .Values.annotationKey }}: "poc-cronjob-1min"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: cron-worker
+              image: {{ .Values.app.image }}
+              command: ["sleep", "3600"]
