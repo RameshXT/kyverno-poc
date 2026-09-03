@@ -351,14 +351,7 @@ kubectl label node minikube demo.smaitic.com/role- || true
 
 ### 1. Boilerplate vs Kyverno Spec Diff (Requirement R8 Proof)
 ```bash
-# Save boilerplate Helm rendered output (128 lines)
-helm template boilerplate-app helm-charts/boilerplate-app > output/live-helm.yaml
-
-# Save Kyverno live mutated Pod spec
-kubectl get pod demo-01-basic-injection -n policy -o yaml > output/live-kyverno.yaml
-
-# Compare side-by-side in VS Code
-code --diff output/live-helm.yaml output/live-kyverno.yaml
+helm template boilerplate-app helm-charts/boilerplate-app
 ```
 
 ### 2. Deploy Everything (Policies + Workloads)
