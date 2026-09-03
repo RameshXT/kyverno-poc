@@ -344,3 +344,67 @@ kubectl label node minikube demo.smaitic.com/role- || true
 
 **Q: What about teams who don't want injection?**
 > Simple — don't add the annotation. Unannotated pods are completely untouched. Opt-in model.
+
+---
+
+## Quick Reference Commands Cheat Sheet (Demo Shortcuts)
+
+### 1. Boilerplate vs Kyverno Spec Diff (Requirement R8 Proof)
+```bash
+# Save boilerplate Helm rendered output (128 lines)
+helm template boilerplate-app helm-charts/boilerplate-app > output/live-helm.yaml
+
+# Save Kyverno live mutated Pod spec
+kubectl get pod demo-01-basic-injection -n policy -o yaml > output/live-kyverno.yaml
+
+# Compare side-by-side in VS Code
+code --diff output/live-helm.yaml output/live-kyverno.yaml
+```
+
+### 2. Deploy Everything (Policies + Workloads)
+```bash
+# Deploy policies
+helmfile apply -l name=kyverno-policies
+
+# Deploy workloads
+helmfile apply -l name=workloads
+```
+
+### 3. Key Verification Commands
+```bash
+# Verify 8 ClusterPolicies active
+kubectl get clusterpolicy
+
+# Verify all Pods running in namespace 'policy'
+kubectl get pods -n policy
+
+# Inspect basic mutated pod spec
+kubectl get pod demo-01-basic-injection -n policy -o yaml | yq '.spec'
+
+# Verify init container ordering (secrets-parser at index 0)
+kubectl get pod demo-02-existing-init-ordering -n policy -o jsonpath='{.spec.initContainers[*].name}'
+
+# Verify zero Helm diff noise (Requirement R10)
+helmfile diff
+```
+
+### 4. Trigger Image Change Migration Job (Requirement R9)
+```bash
+# Trigger live Deployment image update
+kubectl set image deployment/poc-app poc-app=busybox:1.37 -n policy
+
+# Verify auto-generated migration Job
+kubectl get jobs,pods -n policy
+```
+
+### 5. Full Environment Reset / Teardown
+```bash
+helmfile destroy && \
+kubectl delete namespace policy --ignore-not-found && \
+kubectl delete clusterpolicy --all --ignore-not-found && \
+kubectl delete clusterrole kyverno-job-creator --ignore-not-found && \
+kubectl delete clusterrolebinding kyverno-job-creator-binding --ignore-not-found && \
+kubectl taint node minikube demo.smaitic.com/reserved-for=poc-worker:NoSchedule- || true && \
+kubectl label node minikube demo.smaitic.com/role- || true
+```
+
