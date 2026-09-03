@@ -43,6 +43,9 @@ spec:
           spec:
             backoffLimit: 0
             template:
+              metadata:
+                annotations:
+                  {{ .Values.annotationKey }}: '{{ "{{ request.object.metadata.name }}" }}'
               spec:
                 restartPolicy: Never
                 containers:
