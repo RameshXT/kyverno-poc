@@ -60,7 +60,7 @@ spec:
       readOnly: true
   nodeName: minikube
   nodeSelector:
-    dummy.smaitic.com/role: poc-worker
+    demo.smaitic.com/role: poc-worker
   preemptionPolicy: PreemptLowerPriority
   priority: 0
   restartPolicy: Always
@@ -71,7 +71,7 @@ spec:
   terminationGracePeriodSeconds: 30
   tolerations:
   - effect: NoSchedule
-    key: dummy.smaitic.com/reserved-for
+    key: demo.smaitic.com/reserved-for
     operator: Equal
     value: poc-worker
   volumes:

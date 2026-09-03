@@ -3,9 +3,9 @@ kind: ClusterPolicy
 metadata:
   name: inject-volumes
   annotations:
-    policies.kyverno.io/title: "Inject Required Volumes"
+    policies.kyverno.io/title: "Inject Required Volumes and VolumeMounts"
     policies.kyverno.io/category: "Secrets Management"
-    policies.kyverno.io/subject: "Pod, Volume"
+    policies.kyverno.io/subject: "Pod, Volume, VolumeMount"
 spec:
   background: false
   rules:
@@ -20,6 +20,13 @@ spec:
       mutate:
         patchStrategicMerge:
           spec:
+            containers:
+              - (name): "*"
+                volumeMounts:
+                  - name: shared-memory
+                    mountPath: "/mnt/shared"
+                  - name: init-scripts
+                    mountPath: "/scripts"
             volumes:
               - name: secrets-store-inline
                 emptyDir: {}

@@ -21,9 +21,9 @@ spec:
         patchStrategicMerge:
           spec:
             nodeSelector:
-              dummy.smaitic.com/role: poc-worker
+              demo.smaitic.com/role: poc-worker
             tolerations:
-              - key: dummy.smaitic.com/reserved-for
+              - key: demo.smaitic.com/reserved-for
                 value: poc-worker
                 effect: NoSchedule
                 operator: Equal

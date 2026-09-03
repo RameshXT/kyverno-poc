@@ -5,21 +5,21 @@ KYVERNO POC - DEMO EXECUTION FLOW & COMMANDS
 STEP 1: PREP MINIKUBE NODE (LABEL & TAINT)
 ------------------------------------------------------------
 # Add label for nodeSelector matching
-kubectl label node minikube dummy.smaitic.com/role=poc-worker --overwrite
+kubectl label node minikube demo.smaitic.com/role=poc-worker --overwrite
 
 # Add taint to test tolerations isolation
-kubectl taint node minikube dummy.smaitic.com/reserved-for=poc-worker:NoSchedule --overwrite
+kubectl taint node minikube demo.smaitic.com/reserved-for=poc-worker:NoSchedule --overwrite
 
 
 STEP 2: CREATE TARGET NAMESPACE
 ------------------------------------------------------------
-kubectl create namespace policy --dry-run=client -o yaml | kubectl apply -f -
+kubectl create namespace policy
 
 
 STEP 3: DEPLOY KYVERNO POLICIES VIA HELMFILE
 ------------------------------------------------------------
 # Deploy all 7 Kyverno ClusterPolicies + RBAC
-helmfile -l name=kyverno-policies sync
+helmfile apply -l name=kyverno-policies
 
 # Verify policies are ready
 kubectl get clusterpolicy
@@ -28,7 +28,7 @@ kubectl get clusterpolicy
 STEP 4: DEPLOY APPLICATION WORKLOADS VIA HELMFILE
 ------------------------------------------------------------
 # Deploy all workload manifests into namespace 'policy'
-helmfile -l name=workloads sync
+helmfile apply -l name=workloads
 
 # Check deployed workloads
 kubectl get pods,deployments,cronjobs -n policy
@@ -82,5 +82,5 @@ helmfile destroy
 kubectl delete namespace policy --ignore-not-found
 
 # Untaint and unlabel Minikube node
-kubectl taint node minikube dummy.smaitic.com/reserved-for=poc-worker:NoSchedule- || true
-kubectl label node minikube dummy.smaitic.com/role- || true
+kubectl taint node minikube demo.smaitic.com/reserved-for=poc-worker:NoSchedule- || true
+kubectl label node minikube demo.smaitic.com/role- || true

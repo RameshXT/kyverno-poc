@@ -25,10 +25,10 @@ spec:
         smaitic.com/inject-secrets-poc: "vizkit-server"
     spec:
       nodeSelector:
-        dummy.smaitic.com/role: dummy-worker
+        demo.smaitic.com/role: dummy-worker
       tolerations:
       - effect: NoSchedule
-        key: dummy.smaitic.com/reserved-for
+        key: demo.smaitic.com/reserved-for
         value: dummy-worker
         operator: Equal
       securityContext:

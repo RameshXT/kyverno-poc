@@ -6,7 +6,7 @@ vizkit:
 
 node:
   selector:
-    domain: "dummy.smaitic.com"
+    domain: "demo.smaitic.com"
     value: "dummy-worker"
 
 secrets:
