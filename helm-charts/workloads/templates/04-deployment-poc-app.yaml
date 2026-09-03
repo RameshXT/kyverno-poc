@@ -19,5 +19,5 @@ spec:
     spec:
       containers:
         - name: poc-app
-          image: {{ .Values.app.image }}
+          image: busybox:1.37
           command: ["sleep", "3600"]
