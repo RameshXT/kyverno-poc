@@ -352,4 +352,3 @@ kubectl label node minikube demo.smaitic.com/role- || true
 ```bash
 helm template boilerplate-app helm-charts/boilerplate-app
 ```
-
