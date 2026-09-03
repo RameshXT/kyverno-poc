@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-07-init-parser-cmd
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{ .Values.annotationKey }}: "demo-07-init-parser-cmd"
+    smaitic.com/launcher-script: "init-parser"
+spec:
+  containers:
+    - name: app
+      image: {{ .Values.app.image }}
+      command: ["sleep", "3600"]

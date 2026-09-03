@@ -9,7 +9,8 @@ metadata:
 spec:
   background: false
   rules:
-    - name: inject-command-prefix
+    # Rule 1: App launcher script for backend/Java/JS services
+    - name: inject-app-launcher
       match:
         any:
           - resources:
@@ -17,6 +18,7 @@ spec:
                 - Pod
               annotations:
                 {{ .Values.annotationKey }}: "?*"
+                smaitic.com/launcher-script: "app-launcher"
       preconditions:
         all:
           - key: "command"
@@ -30,3 +32,27 @@ spec:
           - op: add
             path: /spec/containers/0/command/0
             value: "/scripts/app_launcher.sh"
+
+    # Rule 2: Init parser script for secrets/init-heavy services
+    - name: inject-init-parser
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                {{ .Values.annotationKey }}: "?*"
+                smaitic.com/launcher-script: "init-parser"
+      preconditions:
+        all:
+          - key: "command"
+            operator: AnyIn
+            value: '{{ "{{ request.object.spec.containers[0] | keys(@) }}" }}'
+          - key: '{{ "{{ request.object.spec.containers[0].command[0] }}" }}'
+            operator: NotEquals
+            value: "/scripts/init_parser.sh"
+      mutate:
+        patchesJson6902: |-
+          - op: add
+            path: /spec/containers/0/command/0
+            value: "/scripts/init_parser.sh"

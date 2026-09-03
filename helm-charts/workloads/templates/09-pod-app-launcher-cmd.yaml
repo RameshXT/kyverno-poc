@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-06-app-launcher-cmd
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{ .Values.annotationKey }}: "demo-06-app-launcher-cmd"
+    smaitic.com/launcher-script: "app-launcher"
+spec:
+  containers:
+    - name: app
+      image: {{ .Values.app.image }}
+      command: ["sleep", "3600"]
