@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: probes-nginx
+  namespace: poc-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: probes-nginx
+  template:
+    metadata:
+      labels:
+        app: probes-nginx
+      annotations:
+        smaitic.com/inject-secrets-poc: "probes-nginx"
+        smaitic.com/health-config: "nginx-static"
+    spec:
+      containers:
+        - name: app
+          image: busybox:latest
+          command: ["sleep", "3600"]
+          ports:
+            - containerPort: 8080

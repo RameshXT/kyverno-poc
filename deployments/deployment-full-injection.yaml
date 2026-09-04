@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: full-injection
+  namespace: poc-demo
+  annotations:
+    smaitic.com/inject-secrets-poc: "full-injection"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: full-injection
+  template:
+    metadata:
+      labels:
+        app: full-injection
+      annotations:
+        smaitic.com/inject-secrets-poc: "full-injection"
+        smaitic.com/node-placement: "poc-worker"
+        smaitic.com/resource-requests: "cpu=250m,memory=256Mi"
+        smaitic.com/resource-limits: "cpu=500m,memory=512Mi"
+        smaitic.com/health-config: "bridge"
+        smaitic.com/launcher-script: "app-launcher"
+    spec:
+      containers:
+        - name: full-injection
+          image: busybox:1.37
+          command: ["sleep", "3600"]
+          ports:
+            - containerPort: 9988

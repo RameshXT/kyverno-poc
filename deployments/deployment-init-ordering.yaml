@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: init-ordering
+  namespace: poc-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: init-ordering
+  template:
+    metadata:
+      labels:
+        app: init-ordering
+      annotations:
+        smaitic.com/inject-secrets-poc: "init-ordering"
+    spec:
+      initContainers:
+        - name: custom-app-init
+          image: busybox:latest
+          command: ["/bin/sh", "-c", "echo 'custom app init running' && sleep 1"]
+      containers:
+        - name: app
+          image: busybox:latest
+          command: ["sleep", "3600"]

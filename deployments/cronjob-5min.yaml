@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-5min
+  namespace: poc-demo
+  annotations:
+    smaitic.com/inject-secrets-poc: "cronjob-5min"
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            smaitic.com/inject-secrets-poc: "cronjob-5min"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: cron-worker
+              image: busybox:latest
+              command: ["sleep", "5"]

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: init-parser-cmd
+  namespace: poc-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: init-parser-cmd
+  template:
+    metadata:
+      labels:
+        app: init-parser-cmd
+      annotations:
+        smaitic.com/inject-secrets-poc: "init-parser-cmd"
+        smaitic.com/launcher-script: "init-parser"
+    spec:
+      containers:
+        - name: app
+          image: busybox:latest
+          command: ["sleep", "3600"]

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: launcher-cmd
+  namespace: poc-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: launcher-cmd
+  template:
+    metadata:
+      labels:
+        app: launcher-cmd
+      annotations:
+        smaitic.com/inject-secrets-poc: "launcher-cmd"
+        smaitic.com/launcher-script: "app-launcher"
+    spec:
+      containers:
+        - name: app
+          image: busybox:latest
+          command: ["sleep", "3600"]

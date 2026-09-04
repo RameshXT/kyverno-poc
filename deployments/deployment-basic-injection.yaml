@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-injection
+  namespace: poc-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basic-injection
+  template:
+    metadata:
+      labels:
+        app: basic-injection
+      annotations:
+        smaitic.com/inject-secrets-poc: "basic-injection"
+    spec:
+      containers:
+        - name: app
+          image: busybox:latest
+          command: ["sleep", "3600"]

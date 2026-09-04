@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-full-injection
+  namespace: poc-demo
+spec:
+  serviceName: statefulset-full-injection
+  replicas: 1
+  selector:
+    matchLabels:
+      app: statefulset-full-injection
+  template:
+    metadata:
+      labels:
+        app: statefulset-full-injection
+      annotations:
+        smaitic.com/inject-secrets-poc: "statefulset-full-injection"
+        smaitic.com/node-placement: "poc-worker"
+        smaitic.com/resource-requests: "cpu=250m,memory=256Mi"
+        smaitic.com/resource-limits: "cpu=500m,memory=512Mi"
+        smaitic.com/health-config: "bridge"
+        smaitic.com/launcher-script: "app-launcher"
+    spec:
+      containers:
+        - name: statefulset-full-injection
+          image: busybox:latest
+          command: ["sleep", "3600"]
+          ports:
+            - containerPort: 9988
