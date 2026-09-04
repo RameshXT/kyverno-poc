@@ -1,3 +1,8 @@
+# DEFERRED: Commented out because policy-image-change-job.yaml is not active.
+# NOTE: When policy-image-change-job.yaml is uncommented and enabled,
+#       this RBAC (ClusterRole + ClusterRoleBinding) mustt also be
+#       uncommented and applied. the policy needs it to create Jobs.
+
 # apiVersion: rbac.authorization.k8s.io/v1
 # kind: ClusterRole
 # metadata:

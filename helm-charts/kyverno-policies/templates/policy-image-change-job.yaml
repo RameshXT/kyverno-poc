@@ -1,3 +1,7 @@
+# DEFERRED: Requires engineering team review before enabling.
+# NOTE: RBAC (rbac-job-creator.yaml) is also commented out. it must be
+#       uncommented and applied together with this policy when re-enabling.
+
 # apiVersion: kyverno.io/v1
 # kind: Policy
 # metadata:
