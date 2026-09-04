@@ -2,11 +2,9 @@ environments:
   minikube: {}
 ---
 releases:
-  # Release 1: Kyverno ClusterPolicies
   - name: kyverno-policies
     chart: ./helm-charts/kyverno-policies
 
-  # Release 2: Application Workloads
   - name: workloads
     namespace: policy
     chart: ./helm-charts/workloads

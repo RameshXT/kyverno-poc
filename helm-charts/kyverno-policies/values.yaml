@@ -1,3 +1,2 @@
-# Values for Kyverno Policies Helm Chart
 annotationKey: "smaitic.com/inject-secrets-poc"
 targetNamespace: "policy"

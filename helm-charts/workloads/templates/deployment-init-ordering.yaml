@@ -1,22 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-02-existing-init-ordering
+  name: init-ordering
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-02-existing-init-ordering
+      app: init-ordering
   template:
     metadata:
       labels:
-        app: demo-02-existing-init-ordering
+        app: init-ordering
       annotations:
-        # Scenario: pod already has a custom initContainer.
-        # Expected: Kyverno injects secrets-parser at position 0,
-        #           pushing custom-app-init to position 1 (ordering preserved).
-        {{ .Values.annotationKey }}: "demo-02-existing-init-ordering"
+        {{ .Values.annotationKey }}: "init-ordering"
     spec:
       initContainers:
         - name: custom-app-init

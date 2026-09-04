@@ -1,22 +1,8 @@
-# DEFERRED: Requires engineering team review before enabling.
-# Discussed: Deepankar Sharma, Sep 3 2026.
-#
-# This policy triggers a migration Job whenever a Deployment's container image changes.
-# It was working in the POC but must be reviewed for:
-#   - Security implications of auto-creating jobs
-#   - Namespace scoping (should be kind: Policy in the app namespace, not ClusterPolicy)
-#   - Job naming collision on rapid deploys (resourceVersion-based name)
-#   - RBAC footprint of kyverno-background-controller creating batch/jobs
-#
-# To re-enable: uncomment the block below, change kind back to Policy,
-# set namespace to the target app namespace, and re-review with engineering.
-#
-# ---
 # apiVersion: kyverno.io/v1
-# kind: Policy                    # namespace-scoped — must NOT be ClusterPolicy (Task 10)
+# kind: Policy
 # metadata:
 #   name: trigger-job-on-image-change
-#   namespace: <target-app-namespace>   # replace with actual app namespace
+#   namespace: {{ .Values.targetNamespace }}
 #   annotations:
 #     policies.kyverno.io/title: "Trigger Migration Job on Image Change"
 #     policies.kyverno.io/category: "Job Trigger"
@@ -30,8 +16,6 @@
 #           - resources:
 #               kinds:
 #                 - Deployment
-#               namespaces:
-#                 - {{ .Values.targetNamespace }}
 #               annotations:
 #                 {{ .Values.annotationKey }}: "?*"
 #       preconditions:

@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: poc-cronjob-1min
+  name: cronjob-1min
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{ .Values.annotationKey }}: "poc-cronjob-1min"
+    {{ .Values.annotationKey }}: "cronjob-1min"
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
@@ -12,7 +12,7 @@ spec:
       template:
         metadata:
           annotations:
-            {{ .Values.annotationKey }}: "poc-cronjob-1min"
+            {{ .Values.annotationKey }}: "cronjob-1min"
         spec:
           restartPolicy: Never
           containers:

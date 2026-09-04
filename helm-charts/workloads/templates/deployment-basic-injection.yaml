@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-injection
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basic-injection
+  template:
+    metadata:
+      labels:
+        app: basic-injection
+      annotations:
+        {{ .Values.annotationKey }}: "basic-injection"
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]

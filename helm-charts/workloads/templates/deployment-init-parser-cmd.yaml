@@ -1,21 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-01-basic-injection
+  name: init-parser-cmd
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-01-basic-injection
+      app: init-parser-cmd
   template:
     metadata:
       labels:
-        app: demo-01-basic-injection
+        app: init-parser-cmd
       annotations:
-        # Scenario: annotated pod with no pre-existing initContainers.
-        # Expected: Kyverno injects secrets-parser as the only initContainer.
-        {{ .Values.annotationKey }}: "demo-01-basic-injection"
+        {{ .Values.annotationKey }}: "init-parser-cmd"
+        smaitic.com/launcher-script: "init-parser"
     spec:
       containers:
         - name: app

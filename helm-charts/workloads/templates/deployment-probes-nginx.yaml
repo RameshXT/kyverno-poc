@@ -1,22 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-05-frontend-probes
+  name: probes-nginx
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-05-frontend-probes
+      app: probes-nginx
   template:
     metadata:
       labels:
-        app: demo-05-frontend-probes
+        app: probes-nginx
       annotations:
-        # Scenario: nginx-static health probe injection.
-        # Expected: Kyverno injects liveness + readiness probes on port 8080
-        #           with path / (static frontend served by Nginx).
-        {{ .Values.annotationKey }}: "demo-05-frontend-probes"
+        {{ .Values.annotationKey }}: "probes-nginx"
         smaitic.com/kyverno/health-config: "nginx-static"
     spec:
       containers:

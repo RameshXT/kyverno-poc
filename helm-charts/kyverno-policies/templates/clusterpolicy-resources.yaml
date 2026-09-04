@@ -6,18 +6,6 @@ spec:
   background: false
   rules:
 
-    # Rule 1: ADD resources when the container has NO existing resources block.
-    #
-    # HOW ANNOTATION PARSING WORKS:
-    #   Annotation format:  "cpu=250m,memory=256Mi"
-    #   split(@, ',')       → ["cpu=250m", "memory=256Mi"]
-    #   [0]                 → "cpu=250m"
-    #   split(@, '=')[1]    → "250m"
-    #   [1]                 → "memory=256Mi"
-    #   split(@, '=')[1]    → "256Mi"
-    #
-    # Precondition: "resources" key must NOT exist in the first container.
-    # This prevents double-patching when Rule 2 should handle it instead.
     - name: inject-resources-add
       match:
         any:
@@ -45,11 +33,6 @@ spec:
                     cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/limits\", \",\")[0], \"=\")[1] }}" }}'
                     memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/limits\", \",\")[1], \"=\")[1] }}" }}'
 
-    # Rule 2: REPLACE/MERGE resources when the container already HAS a resources block.
-    #
-    # Same annotation parsing as Rule 1.
-    # Precondition: "resources" key MUST exist in the first container.
-    # patchStrategicMerge on an existing block will merge and override the values.
     - name: inject-resources-replace
       match:
         any:

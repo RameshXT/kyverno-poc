@@ -1,36 +1,29 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: poc-app
+  name: statefulset-full-injection
   namespace: {{ .Release.Namespace }}
-  annotations:
-    {{ .Values.annotationKey }}: "poc-app"
 spec:
-  replicas: {{ .Values.app.replicas }}
+  serviceName: statefulset-full-injection
+  replicas: 1
   selector:
     matchLabels:
-      app: poc-app
+      app: statefulset-full-injection
   template:
     metadata:
       labels:
-        app: poc-app
+        app: statefulset-full-injection
       annotations:
-        # Triggers: inject-secrets-manager (all 6 rules)
-        {{ .Values.annotationKey }}: "poc-app"
-        # Triggers: inject-node-placement
+        {{ .Values.annotationKey }}: "statefulset-full-injection"
         smaitic.com/kyverno/policy/node-placement: "poc-worker"
-        # Triggers: inject-resources (add/replace rules)
         smaitic.com/kyverno/resources/requests: "cpu=250m,memory=256Mi"
         smaitic.com/kyverno/resources/limits: "cpu=500m,memory=512Mi"
-        # Triggers: inject-health-probes bridge rule
         smaitic.com/kyverno/health-config: "bridge"
-        # Triggers: inject-app-launcher (Rule 5 in secrets-manager)
         smaitic.com/launcher-script: "app-launcher"
     spec:
       containers:
-        - name: poc-app
-          image: busybox:1.37
+        - name: statefulset-full-injection
+          image: {{ .Values.app.image }}
           command: ["sleep", "3600"]
           ports:
             - containerPort: 9988
-

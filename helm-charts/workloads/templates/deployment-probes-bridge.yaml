@@ -1,22 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-04-backend-probes
+  name: probes-bridge
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-04-backend-probes
+      app: probes-bridge
   template:
     metadata:
       labels:
-        app: demo-04-backend-probes
+        app: probes-bridge
       annotations:
-        # Scenario: bridge health probe injection.
-        # Expected: Kyverno injects liveness + readiness probes on port 9988
-        #           with /actuator/health/liveness and /actuator/health/readiness paths.
-        {{ .Values.annotationKey }}: "demo-04-backend-probes"
+        {{ .Values.annotationKey }}: "probes-bridge"
         smaitic.com/kyverno/health-config: "bridge"
     spec:
       containers:
