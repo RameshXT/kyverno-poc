@@ -16,10 +16,10 @@ spec:
         app: full-injection
       annotations:
         {{ .Values.annotationKey }}: "full-injection"
-        smaitic.com/kyverno/policy/node-placement: "poc-worker"
-        smaitic.com/kyverno/resources/requests: "cpu=250m,memory=256Mi"
-        smaitic.com/kyverno/resources/limits: "cpu=500m,memory=512Mi"
-        smaitic.com/kyverno/health-config: "bridge"
+        smaitic.com/node-placement: "poc-worker"
+        smaitic.com/resource-requests: "cpu=250m,memory=256Mi"
+        smaitic.com/resource-limits: "cpu=500m,memory=512Mi"
+        smaitic.com/health-config: "bridge"
         smaitic.com/launcher-script: "app-launcher"
     spec:
       containers:

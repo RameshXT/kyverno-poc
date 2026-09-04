@@ -14,7 +14,7 @@ spec:
         app: probes-nginx
       annotations:
         {{ .Values.annotationKey }}: "probes-nginx"
-        smaitic.com/kyverno/health-config: "nginx-static"
+        smaitic.com/health-config: "nginx-static"
     spec:
       containers:
         - name: app

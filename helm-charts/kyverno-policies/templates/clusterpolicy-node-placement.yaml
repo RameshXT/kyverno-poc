@@ -12,14 +12,14 @@ spec:
               kinds:
                 - Pod
               annotations:
-                smaitic.com/kyverno/policy/node-placement: "?*"
+                smaitic.com/node-placement: "?*"
       mutate:
         patchStrategicMerge:
           spec:
             nodeSelector:
-              demo.smaitic.com/role: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/policy/node-placement\" }}" }}'
+              demo.smaitic.com/role: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/node-placement\" }}" }}'
             tolerations:
               - key: demo.smaitic.com/reserved-for
-                value: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/policy/node-placement\" }}" }}'
+                value: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/node-placement\" }}" }}'
                 effect: NoSchedule
                 operator: Equal

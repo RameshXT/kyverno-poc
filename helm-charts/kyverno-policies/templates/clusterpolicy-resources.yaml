@@ -13,8 +13,8 @@ spec:
               kinds:
                 - Pod
               annotations:
-                smaitic.com/kyverno/resources/requests: "?*"
-                smaitic.com/kyverno/resources/limits: "?*"
+                smaitic.com/resource-requests: "?*"
+                smaitic.com/resource-limits: "?*"
       preconditions:
         all:
           - key: "resources"
@@ -27,11 +27,11 @@ spec:
               - (name): "*"
                 resources:
                   requests:
-                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/requests\", \",\")[0], \"=\")[1] }}" }}'
-                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/requests\", \",\")[1], \"=\")[1] }}" }}'
+                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-requests\", '','')[0], ''='')[1] }}" }}'
+                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-requests\", '','')[1], ''='')[1] }}" }}'
                   limits:
-                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/limits\", \",\")[0], \"=\")[1] }}" }}'
-                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/limits\", \",\")[1], \"=\")[1] }}" }}'
+                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-limits\", '','')[0], ''='')[1] }}" }}'
+                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-limits\", '','')[1], ''='')[1] }}" }}'
 
     - name: inject-resources-replace
       match:
@@ -40,8 +40,8 @@ spec:
               kinds:
                 - Pod
               annotations:
-                smaitic.com/kyverno/resources/requests: "?*"
-                smaitic.com/kyverno/resources/limits: "?*"
+                smaitic.com/resource-requests: "?*"
+                smaitic.com/resource-limits: "?*"
       preconditions:
         all:
           - key: "resources"
@@ -54,8 +54,8 @@ spec:
               - (name): "*"
                 resources:
                   requests:
-                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/requests\", \",\")[0], \"=\")[1] }}" }}'
-                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/requests\", \",\")[1], \"=\")[1] }}" }}'
+                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-requests\", '','')[0], ''='')[1] }}" }}'
+                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-requests\", '','')[1], ''='')[1] }}" }}'
                   limits:
-                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/limits\", \",\")[0], \"=\")[1] }}" }}'
-                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/kyverno/resources/limits\", \",\")[1], \"=\")[1] }}" }}'
+                    cpu: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-limits\", '','')[0], ''='')[1] }}" }}'
+                    memory: '{{ "{{ split(split(request.object.metadata.annotations.\"smaitic.com/resource-limits\", '','')[1], ''='')[1] }}" }}'

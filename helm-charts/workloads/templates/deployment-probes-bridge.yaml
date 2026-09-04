@@ -14,7 +14,7 @@ spec:
         app: probes-bridge
       annotations:
         {{ .Values.annotationKey }}: "probes-bridge"
-        smaitic.com/kyverno/health-config: "bridge"
+        smaitic.com/health-config: "bridge"
     spec:
       containers:
         - name: app

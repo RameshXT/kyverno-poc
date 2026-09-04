@@ -13,10 +13,10 @@ spec:
               kinds:
                 - Pod
               annotations:
-                smaitic.com/kyverno/health-config: "bridge"
+                smaitic.com/health-config: "bridge"
       preconditions:
         all:
-          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-config\" }}" }}'
+          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/health-config\" }}" }}'
             operator: Equals
             value: "bridge"
       mutate:
@@ -48,10 +48,10 @@ spec:
               kinds:
                 - Pod
               annotations:
-                smaitic.com/kyverno/health-config: "nginx-static"
+                smaitic.com/health-config: "nginx-static"
       preconditions:
         all:
-          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-config\" }}" }}'
+          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/health-config\" }}" }}'
             operator: Equals
             value: "nginx-static"
       mutate:
@@ -83,12 +83,12 @@ spec:
               kinds:
                 - Pod
               annotations:
-                smaitic.com/kyverno/health-config: "custom"
-                smaitic.com/kyverno/health-port: "?*"
-                smaitic.com/kyverno/health-path: "?*"
+                smaitic.com/health-config: "custom"
+                smaitic.com/health-port: "?*"
+                smaitic.com/health-path: "?*"
       preconditions:
         all:
-          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-config\" }}" }}'
+          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/health-config\" }}" }}'
             operator: Equals
             value: "custom"
       mutate:
@@ -98,16 +98,16 @@ spec:
               - (name): "*"
                 livenessProbe:
                   httpGet:
-                    path: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-path\" }}" }}'
-                    port: '{{ "{{ to_number(request.object.metadata.annotations.\"smaitic.com/kyverno/health-port\") }}" }}'
+                    path: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/health-path\" }}" }}'
+                    port: '{{ "{{ to_number(request.object.metadata.annotations.\"smaitic.com/health-port\") }}" }}'
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
                   timeoutSeconds: 10
                 readinessProbe:
                   httpGet:
-                    path: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-path\" }}" }}'
-                    port: '{{ "{{ to_number(request.object.metadata.annotations.\"smaitic.com/kyverno/health-port\") }}" }}'
+                    path: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/health-path\" }}" }}'
+                    port: '{{ "{{ to_number(request.object.metadata.annotations.\"smaitic.com/health-port\") }}" }}'
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
