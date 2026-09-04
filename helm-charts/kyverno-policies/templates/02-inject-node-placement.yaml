@@ -16,14 +16,14 @@ spec:
               kinds:
                 - Pod
               annotations:
-                {{ .Values.annotationKey }}: "?*"
+                smaitic.com/kyverno/policy/node-placement: "?*"
       mutate:
         patchStrategicMerge:
           spec:
             nodeSelector:
-              demo.smaitic.com/role: poc-worker
+              demo.smaitic.com/role: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/policy/node-placement\" }}" }}'
             tolerations:
               - key: demo.smaitic.com/reserved-for
-                value: poc-worker
+                value: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/policy/node-placement\" }}" }}'
                 effect: NoSchedule
                 operator: Equal
