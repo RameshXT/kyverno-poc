@@ -1,16 +1,28 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: demo-02-existing-init-ordering
   namespace: {{ .Release.Namespace }}
-  annotations:
-    {{ .Values.annotationKey }}: "demo-02-existing-init-ordering"
 spec:
-  initContainers:
-    - name: custom-app-init
-      image: {{ .Values.app.image }}
-      command: ["/bin/sh", "-c", "echo 'custom app init running' && sleep 1"]
-  containers:
-    - name: app
-      image: {{ .Values.app.image }}
-      command: ["sleep", "3600"]
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-02-existing-init-ordering
+  template:
+    metadata:
+      labels:
+        app: demo-02-existing-init-ordering
+      annotations:
+        # Scenario: pod already has a custom initContainer.
+        # Expected: Kyverno injects secrets-parser at position 0,
+        #           pushing custom-app-init to position 1 (ordering preserved).
+        {{ .Values.annotationKey }}: "demo-02-existing-init-ordering"
+    spec:
+      initContainers:
+        - name: custom-app-init
+          image: {{ .Values.app.image }}
+          command: ["/bin/sh", "-c", "echo 'custom app init running' && sleep 1"]
+      containers:
+        - name: app
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]

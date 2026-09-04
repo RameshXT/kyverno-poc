@@ -1,12 +1,23 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: demo-01-basic-injection
   namespace: {{ .Release.Namespace }}
-  annotations:
-    {{ .Values.annotationKey }}: "demo-01-basic-injection"
 spec:
-  containers:
-    - name: app
-      image: {{ .Values.app.image }}
-      command: ["sleep", "3600"]
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-01-basic-injection
+  template:
+    metadata:
+      labels:
+        app: demo-01-basic-injection
+      annotations:
+        # Scenario: annotated pod with no pre-existing initContainers.
+        # Expected: Kyverno injects secrets-parser as the only initContainer.
+        {{ .Values.annotationKey }}: "demo-01-basic-injection"
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]

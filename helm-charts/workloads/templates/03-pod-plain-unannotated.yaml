@@ -1,10 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: demo-03-plain-unannotated
   namespace: {{ .Release.Namespace }}
 spec:
-  containers:
-    - name: app
-      image: {{ .Values.app.image }}
-      command: ["sleep", "3600"]
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-03-plain-unannotated
+  template:
+    metadata:
+      labels:
+        app: demo-03-plain-unannotated
+      # Scenario: NO annotation on this pod.
+      # Expected: Kyverno does NOT touch this pod at all — no injection.
+      # This is the negative test to confirm policies are annotation-gated.
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]

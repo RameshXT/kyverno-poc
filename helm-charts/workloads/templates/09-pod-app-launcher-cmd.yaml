@@ -1,13 +1,24 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: demo-06-app-launcher-cmd
   namespace: {{ .Release.Namespace }}
-  annotations:
-    {{ .Values.annotationKey }}: "demo-06-app-launcher-cmd"
-    smaitic.com/launcher-script: "app-launcher"
 spec:
-  containers:
-    - name: app
-      image: {{ .Values.app.image }}
-      command: ["sleep", "3600"]
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-06-app-launcher-cmd
+  template:
+    metadata:
+      labels:
+        app: demo-06-app-launcher-cmd
+      annotations:
+        # Scenario: app-launcher command prepend.
+        # Expected: Kyverno prepends /scripts/app_launcher.sh at command[0].
+        {{ .Values.annotationKey }}: "demo-06-app-launcher-cmd"
+        smaitic.com/launcher-script: "app-launcher"
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]

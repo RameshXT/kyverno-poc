@@ -1,15 +1,27 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: demo-04-backend-probes
   namespace: {{ .Release.Namespace }}
-  annotations:
-    {{ .Values.annotationKey }}: "demo-04-backend-probes"
-    smaitic.com/kyverno/health-config: "bridge"
 spec:
-  containers:
-    - name: app
-      image: {{ .Values.app.image }}
-      command: ["sleep", "3600"]
-      ports:
-        - containerPort: 9988
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-04-backend-probes
+  template:
+    metadata:
+      labels:
+        app: demo-04-backend-probes
+      annotations:
+        # Scenario: bridge health probe injection.
+        # Expected: Kyverno injects liveness + readiness probes on port 9988
+        #           with /actuator/health/liveness and /actuator/health/readiness paths.
+        {{ .Values.annotationKey }}: "demo-04-backend-probes"
+        smaitic.com/kyverno/health-config: "bridge"
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]
+          ports:
+            - containerPort: 9988
