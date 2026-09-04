@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: unannotated
-  namespace: poc-demo
+  namespace: policy
 spec:
   replicas: 1
   selector:

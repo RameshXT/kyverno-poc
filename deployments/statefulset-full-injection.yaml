@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: statefulset-full-injection
-  namespace: poc-demo
+  namespace: policy
 spec:
   serviceName: statefulset-full-injection
   replicas: 1

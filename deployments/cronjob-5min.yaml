@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: cronjob-5min
-  namespace: poc-demo
+  namespace: policy
   annotations:
     smaitic.com/inject-secrets-poc: "cronjob-5min"
 spec:
