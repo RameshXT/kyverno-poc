@@ -1,0 +1,49 @@
+DevOps Connect
+Thu, Sep 3, 2026
+Summary:
+The team refined Kyverno policies and deployment requirements for secret injection and workload configuration.
+• Consolidate related rules within policies
+• Require nonempty commands for secret injection
+• Read node placement and resources from annotations
+• Install Kyverno reproducibly through Jenkins Helm charts
+• Scope job-creating policies to namespaces
+• Validate workloads individually before staging deployment
+Action Items:
+* Ramesh Kanna will verify the exact meaning and behavior of the Kyverno precondition expression used to detect init containers.
+* Ramesh Kanna will add validation requiring a nonempty command when the secret-injection annotation is used.
+* Ramesh Kanna will replace the hard-coded node-placement value with the value supplied through the annotation.
+* Ramesh Kanna will replace hard-coded resource settings with dynamic request and limit values.
+* Ramesh Kanna will define health-probe configurations for Bridge, Nginx static deployments, and custom application paths and ports.
+* Ramesh Kanna will move the validation logic into the existing secret script
+* Ramesh Kanna will comment out the image-change job-trigger policy until it can be reviewed with the engineering team
+* Ramesh Kanna will convert the Kyverno installation into the required Helm-chart configuration with environment-specific values
+* Ramesh Kanna will incorporate the agreed policy and chart changes into the infrastructure Helm charts
+* Deepankar Sharma and Ramesh Kanna will review the artifacts and attempt deployment to the staging cluster
+* Ramesh Kanna will test deployments, StatefulSets, and CronJobs locally to verify Kyverno injections and pod-spec patches
+* Ramesh Kanna will push the tested changes to a separate branch of the infrastructure Helm-chart repository
+* Deepankar Sharma and Ramesh Kanna will apply the supported workloads one at a time in the follow-up session to validate the resulting pod-spec patches
+Key Discussion Points:
+Kyverno Policy Organization
+Ramesh presented a Kyverno proof of concept with separate policies for individual concerns such as secrets, volumes, commands, and init containers. Deepankar questioned the separation and established that related rules for one job function should remain under one policy file, while the separate-file structure was treated as temporary POC organization.
+Policy Metadata and Volume Mutation
+The team reviewed the node-based policy file and removed title, category, and subject fields that served only explanatory purposes. They also clarified that the background setting controls whether policy changes affect only newly admitted pods or also existing running pods, and confirmed the use of merge patching for volumes and volume mounts.
+Init-Container Preconditions and Mutation Logic
+The discussion focused on how the secret-injection policy determines whether a pod already has an init container. Deepankar requested precise understanding of the Kyverno expression, recommended directly checking `request.object.spec.initContainers`, and raised the edge case of an init-container key containing an empty array.
+Secret Injection and Command Validation
+Ramesh demonstrated an injected busybox init container and related command configuration used for local experimentation. Deepankar clarified that the secret-injection annotation represents one integrated operation and requires validation to ensure the application command is present, because the Kubernetes command setting replaces the Dockerfile entry point instead of appending to it.
+Dynamic Node Placement
+The team distinguished the init-container secret parser from the application launcher command and reviewed node toleration and placement values. Deepankar rejected the hard-coded `POC worker` value and required the policy to read the placement value dynamically from the relevant annotation, using the secret-provider annotation pattern as a reference.
+Dynamic Resources and Health Probes
+Deepankar required CPU and memory requests and limits to be supplied through separate annotations and patched conditionally depending on whether resources already exist. The team then discussed standardized health-probe configurations for Bridge and Nginx static applications, along with custom probe paths and ports for server-rendered applications such as Next.js.
+Policy Validation and Deferred Image-Change Automation
+Ramesh Kanna demonstrated the validation use case and described an image-change policy that would trigger jobs and update pods. Deepankar Sharma directed that validation be integrated into the existing secret script and that the image-change automation be commented out until the engineering team can review it.
+Kyverno RBAC and Installation Requirements
+Ramesh Kanna explained the RBAC needed for Kaiverno to create jobs when job images change. Deepankar Sharma requested a from-scratch Kyverno installation walkthrough and established that installations for staging, production, and other environments must use reproducible Helm-based deployment through Jenkins.
+Installation Testing and Policy Scope
+The participants reviewed the existing Kyverno installation and discussed measuring installation duration, resource consumption, controller startup time, and the correct timing for policy application. They identified that secret-management policies could be cluster-scoped, while workload-related policies should use namespace-scoped resources.
+Workload Injection Demonstration
+Deepankar Sharma requested an atomic demonstration of Kyverno changes on individual workloads rather than directly creating pods. The team discussed using Helm templates to render manifests and applying deployments, StatefulSets, and CronJobs so the resulting annotations, injections, and pod-spec patches could be inspected.
+Follow-Up Deliverables and Staging Validation
+The follow-up session was scheduled to continue the demonstration after Ramesh Kanna completes the requested changes. Ramesh will test the charts locally and push them to a separate infrastructure Helm-chart branch, after which the team will review the artifacts and attempt deployment to staging.
+Notepad:
+* No notes

@@ -1,0 +1,2341 @@
+Ramesh Kanna started transcription
+
+Ramesh Kanna
+9 minutes 40 seconds9:40
+Ramesh Kanna 9 minutes 40 seconds
+Hi, Deepankar.
+
+Deepankar Sharma
+9 minutes 43 seconds9:43
+Deepankar Sharma 9 minutes 43 seconds
+Hey, Ramesh, can you hear me?
+
+Ramesh Kanna
+9 minutes 45 seconds9:45
+Ramesh Kanna 9 minutes 45 seconds
+Yeah.
+
+Deepankar Sharma
+9 minutes 46 seconds9:46
+Deepankar Sharma 9 minutes 46 seconds
+Sorry, I'm late. Yeah, let's get started. Go ahead.
+
+Ramesh Kanna
+9 minutes 48 seconds9:48
+Ramesh Kanna 9 minutes 48 seconds
+Watch it.
+Ramesh Kanna 9 minutes 51 seconds
+K.
+Ramesh Kanna 9 minutes 52 seconds
+I'll just show you like what I have done.
+
+Deepankar Sharma
+9 minutes 56 seconds9:56
+Deepankar Sharma 9 minutes 56 seconds
+Sure.
+Deepankar Sharma 10 minutes 6 seconds
+Mhm.
+
+Ramesh Kanna
+10 minutes 7 seconds10:07
+Ramesh Kanna 10 minutes 7 seconds
+Kaono policy, so for the each concern I have created a separate Kaono policies, so, like, this is for, like, this is for in a script and volume, like, do I need to go through all of this?
+
+Deepankar Sharma
+10 minutes 14 seconds10:14
+Deepankar Sharma 10 minutes 14 seconds
+Mhm.
+Deepankar Sharma 10 minutes 23 seconds
+Yeah, let's go with it.
+
+Ramesh Kanna
+10 minutes 24 seconds10:24
+Ramesh Kanna 10 minutes 24 seconds
+Okay, so actually this one policy for one concern and this is for a secret where we need to add a secret for the particular bot and this is for the command. So you have mentioned we have.
+
+Deepankar Sharma
+10 minutes 38 seconds10:38
+Deepankar Sharma 10 minutes 38 seconds
+No, it cannot be, no, no, wait, wait, wait, wait, wait. It cannot be separate, right? If I am using secrets manager in order to provide me environment variables.
+
+Ramesh Kanna
+10 minutes 48 seconds10:48
+Ramesh Kanna 10 minutes 48 seconds
+Mhm.
+Ramesh Kanna 10 minutes 52 seconds
+Okay.
+
+Deepankar Sharma
+10 minutes 52 seconds10:52
+Deepankar Sharma 10 minutes 52 seconds
+Right. Everything goes hand in hand. I need the init script.
+
+Ramesh Kanna
+10 minutes 58 seconds10:58
+Ramesh Kanna 10 minutes 58 seconds
+Mhm.
+
+Deepankar Sharma
+10 minutes 58 seconds10:58
+Deepankar Sharma 10 minutes 58 seconds
+I need the volumes.
+
+Ramesh Kanna
+11 minutes11:00
+Ramesh Kanna 11 minutes
+Yeah.
+
+Deepankar Sharma
+11 minutes 1 second11:01
+Deepankar Sharma 11 minutes 1 second
+I need the init container. I need the, you know, command.
+
+Ramesh Kanna
+11 minutes 3 seconds11:03
+Ramesh Kanna 11 minutes 3 seconds
+Mhm.
+Ramesh Kanna 11 minutes 7 seconds
+Commands and the 11 prop.
+
+Deepankar Sharma
+11 minutes 9 seconds11:09
+Deepankar Sharma 11 minutes 9 seconds
+Everything.
+
+Ramesh Kanna
+11 minutes 11 seconds11:11
+Ramesh Kanna 11 minutes 11 seconds
+Yeah, we can set it in one file, either, like best practise is keeping it different files. And we can use the annotation to call it.
+Deepankar Sharma
+11 minutes 19 seconds11:19
+Deepankar Sharma 11 minutes 19 seconds
+How is, how is that? How is that a best practice?
+
+Ramesh Kanna
+11 minutes 23 seconds11:23
+Ramesh Kanna 11 minutes 23 seconds
+Because I have, I was gone through the some kind of chat GPTs and AIs, then I got it.
+
+Deepankar Sharma
+11 minutes 30 seconds11:30
+Deepankar Sharma 11 minutes 30 seconds
+Mhm.
+Deepankar Sharma 11 minutes 32 seconds
+Can you show me that explanation why that is a best practice? Because here it is one job function, right? You can have separate rules.
+
+Ramesh Kanna
+11 minutes 37 seconds11:37
+Ramesh Kanna 11 minutes 37 seconds
+I'm not sure where it is.
+Ramesh Kanna 11 minutes 41 seconds
+Oh, which one?
+Ramesh Kanna 11 minutes 43 seconds
+Mhm.
+
+Deepankar Sharma
+11 minutes 44 seconds11:44
+Deepankar Sharma 11 minutes 44 seconds
+See, adding a secret from secret manager. That is 1 job function, right?
+
+Ramesh Kanna
+11 minutes 48 seconds11:48
+Ramesh Kanna 11 minutes 48 seconds
+Okay.
+Ramesh Kanna 11 minutes 51 seconds
+Mm.
+
+Deepankar Sharma
+11 minutes 52 seconds11:52
+Deepankar Sharma 11 minutes 52 seconds
+Which means?
+Deepankar Sharma 11 minutes 54 seconds
+Either everything should get applied or nothing should get applied.
+Deepankar Sharma 11 minutes 58 seconds
+Right.
+
+Ramesh Kanna
+11 minutes 59 seconds11:59
+Ramesh Kanna 11 minutes 59 seconds
+Oh, OK.
+
+Deepankar Sharma
+12 minutes12:00
+Deepankar Sharma 12 minutes
+So what you are basically doing over here is that you have 3 files, 3 policies or whatsoever, but within one file you will see that you can specify multiple rules, not just one rule, right? So that's what I'm trying to question that you can definitely define multiple rules.
+
+Ramesh Kanna
+12 minutes 7 seconds12:07
+Ramesh Kanna 12 minutes 7 seconds
+Mhm.
+Ramesh Kanna 12 minutes 14 seconds
+Okay.
+
+Deepankar Sharma
+12 minutes 21 seconds12:21
+Deepankar Sharma 12 minutes 21 seconds
+But why do you need separate files? Yeah, this is rule one, rule 2, and all that, right?
+
+Ramesh Kanna
+12 minutes 21 seconds12:21
+Ramesh Kanna 12 minutes 21 seconds
+Okay, like this.
+Ramesh Kanna 12 minutes 24 seconds
+S.
+Ramesh Kanna 12 minutes 28 seconds
+So this is simply for POC, that's why I have done that like this. And it's easy to understand for me also for beginning stage. So for the organisation perspective, we can go with the, which is the best one, like.
+
+Deepankar Sharma
+12 minutes 37 seconds12:37
+Deepankar Sharma 12 minutes 37 seconds
+Okay.
+Deepankar Sharma 12 minutes 44 seconds
+Mhm.
+
+Ramesh Kanna
+12 minutes 44 seconds12:44
+Ramesh Kanna 12 minutes 44 seconds
+You can, like, we can use the one file for all the rule, and we can call it.
+
+Deepankar Sharma
+12 minutes 48 seconds12:48
+Deepankar Sharma 12 minutes 48 seconds
+Mhm.
+Deepankar Sharma 12 minutes 50 seconds
+Yeah, so one annotation is going to control several aspects of it, right? And when I go looking for who is providing the implementation of that annotation, I should not be searching 10 different files in order to figure out, oh, this file is also providing something. Oh, there is another file. And then I may also miss on one file, right?
+Ramesh Kanna
+12 minutes 55 seconds12:55
+Ramesh Kanna 12 minutes 55 seconds
+Correct.
+Ramesh Kanna 13 minutes 5 seconds
+Okay.
+Ramesh Kanna 13 minutes 8 seconds
+Mm-hmm.
+Ramesh Kanna 13 minutes 10 seconds
+Okay, that's fine.
+
+Deepankar Sharma
+13 minutes 12 seconds13:12
+Deepankar Sharma 13 minutes 12 seconds
+So that is the idea. Have multiple rules. You don't have to shove everything under one rule, but keep it under one roof.
+
+Ramesh Kanna
+13 minutes 13 seconds13:13
+Ramesh Kanna 13 minutes 13 seconds
+Mane.
+Ramesh Kanna 13 minutes 16 seconds
+Okay, so...
+Ramesh Kanna 13 minutes 20 seconds
+Mhm.
+Ramesh Kanna 13 minutes 23 seconds
+Okay, so basically one file inside that we will be having multiple files. Sorry, multiple rules.
+
+Deepankar Sharma
+13 minutes 26 seconds13:26
+Deepankar Sharma 13 minutes 26 seconds
+Yeah.
+Deepankar Sharma 13 minutes 29 seconds
+Multiple roles.
+
+Ramesh Kanna
+13 minutes 31 seconds13:31
+Ramesh Kanna 13 minutes 31 seconds
+OK, so for now I have created for each role just one one file. OK, so this is for node basement, which is basically...
+
+Deepankar Sharma
+13 minutes 36 seconds13:36
+Deepankar Sharma 13 minutes 36 seconds
+Yeah.
+Deepankar Sharma 13 minutes 42 seconds
+Well, let's go over, let's go over individual components inside that file as well. Let's start with volume.
+
+Ramesh Kanna
+13 minutes 49 seconds13:49
+Ramesh Kanna 13 minutes 49 seconds
+Okay.
+
+Deepankar Sharma
+13 minutes 54 seconds13:54
+Deepankar Sharma 13 minutes 54 seconds
+So do we need this policies, Kaibano, IO title, category, and subject?
+
+Ramesh Kanna
+13 minutes 59 seconds13:59
+Ramesh Kanna 13 minutes 59 seconds
+These things, no, no, just for understanding, we can remote, so, like, I have not.
+
+Deepankar Sharma
+14 minutes14:00
+Deepankar Sharma 14 minutes
+Yeah.
+Deepankar Sharma 14 minutes 3 seconds
+Okay.
+Deepankar Sharma 14 minutes 4 seconds
+OK, they do not have a functional purpose. They are just there for comments. OK.
+
+Ramesh Kanna
+14 minutes 8 seconds14:08
+Ramesh Kanna 14 minutes 8 seconds
+Just for comments.
+Ramesh Kanna 14 minutes 11 seconds
+We can simply remove it and in the document we will mention.
+
+Deepankar Sharma
+14 minutes 16 seconds14:16
+Deepankar Sharma 14 minutes 16 seconds
+Okay.
+
+Ramesh Kanna
+14 minutes 17 seconds14:17
+Ramesh Kanna 14 minutes 17 seconds
+Yeah.
+
+Deepankar Sharma
+14 minutes 19 seconds14:19
+Deepankar Sharma 14 minutes 19 seconds
+Yeah, go ahead. So here I see you say cluster policy, inject volumes, background is equal to false. Can you remind me what is background? Background?
+
+Ramesh Kanna
+14 minutes 20 seconds14:20
+Ramesh Kanna 14 minutes 20 seconds
+And.
+Ramesh Kanna 14 minutes 23 seconds
+Mm.
+Ramesh Kanna 14 minutes 26 seconds
+Better.
+Ramesh Kanna 14 minutes 31 seconds
+So, background actually, like we deploying some port, so after the deployment, if this is a true, if we changing something in the policy, that the running port will definitely will change to according to the policy, so if it is if it is false.
+Deepankar Sharma
+14 minutes 43 seconds14:43
+Deepankar Sharma 14 minutes 43 seconds
+Mhm.
+
+Ramesh Kanna
+14 minutes 51 seconds14:51
+Ramesh Kanna 14 minutes 51 seconds
+It will not change. It will change in the admission time.
+
+Deepankar Sharma
+14 minutes 51 seconds14:51
+Deepankar Sharma 14 minutes 51 seconds
+Thank you.
+Deepankar Sharma 14 minutes 55 seconds
+Okay, so basically it is whether the changes should apply for new pods getting created or should it also reset the old pods?
+
+Ramesh Kanna
+14 minutes 56 seconds14:56
+Ramesh Kanna 14 minutes 56 seconds
+Admission time.
+Ramesh Kanna 15 minutes 4 seconds
+Bold, yeah, correct.
+
+Deepankar Sharma
+15 minutes 6 seconds15:06
+Deepankar Sharma 15 minutes 6 seconds
+Yeah, OK.
+
+Ramesh Kanna
+15 minutes 8 seconds15:08
+Ramesh Kanna 15 minutes 8 seconds
+Okay, then we have the notation. So right now, whatever the annotation board, it's coming from here, from the values. So this is annotation now. So whichever the pods deployment file having this one and coming with this one is any.
+
+Deepankar Sharma
+15 minutes 16 seconds15:16
+Deepankar Sharma 15 minutes 16 seconds
+Mhm.
+Deepankar Sharma 15 minutes 19 seconds
+Yeah.
+Deepankar Sharma 15 minutes 24 seconds
+Mhm.
+
+Ramesh Kanna
+15 minutes 27 seconds15:27
+Ramesh Kanna 15 minutes 27 seconds
+like whatever name we can give it now for the POC. In the future we can separate it.
+
+Deepankar Sharma
+15 minutes 30 seconds15:30
+Deepankar Sharma 15 minutes 30 seconds
+Mmh.
+Deepankar Sharma 15 minutes 34 seconds
+Okay.
+
+Ramesh Kanna
+15 minutes 35 seconds15:35
+Ramesh Kanna 15 minutes 35 seconds
+So I have, like, whichever ports manifest file is having the annotation with this, it will mutate these things.
+
+Deepankar Sharma
+15 minutes 42 seconds15:42
+Deepankar Sharma 15 minutes 42 seconds
+Mhm.
+Deepankar Sharma 15 minutes 45 seconds
+Okay.
+
+Ramesh Kanna
+15 minutes 46 seconds15:46
+Ramesh Kanna 15 minutes 46 seconds
+Yeah, this is the separate file for this.
+
+Deepankar Sharma
+15 minutes 50 seconds15:50
+Deepankar Sharma 15 minutes 50 seconds
+And here you are using patch strategy merge in order to add volume mounts and as well as sorry volumes.
+
+Ramesh Kanna
+15 minutes 55 seconds15:55
+Ramesh Kanna 15 minutes 55 seconds
+Correct.
+Ramesh Kanna 15 minutes 58 seconds
+Yeah.
+Ramesh Kanna 16 minutes 3 seconds
+Yes.
+
+Deepankar Sharma
+16 minutes 4 seconds16:04
+Deepankar Sharma 16 minutes 4 seconds
+And the position does not matter. Yeah, this is good.
+Ramesh Kanna
+16 minutes 8 seconds16:08
+Ramesh Kanna 16 minutes 8 seconds
+But here it does not matter, yeah.
+
+Deepankar Sharma
+16 minutes 10 seconds16:10
+Deepankar Sharma 16 minutes 10 seconds
+Yeah.
+
+Ramesh Kanna
+16 minutes 11 seconds16:11
+Ramesh Kanna 16 minutes 11 seconds
+And now coming to the secrets.
+
+Deepankar Sharma
+16 minutes 14 seconds16:14
+Deepankar Sharma 16 minutes 14 seconds
+Mhm.
+
+Ramesh Kanna
+16 minutes 14 seconds16:14
+Ramesh Kanna 16 minutes 14 seconds
+We also like talked about this, I think. So for this case, we need to get two things like the pod is having the init container or it doesn't have the init container. So if the pod has the init container, so like we need to mutate this one.
+
+Deepankar Sharma
+16 minutes 28 seconds16:28
+Deepankar Sharma 16 minutes 28 seconds
+Mhm.
+Deepankar Sharma 16 minutes 36 seconds
+Go up.
+
+Ramesh Kanna
+16 minutes 40 seconds16:40
+Ramesh Kanna 16 minutes 40 seconds
+This is for knowing it.
+
+Deepankar Sharma
+16 minutes 40 seconds16:40
+Deepankar Sharma 16 minutes 40 seconds
+So where are you deciding pre precondition and here you are basically saying precondition all basically means.
+
+Ramesh Kanna
+16 minutes 44 seconds16:44
+Ramesh Kanna 16 minutes 44 seconds
+Yeah, yeah.
+
+Deepankar Sharma
+16 minutes 50 seconds16:50
+Deepankar Sharma 16 minutes 50 seconds
+And operation right that this condition and that condition should basically meet. You are saying request dot object.
+
+Ramesh Kanna
+16 minutes 54 seconds16:54
+Ramesh Kanna 16 minutes 54 seconds
+Mm.
+
+Deepankar Sharma
+16 minutes 59 seconds16:59
+Deepankar Sharma 16 minutes 59 seconds
+What is the request?
+
+Ramesh Kanna
+17 minutes 1 second17:01
+Ramesh Kanna 17 minutes 1 second
+Where it is?
+
+Deepankar Sharma
+17 minutes 3 seconds17:03
+Deepankar Sharma 17 minutes 3 seconds
+Line number 25 value.
+
+Ramesh Kanna
+17 minutes 4 seconds17:04
+Ramesh Kanna 17 minutes 4 seconds
+This one.
+
+Deepankar Sharma
+17 minutes 6 seconds17:06
+Deepankar Sharma 17 minutes 6 seconds
+Yeah.
+
+Ramesh Kanna
+17 minutes 7 seconds17:07
+Ramesh Kanna 17 minutes 7 seconds
+So, like, what are the requests?
+
+Deepankar Sharma
+17 minutes 9 seconds17:09
+Deepankar Sharma 17 minutes 9 seconds
+Help me understand this rule.
+
+Ramesh Kanna
+17 minutes 12 seconds17:12
+Ramesh Kanna 17 minutes 12 seconds
+Actually, here.
+Ramesh Kanna 17 minutes 18 seconds
+So, if this part...
+Ramesh Kanna 17 minutes 22 seconds
+Has the in a container like Jonas?
+Deepankar Sharma
+17 minutes 28 seconds17:28
+Deepankar Sharma 17 minutes 28 seconds
+No, help me translate the rule into logic. Whatever that condition is there, right? Request.object.spec.
+
+Ramesh Kanna
+17 minutes 28 seconds17:28
+Ramesh Kanna 17 minutes 28 seconds
+Okay.
+Ramesh Kanna 17 minutes 37 seconds
+Okay.
+
+Deepankar Sharma
+17 minutes 38 seconds17:38
+Deepankar Sharma 17 minutes 38 seconds
+keys at the rate. Why do we need this thing?
+
+Ramesh Kanna
+17 minutes 43 seconds17:43
+Ramesh Kanna 17 minutes 43 seconds
+I think this is for the finding whether this pod is having like manifest is having.
+
+Deepankar Sharma
+17 minutes 48 seconds17:48
+Deepankar Sharma 17 minutes 48 seconds
+No, but how, how does it, how does it find that particular thing? That is my question.
+
+Ramesh Kanna
+17 minutes 54 seconds17:54
+Ramesh Kanna 17 minutes 54 seconds
+Okay.
+Ramesh Kanna 17 minutes 57 seconds
+Apps.
+Ramesh Kanna 18 minutes
+Uh, I think it's uh internal kind of like I were knows thing. I'm not sure this one.
+
+Deepankar Sharma
+18 minutes 8 seconds18:08
+Deepankar Sharma 18 minutes 8 seconds
+Mhm.
+
+Ramesh Kanna
+18 minutes 10 seconds18:10
+Ramesh Kanna 18 minutes 10 seconds
+Yes.
+Ramesh Kanna 18 minutes 17 seconds
+Okay.
+
+Deepankar Sharma
+18 minutes 18 seconds18:18
+Deepankar Sharma 18 minutes 18 seconds
+Go with partial knowledge saying that, okay, maybe this is Kyver knows internal.
+Deepankar Sharma 18 minutes 24 seconds
+At that point, you must know precisely what is the meaning of that particular statement. How do you mutate it, modify it according to your needs, right? That time we are not going to say, okay, let me do a Google search and figure out what it does. You should have the answers already.
+
+Ramesh Kanna
+18 minutes 33 seconds18:33
+Ramesh Kanna 18 minutes 33 seconds
+Mm.
+
+Deepankar Sharma
+18 minutes 43 seconds18:43
+Deepankar Sharma 18 minutes 43 seconds
+right? Because in case production goes down, it won't be just you and me sitting in that meeting, right? All the stakeholders will be there and at that point it should not create an impression that this guy does not know anything.
+
+Ramesh Kanna
+18 minutes 44 seconds18:44
+Ramesh Kanna 18 minutes 44 seconds
+Then I connect.
+Ramesh Kanna 18 minutes 51 seconds
+Yeah.
+Ramesh Kanna 18 minutes 59 seconds
+Okay.
+
+Deepankar Sharma
+19 minutes 2 seconds19:02
+Deepankar Sharma 19 minutes 2 seconds
+Okay, because once the seeds are rooted in their subconscious, right, that, okay, this guy just implemented it by doing some Google search and using GPTs and all, but he does not understand it, right? So it becomes extremely difficult to unroot those seeds.
+
+Ramesh Kanna
+19 minutes 8 seconds19:08
+Ramesh Kanna 19 minutes 8 seconds
+Okay.
+
+Deepankar Sharma
+19 minutes 22 seconds19:22
+Deepankar Sharma 19 minutes 22 seconds
+Right, they will always come with a doubt.
+
+Ramesh Kanna
+19 minutes 25 seconds19:25
+Ramesh Kanna 19 minutes 25 seconds
+Okay, okay.
+
+Deepankar Sharma
+19 minutes 25 seconds19:25
+Deepankar Sharma 19 minutes 25 seconds
+That does he know it? Does he not know it right? So that is why it is extremely crucial for you to understand whatever is written over there.
+Ramesh Kanna
+19 minutes 36 seconds19:36
+Ramesh Kanna 19 minutes 36 seconds
+Okay.
+
+Deepankar Sharma
+19 minutes 38 seconds19:38
+Deepankar Sharma 19 minutes 38 seconds
+Yeah, good.
+
+Ramesh Kanna
+19 minutes 39 seconds19:39
+Ramesh Kanna 19 minutes 39 seconds
+So it's basically saying like whenever we creating the pod, it's requesting something.
+
+Deepankar Sharma
+19 minutes 44 seconds19:44
+Deepankar Sharma 19 minutes 44 seconds
+Mhm.
+
+Ramesh Kanna
+19 minutes 46 seconds19:46
+Ramesh Kanna 19 minutes 46 seconds
+Here we have requesting in the pod, we requesting this one.
+Ramesh Kanna 19 minutes 52 seconds
+This is the annotation, so the request.
+
+Deepankar Sharma
+19 minutes 54 seconds19:54
+Deepankar Sharma 19 minutes 54 seconds
+No, but it's not looking for annotation, right?
+
+Ramesh Kanna
+19 minutes 57 seconds19:57
+Ramesh Kanna 19 minutes 57 seconds
+Yeah, yeah, just I'm reading it. Wait a minute.
+Ramesh Kanna 20 minutes
+Cheque class.
+
+Deepankar Sharma
+20 minutes 21 seconds20:21
+Deepankar Sharma 20 minutes 21 seconds
+So instead of this expression, we could have used a simple expression where you will say request.object.spec.init container exist or not.
+
+Ramesh Kanna
+20 minutes 32 seconds20:32
+Ramesh Kanna 20 minutes 32 seconds
+Mhm.
+
+Deepankar Sharma
+20 minutes 32 seconds20:32
+Deepankar Sharma 20 minutes 32 seconds
+Right? That could have been better because you are already traversing from request, which is the admission object, right? Then dot object is basically giving you the pod. Dot spec is giving you the pod spec. Inside pod spec, you have to just look for init container, right? What it is trying to do is that it is returning all the top level keys.
+
+Ramesh Kanna
+20 minutes 45 seconds20:45
+Ramesh Kanna 20 minutes 45 seconds
+Okay.
+Ramesh Kanna 20 minutes 50 seconds
+Mhm.
+Ramesh Kanna 20 minutes 56 seconds
+Okay.
+
+Deepankar Sharma
+20 minutes 56 seconds20:56
+Deepankar Sharma 20 minutes 56 seconds
+Inside of pod, which will be containers, image pull policy, init container, volume, and so on, right? Out of those, it is trying to find this any not in.
+
+Ramesh Kanna
+21 minutes 4 seconds21:04
+Ramesh Kanna 21 minutes 4 seconds
+Okay.
+Ramesh Kanna 21 minutes 10 seconds
+Mhm.
+
+Deepankar Sharma
+21 minutes 11 seconds21:11
+Deepankar Sharma 21 minutes 11 seconds
+Right, so instead of that, if you directly do init container and use the operator exist or something of that sort, that will give you a simple answer whether the init container already exists or not.
+
+Ramesh Kanna
+21 minutes 12 seconds21:12
+Ramesh Kanna 21 minutes 12 seconds
+If that is.
+Ramesh Kanna 21 minutes 24 seconds
+Okay.
+
+Deepankar Sharma
+21 minutes 25 seconds21:25
+Deepankar Sharma 21 minutes 25 seconds
+Right, and there is another thing. What if init container exists, but it is an empty array?
+Deepankar Sharma 21 minutes 32 seconds
+Because when you go to your deployment manifest, right, where you have in it container and all that.
+
+Ramesh Kanna
+21 minutes 33 seconds21:33
+Ramesh Kanna 21 minutes 33 seconds
+Mm.
+Ramesh Kanna 21 minutes 37 seconds
+Mhm.
+
+Deepankar Sharma
+21 minutes 38 seconds21:38
+Deepankar Sharma 21 minutes 38 seconds
+You can say init container and then just next to it you can give a square bracket, square, square, right? Open and close and not pass anything inside that array. Not here. Line #9.
+Ramesh Kanna
+21 minutes 44 seconds21:44
+Ramesh Kanna 21 minutes 44 seconds
+No.
+Ramesh Kanna 21 minutes 49 seconds
+Here.
+
+Deepankar Sharma
+21 minutes 50 seconds21:50
+Deepankar Sharma 21 minutes 50 seconds
+Line #9.
+
+Ramesh Kanna
+21 minutes 51 seconds21:51
+Ramesh Kanna 21 minutes 51 seconds
+Okay, okay, okay, got it, got it. So instead of the, yeah, value, okay, the value.
+
+Deepankar Sharma
+21 minutes 53 seconds21:53
+Deepankar Sharma 21 minutes 53 seconds
+Okay, so the key will exist. The key will exist, but it will be completely empty.
+
+Ramesh Kanna
+21 minutes 59 seconds21:59
+Ramesh Kanna 21 minutes 59 seconds
+Mm.
+
+Deepankar Sharma
+22 minutes 1 second22:01
+Deepankar Sharma 22 minutes 1 second
+Right, we are not looking for completely empty net container and all that. Yeah, go ahead.
+
+Ramesh Kanna
+22 minutes 2 seconds22:02
+Ramesh Kanna 22 minutes 2 seconds
+So.
+Ramesh Kanna 22 minutes 7 seconds
+Correct, correct.
+Ramesh Kanna 22 minutes 10 seconds
+So same like this precondition here also.
+Ramesh Kanna 22 minutes 18 seconds
+So this is for if the init containers is there in the manifest.
+
+Deepankar Sharma
+22 minutes 24 seconds22:24
+Deepankar Sharma 22 minutes 24 seconds
+Mmh.
+
+Ramesh Kanna
+22 minutes 24 seconds22:24
+Ramesh Kanna 22 minutes 24 seconds
+It will mutate this part of.
+
+Deepankar Sharma
+22 minutes 28 seconds22:28
+Deepankar Sharma 22 minutes 28 seconds
+Uh-huh.
+
+Ramesh Kanna
+22 minutes 28 seconds22:28
+Ramesh Kanna 22 minutes 28 seconds
+Yeah.
+Ramesh Kanna 22 minutes 30 seconds
+And.
+
+Deepankar Sharma
+22 minutes 34 seconds22:34
+Deepankar Sharma 22 minutes 34 seconds
+Yeah, go back. Let's stick with that.
+
+Ramesh Kanna
+22 minutes 34 seconds22:34
+Ramesh Kanna 22 minutes 34 seconds
+No.
+Ramesh Kanna 22 minutes 38 seconds
+This one.
+
+Deepankar Sharma
+22 minutes 38 seconds22:38
+Deepankar Sharma 22 minutes 38 seconds
+So here it is saying operation is equal to add, path is equal to spec init containers at position zero, value is equal to name this, image is equal to busy box latest, blah blah blah, doing this, doing that. And then it is creating volume mount and all those things, right?
+Deepankar Sharma 22 minutes 57 seconds
+So, okay, just because you are doing the experiments on your local, you opted to choose for this busy box latest, right? And not went with the secrets parser. Okay.
+
+Ramesh Kanna
+22 minutes 57 seconds22:57
+Ramesh Kanna 22 minutes 57 seconds
+Yeah.
+Ramesh Kanna 23 minutes 5 seconds
+That are correct, like, for...
+Ramesh Kanna 23 minutes 9 seconds
+No, no, no, not it.
+Deepankar Sharma
+23 minutes 11 seconds23:11
+Deepankar Sharma 23 minutes 11 seconds
+Okay. Yeah, this is fine. Go ahead.
+
+Ramesh Kanna
+23 minutes 12 seconds23:12
+Ramesh Kanna 23 minutes 12 seconds
+So yeah, same like that. We have the multiple like 2 commands, I think. So for that, we need to find the same way.
+
+Deepankar Sharma
+23 minutes 22 seconds23:22
+Deepankar Sharma 23 minutes 22 seconds
+Mm.
+
+Ramesh Kanna
+23 minutes 24 seconds23:24
+Ramesh Kanna 23 minutes 24 seconds
+Like which one we need to serve for this. So for this we can use the mute like what is that annotation for this? So whatever the manifest with the annotation of app launcher, it just goes under this one. So it will mute it.
+
+Deepankar Sharma
+23 minutes 39 seconds23:39
+Deepankar Sharma 23 minutes 39 seconds
+Right, see everything works under the single umbrella, right? If I am injecting the secret through secrets manager.
+
+Ramesh Kanna
+23 minutes 44 seconds23:44
+Ramesh Kanna 23 minutes 44 seconds
+Mm.
+
+Deepankar Sharma
+23 minutes 49 seconds23:49
+Deepankar Sharma 23 minutes 49 seconds
+I need everything. It's not optional to have or not have app launcher, right?
+
+Ramesh Kanna
+23 minutes 55 seconds23:55
+Ramesh Kanna 23 minutes 55 seconds
+Okay, okay.
+
+Deepankar Sharma
+23 minutes 56 seconds23:56
+Deepankar Sharma 23 minutes 56 seconds
+The only criteria I have is whenever somebody works with this annotation to inject the secret.
+
+Ramesh Kanna
+24 minutes 3 seconds24:03
+Ramesh Kanna 24 minutes 3 seconds
+Mm.
+
+Deepankar Sharma
+24 minutes 5 seconds24:05
+Deepankar Sharma 24 minutes 5 seconds
+they must provide command. Command must be there. So where is the validation for that?
+
+Ramesh Kanna
+24 minutes 5 seconds24:05
+Ramesh Kanna 24 minutes 5 seconds
+They need everything.
+Ramesh Kanna 24 minutes 8 seconds
+Okay.
+Ramesh Kanna 24 minutes 9 seconds
+Okay.
+
+Deepankar Sharma
+24 minutes 13 seconds24:13
+Deepankar Sharma 24 minutes 13 seconds
+Because everywhere I'm seeing just mutate, mutate, right? I think in that requirement meeting, I told you that this is a requirement. This is a must have.
+
+Ramesh Kanna
+24 minutes 16 seconds24:16
+Ramesh Kanna 24 minutes 16 seconds
+Mhm.
+Ramesh Kanna 24 minutes 26 seconds
+Okay.
+
+Deepankar Sharma
+24 minutes 26 seconds24:26
+Deepankar Sharma 24 minutes 26 seconds
+Whenever a deployment or anything is getting created which gets annotated with this particular thing, it must cheque that command cannot be empty.
+
+Ramesh Kanna
+24 minutes 38 seconds24:38
+Ramesh Kanna 24 minutes 38 seconds
+Correct, correct.
+
+Deepankar Sharma
+24 minutes 40 seconds24:40
+Deepankar Sharma 24 minutes 40 seconds
+Because in your Docker file you can give an entry point and CMD, right?
+
+Ramesh Kanna
+24 minutes 45 seconds24:45
+Ramesh Kanna 24 minutes 45 seconds
+Mm.
+
+Deepankar Sharma
+24 minutes 46 seconds24:46
+Deepankar Sharma 24 minutes 46 seconds
+Now, the developer may write this particular deployment file thinking that, oh, I've already given the entry point in my Docker file, so I'm not going to provide it here again.
+Deepankar Sharma 24 minutes 58 seconds
+And that's exactly where our system will fail, because...
+Deepankar Sharma 25 minutes 4 seconds
+This command that you are trying to set over here does not get appended to the entry point. It replaces the entry point.
+
+Ramesh Kanna
+25 minutes 13 seconds25:13
+Ramesh Kanna 25 minutes 13 seconds
+Okay.
+Deepankar Sharma
+25 minutes 14 seconds25:14
+Deepankar Sharma 25 minutes 14 seconds
+Okay, so we need the entry point to be present over here, then only it will work.
+
+Ramesh Kanna
+25 minutes 22 seconds25:22
+Ramesh Kanna 25 minutes 22 seconds
+So actually, this will going to be replaced with the actual command or entry point, right?
+Ramesh Kanna 25 minutes 30 seconds
+Mm.
+
+Deepankar Sharma
+25 minutes 32 seconds25:32
+Deepankar Sharma 25 minutes 32 seconds
+No, not really.
+
+Ramesh Kanna
+25 minutes 32 seconds25:32
+Ramesh Kanna 25 minutes 32 seconds
+No, no, no, I'm asking like if the Docker fail is having the CMD or entry point, will this going to be replaced or it will it will actually happen?
+
+Deepankar Sharma
+25 minutes 44 seconds25:44
+Deepankar Sharma 25 minutes 44 seconds
+No, it does not append. It replaces the entry point from your Docker file.
+
+Ramesh Kanna
+25 minutes 49 seconds25:49
+Ramesh Kanna 25 minutes 49 seconds
+Mm-hmm.
+Ramesh Kanna 25 minutes 51 seconds
+Okay, then I will cheque it, cheque with us.
+
+Deepankar Sharma
+25 minutes 53 seconds25:53
+Deepankar Sharma 25 minutes 53 seconds
+Yeah, we need a validation over here. You understood, right? If you did not, feel free to ask the questions.
+
+Ramesh Kanna
+25 minutes 57 seconds25:57
+Ramesh Kanna 25 minutes 57 seconds
+Correct, correct, yeah, understood.
+Ramesh Kanna 26 minutes 1 second
+Okay, okay, I understood this.
+
+Deepankar Sharma
+26 minutes 3 seconds26:03
+Deepankar Sharma 26 minutes 3 seconds
+Yeah.
+
+Ramesh Kanna
+26 minutes 5 seconds26:05
+Ramesh Kanna 26 minutes 5 seconds
+Okay.
+Ramesh Kanna 26 minutes 6 seconds
+So there is a two different, uh, like...
+Ramesh Kanna 26 minutes 11 seconds
+We have the command on it, one is a in it parser and the app launcher, so based on what the app.
+
+Deepankar Sharma
+26 minutes 17 seconds26:17
+Deepankar Sharma 26 minutes 17 seconds
+Yeah, this is not the correct way, right? In init container, it will always run that one, parse secret or whatever that script is there, right? So we are not going to inject that command line anywhere. The entire init container is getting injected.
+
+Ramesh Kanna
+26 minutes 23 seconds26:23
+Ramesh Kanna 26 minutes 23 seconds
+Mm.
+
+Deepankar Sharma
+26 minutes 36 seconds26:36
+Deepankar Sharma 26 minutes 36 seconds
+It.
+
+Ramesh Kanna
+26 minutes 37 seconds26:37
+Ramesh Kanna 26 minutes 37 seconds
+Okay.
+Ramesh Kanna 26 minutes 40 seconds
+This one.
+
+Deepankar Sharma
+26 minutes 41 seconds26:41
+Deepankar Sharma 26 minutes 41 seconds
+So there is no in it parser anywhere, yeah.
+
+Ramesh Kanna
+26 minutes 46 seconds26:46
+Ramesh Kanna 26 minutes 46 seconds
+Okay, then that's fine.
+Ramesh Kanna 26 minutes 53 seconds
+OK, this is for actually node.
+Ramesh Kanna 26 minutes 57 seconds
+that there is a toleration, right? We have.
+Deepankar Sharma
+26 minutes 59 seconds26:59
+Deepankar Sharma 26 minutes 59 seconds
+Akram.
+
+Ramesh Kanna
+27 minutes27:00
+Ramesh Kanna 27 minutes
+In the node, so for this, where should the pod is getting get deployed? So that is the reason.
+
+Deepankar Sharma
+27 minutes 2 seconds27:02
+Deepankar Sharma 27 minutes 2 seconds
+Yeah.
+Deepankar Sharma 27 minutes 6 seconds
+Yeah, so that should come from the value, right? Whatever you have, question mark, star.
+
+Ramesh Kanna
+27 minutes 12 seconds27:12
+Ramesh Kanna 27 minutes 12 seconds
+Mm.
+
+Deepankar Sharma
+27 minutes 12 seconds27:12
+Deepankar Sharma 27 minutes 12 seconds
+Added over there, that is the value I need.
+
+Ramesh Kanna
+27 minutes 15 seconds27:15
+Ramesh Kanna 27 minutes 15 seconds
+Okay, so right now it's...
+
+Deepankar Sharma
+27 minutes 16 seconds27:16
+Deepankar Sharma 27 minutes 16 seconds
+Right now you have hard coded it to POC worker.
+
+Ramesh Kanna
+27 minutes 20 seconds27:20
+Ramesh Kanna 27 minutes 20 seconds
+Correct.
+
+Deepankar Sharma
+27 minutes 21 seconds27:21
+Deepankar Sharma 27 minutes 21 seconds
+I don't want POC worker. My annotation will be smatic.com slash Kyverno slash policy slash node placement.
+
+Ramesh Kanna
+27 minutes 30 seconds27:30
+Ramesh Kanna 27 minutes 30 seconds
+Yeah, this will be changed. This one and this one will be changed.
+
+Deepankar Sharma
+27 minutes 31 seconds27:31
+Deepankar Sharma 27 minutes 31 seconds
+And.
+Deepankar Sharma 27 minutes 33 seconds
+No, that will that will remain the same. I mean, demo.smatic.com. It will be, you know, that domain, no domain or whatever we are calling today, right?
+
+Ramesh Kanna
+27 minutes 37 seconds27:37
+Ramesh Kanna 27 minutes 37 seconds
+Yeah.
+Ramesh Kanna 27 minutes 43 seconds
+Mhm.
+
+Deepankar Sharma
+27 minutes 45 seconds27:45
+Deepankar Sharma 27 minutes 45 seconds
+slash role will remain as is, slash reserved for will remain as is, right? But what is the actual value? Is it POC worker? No, it is not. Stage, production, critical, back office, there will be different values, right? Yeah, go ahead.
+
+Ramesh Kanna
+27 minutes 49 seconds27:49
+Ramesh Kanna 27 minutes 49 seconds
+Oh.
+Ramesh Kanna 27 minutes 54 seconds
+No, no, actually.
+Ramesh Kanna 27 minutes 59 seconds
+Yeah, yeah, correct, correct. So, actually coming to the, like, my, like, what are the many QI have, like, I have set it to the POC worker, that's why I have mentioned here. So, for the our organization, we need to set it for our organization, like...
+
+Deepankar Sharma
+28 minutes 12 seconds28:12
+Deepankar Sharma 28 minutes 12 seconds
+Yeah, but it's what I'm what I'm trying to get to is you have hard-coded the value.
+
+Ramesh Kanna
+28 minutes 17 seconds28:17
+Ramesh Kanna 28 minutes 17 seconds
+Oh yeah, here I, I did.
+
+Deepankar Sharma
+28 minutes 18 seconds28:18
+Deepankar Sharma 28 minutes 18 seconds
+The value cannot be hard-coded. The value has to come from line number 19, where you have question mark star.
+
+Ramesh Kanna
+28 minutes 26 seconds28:26
+Ramesh Kanna 28 minutes 26 seconds
+Okay.
+
+Deepankar Sharma
+28 minutes 28 seconds28:28
+Deepankar Sharma 28 minutes 28 seconds
+Okay, there I will say that my node should be staged.
+
+Ramesh Kanna
+28 minutes 32 seconds28:32
+Ramesh Kanna 28 minutes 32 seconds
+Mhm.
+Deepankar Sharma
+28 minutes 34 seconds28:34
+Deepankar Sharma 28 minutes 34 seconds
+And that's the value it should use.
+Deepankar Sharma 28 minutes 38 seconds
+You got my point.
+
+Ramesh Kanna
+28 minutes 40 seconds28:40
+Ramesh Kanna 28 minutes 40 seconds
+Got it, so it should switch from here and this value.
+
+Deepankar Sharma
+28 minutes 45 seconds28:45
+Deepankar Sharma 28 minutes 45 seconds
+Yes, whatever that value is there, question mark star should be used over here in line number 24.
+
+Ramesh Kanna
+28 minutes 49 seconds28:49
+Ramesh Kanna 28 minutes 49 seconds
+Mm-hmm.
+Ramesh Kanna 28 minutes 53 seconds
+Okay.
+
+Deepankar Sharma
+28 minutes 54 seconds28:54
+Deepankar Sharma 28 minutes 54 seconds
+If you go to the PDF I shared, right, the original one.
+
+Ramesh Kanna
+28 minutes 58 seconds28:58
+Ramesh Kanna 28 minutes 58 seconds
+Mhm.
+
+Deepankar Sharma
+29 minutes 3 seconds29:03
+Deepankar Sharma 29 minutes 3 seconds
+Not this, it is part of your ticket.
+
+Ramesh Kanna
+29 minutes 7 seconds29:07
+Ramesh Kanna 29 minutes 7 seconds
+Okay, good.
+
+Deepankar Sharma
+29 minutes 17 seconds29:17
+Deepankar Sharma 29 minutes 17 seconds
+In plus 16, yeah.
+Deepankar Sharma 29 minutes 21 seconds
+Yes, if you open that.
+Deepankar Sharma 29 minutes 29 seconds
+Come down, come down. Yeah, wait here.
+Deepankar Sharma 29 minutes 34 seconds
+So, scroll up a bit.
+Deepankar Sharma 29 minutes 39 seconds
+So here you can see, right, secret provider class in the middle of the screen. It says request.object.metadata.annotations. And then it is looking for that particular annotation itself, right, smatic.com slash inject secrets.
+
+Ramesh Kanna
+29 minutes 46 seconds29:46
+Ramesh Kanna 29 minutes 46 seconds
+Mhm.
+Ramesh Kanna 29 minutes 59 seconds
+Correct, correct, correct.
+
+Deepankar Sharma
+29 minutes 59 seconds29:59
+Deepankar Sharma 29 minutes 59 seconds
+So it is actually looking for that value that what is the value provided in that annotation.
+
+Ramesh Kanna
+30 minutes 6 seconds30:06
+Ramesh Kanna 30 minutes 6 seconds
+Okay.
+
+Deepankar Sharma
+30 minutes 7 seconds30:07
+Deepankar Sharma 30 minutes 7 seconds
+Okay, same thing you have to do.
+Deepankar Sharma 30 minutes 11 seconds
+When you are using, you know, replacing that POC worker or whatever.
+
+Ramesh Kanna
+30 minutes 16 seconds30:16
+Ramesh Kanna 30 minutes 16 seconds
+Okay.
+
+Deepankar Sharma
+30 minutes 18 seconds30:18
+Deepankar Sharma 30 minutes 18 seconds
+Yeah.
+Deepankar Sharma 30 minutes 19 seconds
+Okay, go ahead.
+
+Ramesh Kanna
+30 minutes 25 seconds30:25
+Ramesh Kanna 30 minutes 25 seconds
+OK, this one I will work on it, and there is a resource. We have the resources, so for the...
+
+Deepankar Sharma
+30 minutes 28 seconds30:28
+Deepankar Sharma 30 minutes 28 seconds
+Uh-huh.
+Deepankar Sharma 30 minutes 32 seconds
+Yeah, same thing for the source. Not all pods will be equally sized.
+
+Ramesh Kanna
+30 minutes 35 seconds30:35
+Ramesh Kanna 30 minutes 35 seconds
+Mhm.
+Ramesh Kanna 30 minutes 37 seconds
+Correct. Yeah, that's correct.
+Deepankar Sharma
+30 minutes 39 seconds30:39
+Deepankar Sharma 30 minutes 39 seconds
+right, the CPU, the memory, all those things I expected. Yeah, I expected 2 annotations, one which will say request, another annotation which will say limits, and there I will pass CPU and memory directly in the annotation, right?
+
+Ramesh Kanna
+30 minutes 42 seconds30:42
+Ramesh Kanna 30 minutes 42 seconds
+Everything will be changed.
+Ramesh Kanna 30 minutes 57 seconds
+Okay.
+
+Deepankar Sharma
+30 minutes 58 seconds30:58
+Deepankar Sharma 30 minutes 58 seconds
+So you will have to basically do a conditional patching, whether the resource already exists, if it does, what to do, if it does not, what to do, and so on, right?
+
+Ramesh Kanna
+31 minutes 5 seconds31:05
+Ramesh Kanna 31 minutes 5 seconds
+Mhm.
+Ramesh Kanna 31 minutes 9 seconds
+Okay.
+
+Deepankar Sharma
+31 minutes 10 seconds31:10
+Deepankar Sharma 31 minutes 10 seconds
+Yeah.
+
+Ramesh Kanna
+31 minutes 12 seconds31:12
+Ramesh Kanna 31 minutes 12 seconds
+So, like for now, I just used only one resources, which is this one. It will direct, yeah, hard-coded, this will directly get applied.
+
+Deepankar Sharma
+31 minutes 18 seconds31:18
+Deepankar Sharma 31 minutes 18 seconds
+And this is hard-coded.
+Deepankar Sharma 31 minutes 21 seconds
+We, yeah, we don't want hard coding.
+
+Ramesh Kanna
+31 minutes 23 seconds31:23
+Ramesh Kanna 31 minutes 23 seconds
+So next, okay, next time I will replace everything with the dynamic one.
+
+Deepankar Sharma
+31 minutes 29 seconds31:29
+Deepankar Sharma 31 minutes 29 seconds
+Yeah.
+
+Ramesh Kanna
+31 minutes 31 seconds31:31
+Ramesh Kanna 31 minutes 31 seconds
+For the props.
+Ramesh Kanna 31 minutes 34 seconds
+As for the like today's back, there is a meeting, right? So we have the backend and front end. So for each, we can able to give the separate path and separate like port we can give it.
+
+Deepankar Sharma
+31 minutes 39 seconds31:39
+Deepankar Sharma 31 minutes 39 seconds
+Okay.
+Deepankar Sharma 31 minutes 50 seconds
+Okay.
+
+Ramesh Kanna
+31 minutes 51 seconds31:51
+Ramesh Kanna 31 minutes 51 seconds
+Yeah.
+
+Deepankar Sharma
+31 minutes 53 seconds31:53
+Deepankar Sharma 31 minutes 53 seconds
+Okay.
+
+Ramesh Kanna
+31 minutes 53 seconds31:53
+Ramesh Kanna 31 minutes 53 seconds
+and we can call it.
+Ramesh Kanna 31 minutes 55 seconds
+This is for the front-end one.
+
+Deepankar Sharma
+31 minutes 59 seconds31:59
+Deepankar Sharma 31 minutes 59 seconds
+It cannot be backend and front end. We again need some specification over here, right?
+
+Ramesh Kanna
+32 minutes 2 seconds32:02
+Ramesh Kanna 32 minutes 2 seconds
+In the same.
+
+Deepankar Sharma
+32 minutes 6 seconds32:06
+Deepankar Sharma 32 minutes 6 seconds
+You can have standard things. One will be called as bridge, right? Like a ship of the bridge of the ship, right? You go to the bridge, that is where they control everything, right? That is the name of the project that I have named it basically. It's called the bridge.
+
+Ramesh Kanna
+32 minutes 11 seconds32:11
+Ramesh Kanna 32 minutes 11 seconds
+Mhm.
+Ramesh Kanna 32 minutes 14 seconds
+Oh, OK.
+Deepankar Sharma
+32 minutes 25 seconds32:25
+Deepankar Sharma 32 minutes 25 seconds
+Right, so here you will say smatic.com health configuration bridge. Bridge will always have these values, right? And then you can have one for this nginx or whatever, right?
+
+Ramesh Kanna
+32 minutes 31 seconds32:31
+Ramesh Kanna 32 minutes 31 seconds
+Mhm.
+Ramesh Kanna 32 minutes 34 seconds
+Okay.
+Ramesh Kanna 32 minutes 44 seconds
+OK.
+
+Deepankar Sharma
+32 minutes 45 seconds32:45
+Deepankar Sharma 32 minutes 45 seconds
+And then there will be some outliers which are using Next.js.
+
+Ramesh Kanna
+32 minutes 50 seconds32:50
+Ramesh Kanna 32 minutes 50 seconds
+Mhm.
+
+Deepankar Sharma
+32 minutes 50 seconds32:50
+Deepankar Sharma 32 minutes 50 seconds
+Engine X you are using when you are using a static build.
+Deepankar Sharma 32 minutes 56 seconds
+Right, which you can you can deploy through Nginx or S3 CloudFront and all that, right? There is no server required to run that HTML and JavaScript and CFS static, right? Then there will be front-end builds which are not static.
+
+Ramesh Kanna
+32 minutes 56 seconds32:56
+Ramesh Kanna 32 minutes 56 seconds
+Okay.
+Ramesh Kanna 33 minutes 3 seconds
+Mm-hmm, okay.
+Ramesh Kanna 33 minutes 7 seconds
+Yeah, just static.
+Ramesh Kanna 33 minutes 10 seconds
+Yeah.
+
+Deepankar Sharma
+33 minutes 15 seconds33:15
+Deepankar Sharma 33 minutes 15 seconds
+which are server-side render like Next.js.
+
+Ramesh Kanna
+33 minutes 15 seconds33:15
+Ramesh Kanna 33 minutes 15 seconds
+Okay.
+Ramesh Kanna 33 minutes 18 seconds
+Mm-hmm.
+
+Deepankar Sharma
+33 minutes 20 seconds33:20
+Deepankar Sharma 33 minutes 20 seconds
+They will not be running on 8080.
+Deepankar Sharma 33 minutes 23 seconds
+It could be running on 5173.
+
+Ramesh Kanna
+33 minutes 25 seconds33:25
+Ramesh Kanna 33 minutes 25 seconds
+Different port.
+
+Deepankar Sharma
+33 minutes 27 seconds33:27
+Deepankar Sharma 33 minutes 27 seconds
+5174.
+
+Ramesh Kanna
+33 minutes 29 seconds33:29
+Ramesh Kanna 33 minutes 29 seconds
+Yeah.
+
+Deepankar Sharma
+33 minutes 29 seconds33:29
+Deepankar Sharma 33 minutes 29 seconds
+3000, they will have different endpoints and so on, right?
+
+Ramesh Kanna
+33 minutes 31 seconds33:31
+Ramesh Kanna 33 minutes 31 seconds
+Mhm.
+
+Deepankar Sharma
+33 minutes 35 seconds33:35
+Deepankar Sharma 33 minutes 35 seconds
+So that configuration also needs to go over there.
+
+Ramesh Kanna
+33 minutes 39 seconds33:39
+Ramesh Kanna 33 minutes 39 seconds
+Okay.
+
+Deepankar Sharma
+33 minutes 41 seconds33:41
+Deepankar Sharma 33 minutes 41 seconds
+Yep.
+
+Ramesh Kanna
+33 minutes 44 seconds33:44
+Ramesh Kanna 33 minutes 44 seconds
+No, got it. So for the POC, just I used like two different live one readiness prop here.
+
+Deepankar Sharma
+33 minutes 52 seconds33:52
+Deepankar Sharma 33 minutes 52 seconds
+Yeah, mhm.
+Deepankar Sharma 33 minutes 55 seconds
+Yeah, you can have two standard.
+
+Ramesh Kanna
+33 minutes 55 seconds33:55
+Ramesh Kanna 33 minutes 55 seconds
+That is.
+Ramesh Kanna 33 minutes 57 seconds
+Okay.
+
+Deepankar Sharma
+33 minutes 58 seconds33:58
+Deepankar Sharma 33 minutes 58 seconds
+One standard will be for the bridge, another standard will be for NGINX static.
+
+Ramesh Kanna
+34 minutes 1 second34:01
+Ramesh Kanna 34 minutes 1 second
+Mhm.
+Ramesh Kanna 34 minutes 5 seconds
+Mhm.
+Deepankar Sharma
+34 minutes 5 seconds34:05
+Deepankar Sharma 34 minutes 5 seconds
+Right, and then you basically need a custom one where the end user can basically specify what port to use.
+Deepankar Sharma 34 minutes 16 seconds
+What path to use? Yeah.
+
+Ramesh Kanna
+34 minutes 17 seconds34:17
+Ramesh Kanna 34 minutes 17 seconds
+What path? OK.
+Ramesh Kanna 34 minutes 21 seconds
+Got it.
+Ramesh Kanna 34 minutes 25 seconds
+So, it's this one, uh, like we have the commands, uh, like...
+Ramesh Kanna 34 minutes 32 seconds
+Actually, the pod.
+Ramesh Kanna 34 minutes 36 seconds
+This is for.
+
+Deepankar Sharma
+34 minutes 39 seconds34:39
+Deepankar Sharma 34 minutes 39 seconds
+This is the validation use case I was talking about.
+
+Ramesh Kanna
+34 minutes 41 seconds34:41
+Ramesh Kanna 34 minutes 41 seconds
+Wait, wait, wait.
+Ramesh Kanna 34 minutes 44 seconds
+Yeah, which one?
+
+Deepankar Sharma
+34 minutes 45 seconds34:45
+Deepankar Sharma 34 minutes 45 seconds
+Validating what you're showing right now is for the validation use case, right? That the command should exist.
+
+Ramesh Kanna
+34 minutes 53 seconds34:53
+Ramesh Kanna 34 minutes 53 seconds
+Correct, correct. There is a...
+Ramesh Kanna 34 minutes 59 seconds
+Yeah, for this one. So like for a developer, they don't, no, it doesn't have the, yeah, this will work, but this will open over here.
+
+Deepankar Sharma
+35 minutes 3 seconds35:03
+Deepankar Sharma 35 minutes 3 seconds
+It has command, right? So this will work.
+
+Ramesh Kanna
+35 minutes 11 seconds35:11
+Ramesh Kanna 35 minutes 11 seconds
+Actually, this one.
+
+Deepankar Sharma
+35 minutes 12 seconds35:12
+Deepankar Sharma 35 minutes 12 seconds
+I don't get it.
+
+Ramesh Kanna
+35 minutes 20 seconds35:20
+Ramesh Kanna 35 minutes 20 seconds
+Something I messed up.
+
+Deepankar Sharma
+35 minutes 23 seconds35:23
+Deepankar Sharma 35 minutes 23 seconds
+So it is saying require command on annotated pod.
+Deepankar Sharma 35 minutes 27 seconds
+Kind is pod annotation is that particular annotation with any value, right? Any value does not make sense because this is again part of your.
+
+Ramesh Kanna
+35 minutes 38 seconds35:38
+Ramesh Kanna 35 minutes 38 seconds
+Mhm.
+
+Deepankar Sharma
+35 minutes 38 seconds35:38
+Deepankar Sharma 35 minutes 38 seconds
+secret script, right? So the validate should also go inside the same script. Okay.
+
+Ramesh Kanna
+35 minutes 44 seconds35:44
+Ramesh Kanna 35 minutes 44 seconds
+Yeah.
+
+Deepankar Sharma
+35 minutes 46 seconds35:46
+Deepankar Sharma 35 minutes 46 seconds
+So fix that. Yeah, go ahead.
+
+Ramesh Kanna
+35 minutes 51 seconds35:51
+Ramesh Kanna 35 minutes 51 seconds
+OK, this one.
+Ramesh Kanna 35 minutes 54 seconds
+Like it will trigger the jobs when we changing the images to the manifest.
+Ramesh Kanna 36 minutes 1 second
+Like it will, it will cheque the pods image, and if the image is getting changed, it will like update the pod in the next deployment.
+
+Deepankar Sharma
+36 minutes 11 seconds36:11
+Deepankar Sharma 36 minutes 11 seconds
+Let's not add this right now.
+
+Ramesh Kanna
+36 minutes 14 seconds36:14
+Ramesh Kanna 36 minutes 14 seconds
+Okay.
+Deepankar Sharma
+36 minutes 15 seconds36:15
+Deepankar Sharma 36 minutes 15 seconds
+Right, you comment it out.
+
+Ramesh Kanna
+36 minutes 17 seconds36:17
+Ramesh Kanna 36 minutes 17 seconds
+Okay.
+Ramesh Kanna 36 minutes 18 seconds
+Heat.
+
+Deepankar Sharma
+36 minutes 18 seconds36:18
+Deepankar Sharma 36 minutes 18 seconds
+and later we will come back.
+Deepankar Sharma 36 minutes 21 seconds
+to this particular one because this will be heavily involved with the engineering team.
+
+Ramesh Kanna
+36 minutes 26 seconds36:26
+Ramesh Kanna 36 minutes 26 seconds
+Okay.
+
+Deepankar Sharma
+36 minutes 28 seconds36:28
+Deepankar Sharma 36 minutes 28 seconds
+Yeah.
+
+Ramesh Kanna
+36 minutes 30 seconds36:30
+Ramesh Kanna 36 minutes 30 seconds
+And this is for the RBC, which is used to create a this port one.
+Ramesh Kanna 36 minutes 38 seconds
+This is for Kaivarno.
+
+Deepankar Sharma
+36 minutes 39 seconds36:39
+Deepankar Sharma 36 minutes 39 seconds
+Sorry, our back is for one, what?
+
+Ramesh Kanna
+36 minutes 42 seconds36:42
+Ramesh Kanna 36 minutes 42 seconds
+So, actually, so when we change the image Docker image for the jobs, it will get created, created by Kaivano. So, for this, we need our BAC for Kaivano, so that's the that's the book.
+
+Deepankar Sharma
+36 minutes 48 seconds36:48
+Deepankar Sharma 36 minutes 48 seconds
+Mmh.
+Deepankar Sharma 36 minutes 50 seconds
+Okay.
+Deepankar Sharma 36 minutes 51 seconds
+Yeah.
+Deepankar Sharma 36 minutes 54 seconds
+Okay, okay.
+Deepankar Sharma 36 minutes 58 seconds
+Okay.
+
+Ramesh Kanna
+36 minutes 58 seconds36:58
+Ramesh Kanna 36 minutes 58 seconds
+I mean me.
+Ramesh Kanna 37 minutes 1 second
+So, all the ports, like all the manifests all the four here.
+
+Deepankar Sharma
+37 minutes 6 seconds37:06
+Deepankar Sharma 37 minutes 6 seconds
+Mm-hmm.
+
+Ramesh Kanna
+37 minutes 7 seconds37:07
+Ramesh Kanna 37 minutes 7 seconds
+Yeah, this is a basic part. It will get annotated, it will get mutated, all the policies which we have configured here, and...
+
+Deepankar Sharma
+37 minutes 17 seconds37:17
+Deepankar Sharma 37 minutes 17 seconds
+Yeah, now you, now you do one thing, you...
+
+Ramesh Kanna
+37 minutes 20 seconds37:20
+Ramesh Kanna 37 minutes 20 seconds
+Mhm.
+
+Deepankar Sharma
+37 minutes 22 seconds37:22
+Deepankar Sharma 37 minutes 22 seconds
+From scratch, you show me how you will install Kyverno.
+
+Ramesh Kanna
+37 minutes 28 seconds37:28
+Ramesh Kanna 37 minutes 28 seconds
+Okay, installation.
+
+Deepankar Sharma
+37 minutes 29 seconds37:29
+Deepankar Sharma 37 minutes 29 seconds
+Right. Now, yeah, even installation because we have to do installation on staging and production and everywhere, right?
+
+Ramesh Kanna
+37 minutes 37 seconds37:37
+Ramesh Kanna 37 minutes 37 seconds
+Okay.
+Deepankar Sharma
+37 minutes 38 seconds37:38
+Deepankar Sharma 37 minutes 38 seconds
+So, you show me that how the installation will work, because you would have already written the Helm file for Kyberna install, right?
+
+Ramesh Kanna
+37 minutes 49 seconds37:49
+Ramesh Kanna 37 minutes 49 seconds
+Which one? Kiberno installation.
+
+Deepankar Sharma
+37 minutes 51 seconds37:51
+Deepankar Sharma 37 minutes 51 seconds
+Tiverno has an operator or a controller.
+
+Ramesh Kanna
+37 minutes 55 seconds37:55
+Ramesh Kanna 37 minutes 55 seconds
+Yeah, four are there. There is a...
+Ramesh Kanna 37 minutes 59 seconds
+Can like admission controller, and wait, let me show you.
+
+Deepankar Sharma
+38 minutes 4 seconds38:04
+Deepankar Sharma 38 minutes 4 seconds
+Yeah, so that you must have created using Helm, right?
+
+Ramesh Kanna
+38 minutes 8 seconds38:08
+Ramesh Kanna 38 minutes 8 seconds
+Yeah.
+Ramesh Kanna 38 minutes 10 seconds
+So, I used this one.
+
+Deepankar Sharma
+38 minutes 10 seconds38:10
+Deepankar Sharma 38 minutes 10 seconds
+So, where is, where is that?
+
+Ramesh Kanna
+38 minutes 13 seconds38:13
+Ramesh Kanna 38 minutes 13 seconds
+So, this one for the non-production.
+
+Deepankar Sharma
+38 minutes 16 seconds38:16
+Deepankar Sharma 38 minutes 16 seconds
+Okay.
+
+Ramesh Kanna
+38 minutes 17 seconds38:17
+Ramesh Kanna 38 minutes 17 seconds
+Yeah.
+
+Deepankar Sharma
+38 minutes 19 seconds38:19
+Deepankar Sharma 38 minutes 19 seconds
+So again, this is Helm. You could have translated it to Helm file, right?
+Deepankar Sharma 38 minutes 28 seconds
+Yeah.
+
+Ramesh Kanna
+38 minutes 28 seconds38:28
+Ramesh Kanna 38 minutes 28 seconds
+Our use case.
+
+Deepankar Sharma
+38 minutes 30 seconds38:30
+Deepankar Sharma 38 minutes 30 seconds
+Yeah.
+
+Ramesh Kanna
+38 minutes 31 seconds38:31
+Ramesh Kanna 38 minutes 31 seconds
+Okay.
+Ramesh Kanna 38 minutes 32 seconds
+So for the production, we might use different kind of replicas.
+Ramesh Kanna 38 minutes 38 seconds
+For the high availability.
+
+Deepankar Sharma
+38 minutes 38 seconds38:38
+Deepankar Sharma 38 minutes 38 seconds
+Yeah, I mean, this will go into values file, right? Which we will supply to it.
+
+Ramesh Kanna
+38 minutes 43 seconds38:43
+Ramesh Kanna 38 minutes 43 seconds
+Mm.
+Ramesh Kanna 38 minutes 44 seconds
+Okay, so actually basically you are trying to say that the Helm installation also going to be happen using the Helm installation through the Jenkins talk.
+
+Deepankar Sharma
+38 minutes 53 seconds38:53
+Deepankar Sharma 38 minutes 53 seconds
+Yes.
+
+Ramesh Kanna
+38 minutes 54 seconds38:54
+Ramesh Kanna 38 minutes 54 seconds
+Yeah, okay.
+
+Deepankar Sharma
+38 minutes 56 seconds38:56
+Deepankar Sharma 38 minutes 56 seconds
+There is not going to be anything which we will do custom. I am not going to open the terminal and say kubectl apply or helm install or whatever, right?
+
+Ramesh Kanna
+39 minutes 1 second39:01
+Ramesh Kanna 39 minutes 1 second
+Mhm.
+Ramesh Kanna 39 minutes 6 seconds
+Yeah, yeah, got it.
+
+Deepankar Sharma
+39 minutes 8 seconds39:08
+Deepankar Sharma 39 minutes 8 seconds
+Everything has to be reproducible through Jenkins from scratch.
+
+Ramesh Kanna
+39 minutes 12 seconds39:12
+Ramesh Kanna 39 minutes 12 seconds
+Mm.
+Ramesh Kanna 39 minutes 14 seconds
+Okay, so, but basically I, yeah, basically I used it this one. It's a non-production, just one, like one admission control.
+
+Deepankar Sharma
+39 minutes 15 seconds39:15
+Deepankar Sharma 39 minutes 15 seconds
+Okay, so good, good.
+Deepankar Sharma 39 minutes 20 seconds
+Yeah.
+Deepankar Sharma 39 minutes 24 seconds
+Yeah, that is fine. Whether you are using non-prod or prod, it's exactly the same. The only difference is that admission controller, but it is the replicas, right?
+
+Ramesh Kanna
+39 minutes 30 seconds39:30
+Ramesh Kanna 39 minutes 30 seconds
+replicas.
+Ramesh Kanna 39 minutes 34 seconds
+OK.
+
+Ramesh Kanna
+39 minutes 37 seconds39:37
+Ramesh Kanna 39 minutes 37 seconds
+Yeah, that's it. And
+Ramesh Kanna 39 minutes 43 seconds
+Like I already installed, you want me to install again?
+
+Deepankar Sharma
+39 minutes 47 seconds39:47
+Deepankar Sharma 39 minutes 47 seconds
+Yeah, I wanted to see how long it takes, how many, you know, resources does it take at the bootstrap time, at the installation time and all that.
+
+Ramesh Kanna
+39 minutes 58 seconds39:58
+Ramesh Kanna 39 minutes 58 seconds
+Okay.
+
+Deepankar Sharma
+40 minutes 1 second40:01
+Deepankar Sharma 40 minutes 1 second
+And then...
+Deepankar Sharma 40 minutes 4 seconds
+How long should we wait for the controller to come up?
+
+Ramesh Kanna
+40 minutes 8 seconds40:08
+Ramesh Kanna 40 minutes 8 seconds
+Mhm.
+
+Deepankar Sharma
+40 minutes 8 seconds40:08
+Deepankar Sharma 40 minutes 8 seconds
+And when shall we apply the policies? Are the policies global?
+Deepankar Sharma 40 minutes 13 seconds
+Or are the policies scope to a namespace? That is another question, right?
+
+Ramesh Kanna
+40 minutes 20 seconds40:20
+Ramesh Kanna 40 minutes 20 seconds
+Okay.
+Ramesh Kanna 40 minutes 33 seconds
+So, I used using Helm install, but it's not showing in the Helm list.
+
+Deepankar Sharma
+40 minutes 39 seconds40:39
+Deepankar Sharma 40 minutes 39 seconds
+LMLS minus A, do capital A. You must have installed it in a no LS minus A.
+Deepankar Sharma 40 minutes 48 seconds
+Capital H.
+Deepankar Sharma 40 minutes 50 seconds
+Not Dash.
+
+Ramesh Kanna
+40 minutes 52 seconds40:52
+Ramesh Kanna 40 minutes 52 seconds
+Wait, wait, wait.
+
+Deepankar Sharma
+40 minutes 52 seconds40:52
+Deepankar Sharma 40 minutes 52 seconds
+just helmet list or list and then minus a as an argument.
+
+Ramesh Kanna
+40 minutes 57 seconds40:57
+Ramesh Kanna 40 minutes 57 seconds
+Okay, here it is.
+
+Deepankar Sharma
+40 minutes 57 seconds40:57
+Deepankar Sharma 40 minutes 57 seconds
+Yeah, it's installed in Kyverno namespace.
+Deepankar Sharma 41 minutes 11 seconds
+Give the release name as well, Kaivarna.
+
+Ramesh Kanna
+41 minutes 39 seconds41:39
+Ramesh Kanna 41 minutes 39 seconds
+Yikes.
+
+Deepankar Sharma
+41 minutes 43 seconds41:43
+Deepankar Sharma 41 minutes 43 seconds
+Okay, now do it through Helm file itself.
+
+Ramesh Kanna
+41 minutes 46 seconds41:46
+Ramesh Kanna 41 minutes 46 seconds
+Okay.
+Ramesh Kanna 42 minutes 31 seconds
+Yeah, that's it.
+Ramesh Kanna 42 minutes 42 seconds
+Done.
+
+Deepankar Sharma
+42 minutes 45 seconds42:45
+Deepankar Sharma 42 minutes 45 seconds
+Yeah.
+
+Ramesh Kanna
+42 minutes 47 seconds42:47
+Ramesh Kanna 42 minutes 47 seconds
+Okay.
+
+Deepankar Sharma
+42 minutes 51 seconds42:51
+Deepankar Sharma 42 minutes 51 seconds
+Now, apply the policies.
+Deepankar Sharma 43 minutes 25 seconds
+So the policies are cluster scoped or namespace scope.
+
+Ramesh Kanna
+43 minutes 29 seconds43:29
+Ramesh Kanna 43 minutes 29 seconds
+Cluster.
+
+Deepankar Sharma
+43 minutes 32 seconds43:32
+Deepankar Sharma 43 minutes 32 seconds
+So...
+Deepankar Sharma 43 minutes 36 seconds
+Then we may have a problem, right?
+Deepankar Sharma 43 minutes 39 seconds
+So.
+
+Ramesh Kanna
+43 minutes 39 seconds43:39
+Ramesh Kanna 43 minutes 39 seconds
+Why, what up?
+
+Deepankar Sharma
+43 minutes 42 seconds43:42
+Deepankar Sharma 43 minutes 42 seconds
+These policies for secrets manager and all those things, they are fine. They are supposed to be at a cluster scope. But then there will be certain policies which are for creating the job whenever the deployment or image version is changing and all that, right? They cannot be cluster scoped. Tax was.
+Ramesh Kanna
+43 minutes 49 seconds43:49
+Ramesh Kanna 43 minutes 49 seconds
+Okay.
+Ramesh Kanna 43 minutes 57 seconds
+Mhm.
+
+Deepankar Sharma
+44 minutes 1 second44:01
+Deepankar Sharma 44 minutes 1 second
+That was all those things will have their own policies, yeah.
+
+Ramesh Kanna
+44 minutes 4 seconds44:04
+Ramesh Kanna 44 minutes 4 seconds
+So, for this, we need...
+Ramesh Kanna 44 minutes 7 seconds
+Okay, and like make it like we need to manage it within the namespace.
+
+Deepankar Sharma
+44 minutes 12 seconds44:12
+Deepankar Sharma 44 minutes 12 seconds
+Yes.
+
+Ramesh Kanna
+44 minutes 13 seconds44:13
+Ramesh Kanna 44 minutes 13 seconds
+Correct.
+Ramesh Kanna 44 minutes 15 seconds
+So, uh, like we have the all policies over here and the background for the all set to false.
+
+Deepankar Sharma
+44 minutes 22 seconds44:22
+Deepankar Sharma 44 minutes 22 seconds
+Is there something called as namespace policies? Can you check?
+Deepankar Sharma 44 minutes 27 seconds
+You get namespace policies.
+
+Ramesh Kanna
+44 minutes 30 seconds44:30
+Ramesh Kanna 44 minutes 30 seconds
+Oh, here.
+
+Deepankar Sharma
+44 minutes 31 seconds44:31
+Deepankar Sharma 44 minutes 31 seconds
+Yeah.
+Deepankar Sharma 44 minutes 36 seconds
+The namespace policies.
+
+Ramesh Kanna
+44 minutes 39 seconds44:39
+Ramesh Kanna 44 minutes 39 seconds
+Yeah, correct only.
+
+Deepankar Sharma
+44 minutes 39 seconds44:39
+Deepankar Sharma 44 minutes 39 seconds
+It's a evening resource.
+Deepankar Sharma 44 minutes 44 seconds
+Without space.
+
+Ramesh Kanna
+44 minutes 48 seconds44:48
+Ramesh Kanna 44 minutes 48 seconds
+No, I didn't give any spaces.
+
+Deepankar Sharma
+44 minutes 51 seconds44:51
+Deepankar Sharma 44 minutes 51 seconds
+There is a space between namespace and policies now.
+
+Ramesh Kanna
+44 minutes 55 seconds44:55
+Ramesh Kanna 44 minutes 55 seconds
+Okay, okay.
+Ramesh Kanna 44 minutes 57 seconds
+Nope.
+
+Deepankar Sharma
+44 minutes 58 seconds44:58
+Deepankar Sharma 44 minutes 58 seconds
+K API resources.
+
+Ramesh Kanna
+45 minutes 3 seconds45:03
+Ramesh Kanna 45 minutes 3 seconds
+Hey, OK.
+Deepankar Sharma
+45 minutes 5 seconds45:05
+Deepankar Sharma 45 minutes 5 seconds
+API dash resources.
+Deepankar Sharma 45 minutes 14 seconds
+Enter.
+Deepankar Sharma 45 minutes 19 seconds
+Look for Kaivano, what are the ones that it is providing?
+Deepankar Sharma 45 minutes 27 seconds
+So Kyber now is providing priority level configuration. Oh, sorry, that is something else. Clean up policy, cluster clean up policy, cluster policies, global context generates policies.
+Deepankar Sharma 45 minutes 43 seconds
+Yeah, so policies, if you see right, that is namespace scope. You can see through in the 4th column, right? Yeah.
+
+Ramesh Kanna
+45 minutes 46 seconds45:46
+Ramesh Kanna 45 minutes 46 seconds
+Mhm.
+Ramesh Kanna 45 minutes 49 seconds
+Here.
+Ramesh Kanna 45 minutes 52 seconds
+Okay.
+
+Deepankar Sharma
+45 minutes 53 seconds45:53
+Deepankar Sharma 45 minutes 53 seconds
+So that must be the policy which is namespace scope.
+
+Ramesh Kanna
+45 minutes 57 seconds45:57
+Ramesh Kanna 45 minutes 57 seconds
+Okay, okay, so cluster policy will be in the cluster scope.
+
+Deepankar Sharma
+46 minutes46:00
+Deepankar Sharma 46 minutes
+Class is cool, yeah.
+Deepankar Sharma 46 minutes 7 seconds
+So you can see namespace is equal to true, right?
+
+Ramesh Kanna
+46 minutes 11 seconds46:11
+Ramesh Kanna 46 minutes 11 seconds
+Yeah.
+
+Deepankar Sharma
+46 minutes 12 seconds46:12
+Deepankar Sharma 46 minutes 12 seconds
+Yeah.
+Deepankar Sharma 46 minutes 16 seconds
+Dayrit request, OK.
+Deepankar Sharma 46 minutes 19 seconds
+Yeah, go ahead. Now show me the example of 1 deployment at a time where you apply the annotation and it will inject those components.
+
+Ramesh Kanna
+46 minutes 31 seconds46:31
+Ramesh Kanna 46 minutes 31 seconds
+So basically I configured the helm chart. Shall I apply with everything at once or?
+
+Deepankar Sharma
+46 minutes 37 seconds46:37
+Deepankar Sharma 46 minutes 37 seconds
+One, one at a time.
+
+Ramesh Kanna
+46 minutes 39 seconds46:39
+Ramesh Kanna 46 minutes 39 seconds
+Okay.
+
+Deepankar Sharma
+46 minutes 40 seconds46:40
+Deepankar Sharma 46 minutes 40 seconds
+I want to see one thing changing, right?
+
+Ramesh Kanna
+46 minutes 44 seconds46:44
+Ramesh Kanna 46 minutes 44 seconds
+Mhm.
+
+Deepankar Sharma
+46 minutes 44 seconds46:44
+Deepankar Sharma 46 minutes 44 seconds
+Atomic operations.
+
+Ramesh Kanna
+46 minutes 46 seconds46:46
+Ramesh Kanna 46 minutes 46 seconds
+Let's let me...
+
+Deepankar Sharma
+46 minutes 47 seconds46:47
+Deepankar Sharma 46 minutes 47 seconds
+Right, wherein policies you can apply in one go.
+Deepankar Sharma 46 minutes 51 seconds
+that I don't care about, right? Because policies will get deployed together, but I want to see the changes happening on the pod one at a time.
+
+Ramesh Kanna
+46 minutes 52 seconds46:52
+Ramesh Kanna 46 minutes 52 seconds
+Yeah.
+Ramesh Kanna 47 minutes 1 second
+Okay.
+
+Deepankar Sharma
+47 minutes 9 seconds47:09
+Deepankar Sharma 47 minutes 9 seconds
+No, this is your policy, right? Policy you apply using help only.
+
+Ramesh Kanna
+47 minutes 11 seconds47:11
+Ramesh Kanna 47 minutes 11 seconds
+No.
+Ramesh Kanna 47 minutes 13 seconds
+Oh, sorry, sorry. Policy I have already applied at this one.
+
+Deepankar Sharma
+47 minutes 18 seconds47:18
+Deepankar Sharma 47 minutes 18 seconds
+Show me the pods workload here.
+
+Ramesh Kanna
+47 minutes 18 seconds47:18
+Ramesh Kanna 47 minutes 18 seconds
+Port Nola.
+Ramesh Kanna 47 minutes 31 seconds
+Here it is.
+Deepankar Sharma
+47 minutes 34 seconds47:34
+Deepankar Sharma 47 minutes 34 seconds
+Okay.
+
+Ramesh Kanna
+47 minutes 36 seconds47:36
+Ramesh Kanna 47 minutes 36 seconds
+Yeah, no ports I need.
+
+Deepankar Sharma
+47 minutes 40 seconds47:40
+Deepankar Sharma 47 minutes 40 seconds
+Yeah, you can do helm template dot it will give you the full manifest.
+Deepankar Sharma 47 minutes 45 seconds
+Go to your command line inside that workloads directory, say helm template dot.
+Deepankar Sharma 47 minutes 55 seconds
+Helm space template space dot.
+Deepankar Sharma 47 minutes 58 seconds
+and then copy this YAML, it will have all the annotations and everything placed in, right? And you can create a YAML file with that and say kubectl apply minus F.
+
+Ramesh Kanna
+48 minutes 10 seconds48:10
+Ramesh Kanna 48 minutes 10 seconds
+Okay, okay, got it, got it.
+
+Deepankar Sharma
+48 minutes 46 seconds48:46
+Deepankar Sharma 48 minutes 46 seconds
+Open a new tab.
+Deepankar Sharma 49 minutes 20 seconds
+Thanks.
+Deepankar Sharma 49 minutes 48 seconds
+Yeah, now show the pod.
+
+Ramesh Kanna
+50 minutes 12 seconds50:12
+Ramesh Kanna 50 minutes 12 seconds
+Wait a minute.
+
+Deepankar Sharma
+50 minutes 32 seconds50:32
+Deepankar Sharma 50 minutes 32 seconds
+Uh, Ramesh, I actually need to run for another meeting.
+
+Ramesh Kanna
+50 minutes 35 seconds50:35
+Ramesh Kanna 50 minutes 35 seconds
+Mhm.
+
+Deepankar Sharma
+50 minutes 37 seconds50:37
+Deepankar Sharma 50 minutes 37 seconds
+Okay, so let's do this tomorrow. I'll extend the timing for tomorrow's meeting as well. So you make the changes, whatever we discussed today, be ready with that. Right tomorrow you will hand over the artefact to me or you will push it to GitHub directly right in the infra Helm charts.
+
+Ramesh Kanna
+50 minutes 41 seconds50:41
+Ramesh Kanna 50 minutes 41 seconds
+Okay.
+Ramesh Kanna 50 minutes 45 seconds
+Okay.
+Ramesh Kanna 50 minutes 48 seconds
+Okay.
+Ramesh Kanna 50 minutes 53 seconds
+Okay.
+
+Deepankar Sharma
+50 minutes 57 seconds50:57
+Deepankar Sharma 50 minutes 57 seconds
+with all these policies, right, and we will try to deploy to staging cluster.
+
+Ramesh Kanna
+51 minutes51:00
+Ramesh Kanna 51 minutes
+Nope.
+Ramesh Kanna 51 minutes 5 seconds
+Okay.
+
+Deepankar Sharma
+51 minutes 6 seconds51:06
+Deepankar Sharma 51 minutes 6 seconds
+Okay, and during tomorrow's meeting, we will go over one pod at a time to see the injection and all those things happening.
+
+Ramesh Kanna
+51 minutes 15 seconds51:15
+Ramesh Kanna 51 minutes 15 seconds
+Okay, so like what about the POC?
+
+Deepankar Sharma
+51 minutes 18 seconds51:18
+Deepankar Sharma 51 minutes 18 seconds
+Yeah, the POC only, right?
+
+Ramesh Kanna
+51 minutes 22 seconds51:22
+Ramesh Kanna 51 minutes 22 seconds
+No, like, do I need to do it in our cluster?
+
+Deepankar Sharma
+51 minutes 27 seconds51:27
+Deepankar Sharma 51 minutes 27 seconds
+Not in the cluster, you will push the Helm charts.
+
+Ramesh Kanna
+51 minutes 30 seconds51:30
+Ramesh Kanna 51 minutes 30 seconds
+Okay.
+Deepankar Sharma
+51 minutes 31 seconds51:31
+Deepankar Sharma 51 minutes 31 seconds
+You, whatever we will do tomorrow, will happen from your machine only.
+
+Ramesh Kanna
+51 minutes 36 seconds51:36
+Ramesh Kanna 51 minutes 36 seconds
+Mhm.
+
+Deepankar Sharma
+51 minutes 37 seconds51:37
+Deepankar Sharma 51 minutes 37 seconds
+So see the sequence of things would be you will include all the changes that we discussed today.
+
+Ramesh Kanna
+51 minutes 44 seconds51:44
+Ramesh Kanna 51 minutes 44 seconds
+Okay.
+
+Deepankar Sharma
+51 minutes 45 seconds51:45
+Deepankar Sharma 51 minutes 45 seconds
+in your charts, right? Then you on your own try to apply these pods. I won't recommend that you directly create pods, rather you go through deployment, stateful set and cron jobs, right? Wherein you will have the pod spec and that pod spec should have these injections and so on.
+
+Ramesh Kanna
+51 minutes 47 seconds51:47
+Ramesh Kanna 51 minutes 47 seconds
+Mm.
+Ramesh Kanna 52 minutes
+Okay.
+
+Deepankar Sharma
+52 minutes 6 seconds52:06
+Deepankar Sharma 52 minutes 6 seconds
+And then make sure that everything works well on your local, right? After that, you will push these changes to infra Helm chart in a separate branch.
+
+Ramesh Kanna
+52 minutes 6 seconds52:06
+Ramesh Kanna 52 minutes 6 seconds
+Okay.
+Ramesh Kanna 52 minutes 10 seconds
+Okay.
+Ramesh Kanna 52 minutes 17 seconds
+Okay.
+
+Deepankar Sharma
+52 minutes 18 seconds52:18
+Deepankar Sharma 52 minutes 18 seconds
+OK, and during tomorrow's meeting, we will come back to your local system itself, and we will apply these deployment stateful set and cron job one at a time to make sure that it is applying the right set of patches to the pod spec.
+
+Ramesh Kanna
+52 minutes 24 seconds52:24
+Ramesh Kanna 52 minutes 24 seconds
+Okay.
+Ramesh Kanna 52 minutes 30 seconds
+Mm-hmm.
+Ramesh Kanna 52 minutes 36 seconds
+Noted.
+
+Deepankar Sharma
+52 minutes 37 seconds52:37
+Deepankar Sharma 52 minutes 37 seconds
+Okay.
+Deepankar Sharma 52 minutes 39 seconds
+So, in this order, we can proceed.
+
+Ramesh Kanna
+52 minutes 39 seconds52:39
+Ramesh Kanna 52 minutes 39 seconds
+Yeah.
+Ramesh Kanna 52 minutes 42 seconds
+Okay.
+
+Deepankar Sharma
+52 minutes 43 seconds52:43
+Deepankar Sharma 52 minutes 43 seconds
+Alright, yeah, thanks Ramesh.
+
+Ramesh Kanna
+52 minutes 45 seconds52:45
+Ramesh Kanna 52 minutes 45 seconds
+Yeah, yeah. Thank you, Deepankar.

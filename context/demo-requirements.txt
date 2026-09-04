@@ -1,0 +1,286 @@
+﻿===============================================================
+DEMO DAY REQUIREMENTS — Deepankar Sharma Feedback
+Session: DevOps Connect, Thu Sep 3 2026
+Source: demo day full transcript.txt
+===============================================================
+
+All tasks below are direct requirements from Deepankar unless marked [BEST PRACTICE].
+Complete ALL items before the next follow-up session.
+
+---------------------------------------------------------------
+TASK 1: POLICY CONSOLIDATION (Policy Organization)
+---------------------------------------------------------------
+WHAT:
+  - Merge all secret-manager-related rules into a SINGLE ClusterPolicy file.
+  - Do NOT keep separate files for: volumes, init-containers, commands, and secrets
+    -- these are ONE job function (inject secret via secrets manager).
+  - Either everything gets applied, or nothing gets applied (atomic).
+
+HOW:
+  - One ClusterPolicy file with MULTIPLE rules inside it (one rule per concern:
+    volumes, volumeMounts, initContainer injection, command patching).
+  - Remove the fields: annotations.kyverno.io/title, category, subject
+    from policy metadata (they serve no functional purpose; document them
+    in README/docs instead).
+
+WHY (Deepankar exact reasoning):
+  - "When I go looking for who is providing the implementation of that
+    annotation, I should not be searching 10 different files."
+  - One annotation -> one policy file -> multiple rules.
+
+---------------------------------------------------------------
+TASK 2: FIX INIT-CONTAINER PRECONDITION EXPRESSION
+---------------------------------------------------------------
+WHAT:
+  - Current expression using keys(@) to detect initContainers is unclear
+    and potentially wrong.
+
+REQUIRED CHANGE:
+  a) Replace with a direct check on request.object.spec.initContainers
+     for existence and non-empty array.
+  b) Handle the EDGE CASE: initContainers key exists but value is empty array [].
+     The precondition must NOT treat an empty [] as "has init containers".
+     Correct logic: initContainers exists AND length > 0.
+
+ACTION:
+  - Verify the exact CEL/JMESPath expression before the next session.
+  - You MUST be able to explain line-by-line what the precondition does.
+    Do NOT present code you cannot fully explain.
+
+---------------------------------------------------------------
+TASK 3: VALIDATION RULE — COMMAND MUST NOT BE EMPTY
+---------------------------------------------------------------
+WHAT:
+  - Whenever a pod/deployment is annotated with the secret-inject annotation,
+    there MUST be a validation rule that rejects the resource if
+    spec.containers[*].command is empty or missing.
+
+WHY:
+  - Kubernetes `command` in pod spec REPLACES the Docker ENTRYPOINT -- it does
+    NOT append to it.
+  - A developer may think their Dockerfile ENTRYPOINT is enough and omit `command`
+    from the manifest. This will break the secret injection wrapper.
+
+WHERE TO ADD:
+  - Add the validate rule INSIDE the same secret-injection ClusterPolicy file
+    (Task 1), NOT as a separate file.
+  - Do NOT keep a standalone "require-command-on-annotated-pod" policy file.
+
+---------------------------------------------------------------
+TASK 4: DYNAMIC NODE PLACEMENT (Remove Hard-Coded "POC worker")
+---------------------------------------------------------------
+WHAT:
+  - The node toleration/placement value "POC worker" is hard-coded.
+    This is NOT acceptable.
+
+REQUIRED CHANGE:
+  - Read the placement value dynamically from the annotation:
+      smaitic.com/kyverno/policy/node-placement
+  - Use the same pattern as the secret-provider annotation:
+      request.object.metadata.annotations["smaitic.com/inject-secrets"]
+  - Whatever value the user supplies in that annotation -> patch that value
+    into the toleration/nodeSelector field dynamically.
+
+VALID VALUES (examples): staging, production, critical, back-office
+  (Not a fixed enum -- comes from annotation value at admission time.)
+
+---------------------------------------------------------------
+TASK 5: DYNAMIC RESOURCE REQUESTS AND LIMITS (Remove Hard-Coded Values)
+---------------------------------------------------------------
+WHAT:
+  - CPU and memory resources are currently hard-coded in the policy.
+    This is NOT acceptable.
+
+REQUIRED CHANGE:
+  - Introduce TWO new annotations:
+      smaitic.com/kyverno/resources/requests   e.g. "cpu=250m,memory=256Mi"
+      smaitic.com/kyverno/resources/limits     e.g. "cpu=500m,memory=512Mi"
+  - Read these annotation values and patch them into the container resources block.
+
+CONDITIONAL PATCHING:
+  - If resources already exist in the manifest -> REPLACE/MERGE.
+  - If resources do NOT exist -> ADD them.
+  - Use separate rules or conditions to handle both cases.
+
+---------------------------------------------------------------
+TASK 6: HEALTH PROBE CONFIGURATIONS (3 Standard Types)
+---------------------------------------------------------------
+Define THREE types of health probe configurations:
+
+TYPE A -- "bridge" (standard, fixed values):
+  - Annotation: smaitic.com/kyverno/health-config=bridge
+  - Fixed liveness + readiness probe values for the Bridge application.
+  - Port and path are FIXED (not user-supplied).
+  - Bridge is the internal project name for the admin/control-plane app.
+
+TYPE B -- "nginx-static" (standard, fixed values):
+  - Annotation: smaitic.com/kyverno/health-config=nginx-static
+  - Fixed liveness + readiness probe values for Nginx serving static builds.
+  - Used for static HTML/JS/CSS frontends; no server-side rendering.
+
+TYPE C -- "custom" (user-defined port and path):
+  - Annotation: smaitic.com/kyverno/health-config=custom
+  - Additional annotations for:
+      smaitic.com/kyverno/health-port  e.g. 3000, 5173, 5174
+      smaitic.com/kyverno/health-path  e.g. /healthz, /api/health
+  - For SSR apps like Next.js that run on non-standard ports (not 8080).
+
+[BEST PRACTICE]:
+  Types A and B should use preconditions to match the annotation value exactly,
+  so the wrong probe config is never applied to the wrong workload type.
+
+---------------------------------------------------------------
+TASK 7: MOVE VALIDATION LOGIC INTO EXISTING SECRET SCRIPT
+---------------------------------------------------------------
+WHAT:
+  - The standalone validation policy ("require-command-on-annotated-pod")
+    must be REMOVED as a separate file/policy.
+  - The validate rule must be MERGED into the main secret-injection
+    ClusterPolicy (see Task 1 and Task 3).
+
+ACTION:
+  - Delete or deprecate the separate validation policy file after merging.
+
+---------------------------------------------------------------
+TASK 8: COMMENT OUT IMAGE-CHANGE JOB-TRIGGER POLICY
+---------------------------------------------------------------
+WHAT:
+  - The policy that triggers a job when a deployment image changes
+    must be COMMENTED OUT entirely.
+
+WHY:
+  - This will be heavily reviewed with the engineering team before enabling.
+  - Do NOT remove it -- comment it out so it can be revisited later.
+
+ACTION:
+  - Comment out the entire generate/mutate rule block for image-change detection.
+  - Leave a YAML comment explaining WHY it is commented out:
+      # DEFERRED: Requires engineering team review before enabling.
+      # Discussed: Deepankar Sharma, Sep 3 2026.
+
+---------------------------------------------------------------
+TASK 9: KYVERNO INSTALLATION -- CONVERT TO HELM CHART (Jenkins-Ready)
+---------------------------------------------------------------
+WHAT:
+  - The current Kyverno installation must be converted into a proper
+    Helm chart configuration deployable by Jenkins.
+  - No manual kubectl apply or helm install from the terminal is acceptable.
+  - EVERYTHING must be reproducible from Jenkins from scratch.
+
+REQUIRED STRUCTURE:
+  - A helmfile or Helm chart wrapper with:
+      Chart: kyverno/kyverno (official chart)
+      values-nonprod.yaml  -- non-prod values (1 admission controller replica)
+      values-prod.yaml     -- production values (HA replicas, stricter settings)
+  - Environment-specific values files, NOT hard-coded values inside the chart.
+
+WHAT TO CAPTURE AND DOCUMENT:
+  - How long Kyverno installation takes.
+  - Resource usage at bootstrap/installation time.
+  - How long for the admission controller to become Ready.
+  - When (after what readiness signal) should policies be applied?
+
+[BEST PRACTICE]:
+  Add a Jenkins pipeline step that waits for the Kyverno admission controller
+  to be Ready before applying any ClusterPolicy or Policy resources.
+
+---------------------------------------------------------------
+TASK 10: POLICY SCOPING -- CLUSTER vs NAMESPACE
+---------------------------------------------------------------
+WHAT:
+  - Not all policies should be ClusterPolicy (cluster-scoped).
+
+RULES:
+  CLUSTER-SCOPED (kind: ClusterPolicy):
+    - Secret injection, volume mutation, node placement, resource patching,
+      health probe injection.
+    - These apply broadly across all namespaces.
+
+  NAMESPACE-SCOPED (kind: Policy):
+    - Workload-specific policies, especially those that CREATE jobs
+      (e.g., image-change automation -- currently deferred, Task 8).
+    - Must live in the specific application namespace, not cluster-wide.
+
+ACTION:
+  - Audit all existing policies.
+  - Reclassify any job-creating or workload-specific policies from
+    ClusterPolicy -> Policy (namespace-scoped kind).
+  - Confirm using: kubectl api-resources | grep kyverno
+    (Policy = namespaced=true, ClusterPolicy = namespaced=false)
+
+---------------------------------------------------------------
+TASK 11: WORKLOAD-BASED LOCAL TESTING (Before Next Session)
+---------------------------------------------------------------
+WHAT:
+  - Do NOT test by directly creating pods (kubectl run or raw pod YAML).
+  - Test through proper Kubernetes workload resources only.
+
+REQUIRED TEST WORKLOADS (all three):
+  a) Deployment
+  b) StatefulSet
+  c) CronJob
+
+WORKFLOW:
+  1. Run: helm template . inside the workloads Helm chart directory.
+  2. Copy the rendered YAML.
+  3. Apply: kubectl apply -f <rendered-manifest>.yaml
+  4. Inspect the resulting pod spec and confirm:
+       - initContainer is injected.
+       - volumeMounts and volumes are present.
+       - Node placement is set from annotation value.
+       - Resources (requests/limits) are set from annotation values.
+       - Health probes are correct for the workload type.
+  5. Verify NO policy errors or admission rejections for valid manifests.
+  6. Verify REJECTION when command is empty (Task 3 validation).
+
+---------------------------------------------------------------
+TASK 12: PUSH TO SEPARATE BRANCH IN INFRA HELM CHART REPO
+---------------------------------------------------------------
+WHAT:
+  - After local testing is confirmed working, push ALL changes to the
+    infra Helm chart repository in a NEW separate branch.
+  - Do NOT push to main/master directly.
+
+WHAT GOES IN THE BRANCH:
+  - Merged ClusterPolicy files (Tasks 1-8).
+  - Kyverno Helm chart wrapper with env-specific values files (Task 9).
+  - Workload test manifests (Deployment, StatefulSet, CronJob) for demo.
+
+NEXT SESSION PLAN (confirmed by Deepankar):
+  - Deepankar and Ramesh connect to Ramesh local machine.
+  - Apply Deployment, StatefulSet, CronJob ONE AT A TIME.
+  - Inspect pod spec patches after each apply.
+  - If all validated locally -> attempt deployment to staging cluster.
+
+---------------------------------------------------------------
+BEST PRACTICE RECOMMENDATIONS
+(Not explicitly asked, but recommended)
+---------------------------------------------------------------
+
+[BP-1] background: false on ALL mutation policies.
+  Mutations should only apply at admission time, not to running pods.
+  This is already in place -- confirm it stays consistent across merged rules.
+
+[BP-2] Add a policyReport review step in the Jenkins pipeline.
+  After deploying policies, run: kubectl get policyreport -A
+  Catches silent violations without blocking admission.
+
+[BP-3] Pin the Kyverno Helm chart to an exact version, never "latest".
+  Ensures reproducibility across staging and production.
+
+[BP-4] kyverno.io/severity and kyverno.io/category annotations on policies
+  are display-only metadata for dashboards. Do not use them for logic.
+
+[BP-5] Test the empty-initContainers edge case explicitly.
+  Create a test manifest with initContainers: [] and confirm the policy
+  handles it correctly (does not skip injection, does not crash).
+
+[BP-6] Keep workload Helm charts (Deployments, StatefulSets, CronJobs) in a
+  SEPARATE directory or chart from the Kyverno policy chart.
+  This allows deploying Kyverno policies independently of workloads.
+  Deepankar explicitly said: "put the deployment in separate where you
+  should be able to deploy it separately safely."
+
+===============================================================
+END OF REQUIREMENTS
+===============================================================
