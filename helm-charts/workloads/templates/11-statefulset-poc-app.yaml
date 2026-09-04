@@ -1,0 +1,43 @@
+# StatefulSet test workload for Kyverno injection verification (Task 11).
+# Deepankar requires testing via proper workload resources (Deployment/StatefulSet/CronJob)
+# rather than raw pods. This StatefulSet exercises ALL injection points:
+#   - initContainer injection (secrets-parser)
+#   - volume + volumeMount injection
+#   - node placement from annotation
+#   - resource requests/limits from annotation
+#   - health probes (bridge type)
+#   - command validate rule (must have non-empty command)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: poc-statefulset
+  namespace: {{ .Release.Namespace }}
+spec:
+  serviceName: poc-statefulset
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poc-statefulset
+  template:
+    metadata:
+      labels:
+        app: poc-statefulset
+      annotations:
+        # Triggers: inject-secrets-manager (all 6 rules), inject-resources
+        {{ .Values.annotationKey }}: "poc-statefulset"
+        # Triggers: inject-node-placement
+        smaitic.com/kyverno/policy/node-placement: "poc-worker"
+        # Triggers: inject-resources (add/replace rules)
+        smaitic.com/kyverno/resources/requests: "cpu=250m,memory=256Mi"
+        smaitic.com/kyverno/resources/limits: "cpu=500m,memory=512Mi"
+        # Triggers: inject-health-probes bridge rule
+        smaitic.com/kyverno/health-config: "bridge"
+        # Triggers: inject-app-launcher (Rule 5 in secrets-manager)
+        smaitic.com/launcher-script: "app-launcher"
+    spec:
+      containers:
+        - name: poc-statefulset
+          image: {{ .Values.app.image }}
+          command: ["sleep", "3600"]
+          ports:
+            - containerPort: 9988

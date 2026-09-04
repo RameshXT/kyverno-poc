@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     {{ .Values.annotationKey }}: "demo-05-frontend-probes"
-    smaitic.com/health-config: "frontend"
+    smaitic.com/kyverno/health-config: "nginx-static"
 spec:
   containers:
     - name: app

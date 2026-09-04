@@ -2,23 +2,27 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: inject-health-probes
-  annotations:
-    policies.kyverno.io/title: "Inject Liveness and Readiness Probes"
-    policies.kyverno.io/category: "Workload Management"
-    policies.kyverno.io/subject: "Pod, Container"
 spec:
   background: false
   rules:
-    # Rule 1: Backend apps (Java/JS) — port 9988, actuator endpoints
-    - name: inject-probes-backend
+
+    # Rule 1: TYPE A — "bridge"
+    # Bridge is the internal admin/control-plane application.
+    # Port: 9988 (fixed). Paths: /actuator/health/liveness and /actuator/health/readiness (fixed).
+    # Precondition ensures this rule fires ONLY when health-config annotation is exactly "bridge".
+    - name: inject-probes-bridge
       match:
         any:
           - resources:
               kinds:
                 - Pod
               annotations:
-                {{ .Values.annotationKey }}: "?*"
-                smaitic.com/health-config: "backend"
+                smaitic.com/kyverno/health-config: "bridge"
+      preconditions:
+        all:
+          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-config\" }}" }}'
+            operator: Equals
+            value: "bridge"
       mutate:
         patchStrategicMerge:
           spec:
@@ -41,16 +45,23 @@ spec:
                   failureThreshold: 3
                   timeoutSeconds: 10
 
-    # Rule 2: Frontend apps (Nginx) — port 8080, root endpoint
-    - name: inject-probes-frontend
+    # Rule 2: TYPE B — "nginx-static"
+    # For Nginx serving static builds (HTML/JS/CSS frontends — no SSR).
+    # Port: 8080 (fixed). Path: / (fixed).
+    # Precondition ensures this rule fires ONLY when health-config is exactly "nginx-static".
+    - name: inject-probes-nginx-static
       match:
         any:
           - resources:
               kinds:
                 - Pod
               annotations:
-                {{ .Values.annotationKey }}: "?*"
-                smaitic.com/health-config: "frontend"
+                smaitic.com/kyverno/health-config: "nginx-static"
+      preconditions:
+        all:
+          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-config\" }}" }}'
+            operator: Equals
+            value: "nginx-static"
       mutate:
         patchStrategicMerge:
           spec:
@@ -69,6 +80,49 @@ spec:
                     path: "/"
                     port: 8080
                   initialDelaySeconds: 10
+                  periodSeconds: 30
+                  failureThreshold: 3
+                  timeoutSeconds: 10
+
+    # Rule 3: TYPE C — "custom"
+    # For SSR apps like Next.js that run on non-standard ports (e.g. 3000, 5173, 5174).
+    # Port and path are read from two additional annotations:
+    #   smaitic.com/kyverno/health-port  e.g. "3000"
+    #   smaitic.com/kyverno/health-path  e.g. "/healthz"
+    # Both annotations are REQUIRED when health-config is "custom".
+    - name: inject-probes-custom
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                smaitic.com/kyverno/health-config: "custom"
+                smaitic.com/kyverno/health-port: "?*"
+                smaitic.com/kyverno/health-path: "?*"
+      preconditions:
+        all:
+          - key: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-config\" }}" }}'
+            operator: Equals
+            value: "custom"
+      mutate:
+        patchStrategicMerge:
+          spec:
+            containers:
+              - (name): "*"
+                livenessProbe:
+                  httpGet:
+                    path: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-path\" }}" }}'
+                    port: '{{ "{{ to_number(request.object.metadata.annotations.\"smaitic.com/kyverno/health-port\") }}" }}'
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  failureThreshold: 3
+                  timeoutSeconds: 10
+                readinessProbe:
+                  httpGet:
+                    path: '{{ "{{ request.object.metadata.annotations.\"smaitic.com/kyverno/health-path\" }}" }}'
+                    port: '{{ "{{ to_number(request.object.metadata.annotations.\"smaitic.com/kyverno/health-port\") }}" }}'
+                  initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
                   timeoutSeconds: 10

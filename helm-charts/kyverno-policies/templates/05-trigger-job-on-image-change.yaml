@@ -1,57 +1,72 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
-metadata:
-  name: trigger-job-on-image-change
-  annotations:
-    policies.kyverno.io/title: "Trigger Migration Job on Image Change"
-    policies.kyverno.io/category: "Job Trigger"
-    policies.kyverno.io/subject: "Deployment, Job"
-spec:
-  background: false
-  rules:
-    - name: generate-migration-job
-      match:
-        any:
-          - resources:
-              kinds:
-                - Deployment
-              namespaces:
-                - {{ .Values.targetNamespace }}
-              annotations:
-                {{ .Values.annotationKey }}: "?*"
-      preconditions:
-        all:
-          - key: '{{ "{{ request.operation }}" }}'
-            operator: Equals
-            value: UPDATE
-          - key: '{{ "{{ request.object.spec.template.spec.containers[0].image }}" }}'
-            operator: NotEquals
-            value: '{{ "{{ request.oldObject.spec.template.spec.containers[0].image }}" }}'
-      generate:
-        synchronize: false
-        apiVersion: batch/v1
-        kind: Job
-        name: '{{ "{{ request.object.metadata.name }}-migration-{{ request.object.metadata.resourceVersion }}" }}'
-        namespace: '{{ "{{ request.object.metadata.namespace }}" }}'
-        data:
-          metadata:
-            labels:
-              triggered-by: kyverno
-              deployment: '{{ "{{ request.object.metadata.name }}" }}'
-            annotations:
-              image: '{{ "{{ request.object.spec.template.spec.containers[0].image }}" }}'
-          spec:
-            backoffLimit: 0
-            template:
-              metadata:
-                annotations:
-                  {{ .Values.annotationKey }}: '{{ "{{ request.object.metadata.name }}" }}'
-              spec:
-                restartPolicy: Never
-                containers:
-                  - name: migration
-                    image: '{{ "{{ request.object.spec.template.spec.containers[0].image }}" }}'
-                    command:
-                      - "/bin/sh"
-                      - "-c"
-                      - 'echo "[POC] Running migration job for {{ "{{ request.object.metadata.name }}" }}" && sleep 5'
+# DEFERRED: Requires engineering team review before enabling.
+# Discussed: Deepankar Sharma, Sep 3 2026.
+#
+# This policy triggers a migration Job whenever a Deployment's container image changes.
+# It was working in the POC but must be reviewed for:
+#   - Security implications of auto-creating jobs
+#   - Namespace scoping (should be kind: Policy in the app namespace, not ClusterPolicy)
+#   - Job naming collision on rapid deploys (resourceVersion-based name)
+#   - RBAC footprint of kyverno-background-controller creating batch/jobs
+#
+# To re-enable: uncomment the block below, change kind back to Policy,
+# set namespace to the target app namespace, and re-review with engineering.
+#
+# ---
+# apiVersion: kyverno.io/v1
+# kind: Policy                    # namespace-scoped — must NOT be ClusterPolicy (Task 10)
+# metadata:
+#   name: trigger-job-on-image-change
+#   namespace: <target-app-namespace>   # replace with actual app namespace
+#   annotations:
+#     policies.kyverno.io/title: "Trigger Migration Job on Image Change"
+#     policies.kyverno.io/category: "Job Trigger"
+#     policies.kyverno.io/subject: "Deployment, Job"
+# spec:
+#   background: false
+#   rules:
+#     - name: generate-migration-job
+#       match:
+#         any:
+#           - resources:
+#               kinds:
+#                 - Deployment
+#               namespaces:
+#                 - {{ .Values.targetNamespace }}
+#               annotations:
+#                 {{ .Values.annotationKey }}: "?*"
+#       preconditions:
+#         all:
+#           - key: '{{ "{{ request.operation }}" }}'
+#             operator: Equals
+#             value: UPDATE
+#           - key: '{{ "{{ request.object.spec.template.spec.containers[0].image }}" }}'
+#             operator: NotEquals
+#             value: '{{ "{{ request.oldObject.spec.template.spec.containers[0].image }}" }}'
+#       generate:
+#         synchronize: false
+#         apiVersion: batch/v1
+#         kind: Job
+#         name: '{{ "{{ request.object.metadata.name }}-migration-{{ request.object.metadata.resourceVersion }}" }}'
+#         namespace: '{{ "{{ request.object.metadata.namespace }}" }}'
+#         data:
+#           metadata:
+#             labels:
+#               triggered-by: kyverno
+#               deployment: '{{ "{{ request.object.metadata.name }}" }}'
+#             annotations:
+#               image: '{{ "{{ request.object.spec.template.spec.containers[0].image }}" }}'
+#           spec:
+#             backoffLimit: 0
+#             template:
+#               metadata:
+#                 annotations:
+#                   {{ .Values.annotationKey }}: '{{ "{{ request.object.metadata.name }}" }}'
+#               spec:
+#                 restartPolicy: Never
+#                 containers:
+#                   - name: migration
+#                     image: '{{ "{{ request.object.spec.template.spec.containers[0].image }}" }}'
+#                     command:
+#                       - "/bin/sh"
+#                       - "-c"
+#                       - 'echo "[POC] Running migration job for {{ "{{ request.object.metadata.name }}" }}" && sleep 5'

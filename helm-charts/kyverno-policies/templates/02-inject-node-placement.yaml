@@ -2,10 +2,6 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: inject-node-placement
-  annotations:
-    policies.kyverno.io/title: "Inject Node Placement (nodeSelector and Toleration)"
-    policies.kyverno.io/category: "Pod Placement"
-    policies.kyverno.io/subject: "Pod, nodeSelector, Toleration"
 spec:
   background: false
   rules:

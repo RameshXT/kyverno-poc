@@ -15,9 +15,22 @@ spec:
       labels:
         app: poc-app
       annotations:
+        # Triggers: inject-secrets-manager (all 6 rules)
         {{ .Values.annotationKey }}: "poc-app"
+        # Triggers: inject-node-placement
+        smaitic.com/kyverno/policy/node-placement: "poc-worker"
+        # Triggers: inject-resources (add/replace rules)
+        smaitic.com/kyverno/resources/requests: "cpu=250m,memory=256Mi"
+        smaitic.com/kyverno/resources/limits: "cpu=500m,memory=512Mi"
+        # Triggers: inject-health-probes bridge rule
+        smaitic.com/kyverno/health-config: "bridge"
+        # Triggers: inject-app-launcher (Rule 5 in secrets-manager)
+        smaitic.com/launcher-script: "app-launcher"
     spec:
       containers:
         - name: poc-app
           image: busybox:1.37
           command: ["sleep", "3600"]
+          ports:
+            - containerPort: 9988
+
